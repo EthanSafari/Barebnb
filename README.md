@@ -1,6 +1,6 @@
 # API-Project
 
-# `airbnb`
+# `airbnb.com`
 
 ## Database Schema Design
 
