@@ -4,7 +4,7 @@ module.exports = {
 	development: {
 		storage: config.dbFile,
 		dialect: "sqlite",
-		seederstorage: "sequelize",
+		seederStorage: "sequelize",
 		logQueryParameters: true,
 		typeValidation: true
 	},
@@ -15,7 +15,7 @@ module.exports = {
 		dialectOptions: {
 			ssl: {
 				require: true,
-				rejectUnautorized: false
+				rejectUnauthorized: false
 			}
 		}
 	}
