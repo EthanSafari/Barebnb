@@ -8,23 +8,32 @@ const router = express.Router();
 
 // Log in
 router.post('/', async (req, res, next) => {
-      const { credential, password } = req.body;
+    const { credential, password } = req.body;
 
-      const user = await User.login({ credential, password }); // if login fails, create an error
+    const user = await User.login({ credential, password }); // if login fails, create an error
 
-      if (!user) {
+    if (!user) {
         const err = new Error('Login failed');
         err.status = 401;
         err.title = 'Login failed';
         err.errors = ['The provided credentials were invalid.'];
         return next(err);
-      }
+    }
 
-      await setTokenCookie(res, user);
+    await setTokenCookie(res, user);
 
-      return res.json({
+    return res.json({
         user
-      });
+    });
+}
+);
+
+//Log out
+router.delete(
+    '/',
+    (_req, res) => {
+      res.clearCookie('token');
+      return res.json({ message: 'success' });
     }
   );
 
