@@ -51,7 +51,7 @@ const { ValidationError } = require('sequelize');
 
 app.use((err, _req, _res, next) => {
 	if (err instanceof ValidationError) {
-		err.errors = err.map((e) => e.message);
+		err.errors = err.errors.map((e) => e.message);
 		err.title = 'Validation Error';
 	}
 	next(err);
