@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+
+      // defines the relationship between the User and the Spot Models and tables through the Bookings table and model
+      Booking.belongsTo( models.User, { foreignKey: 'userId' } );
+      Booking.belongsTo( models.Spot, { foreignKey: 'spotId' } );
     }
   }
   Booking.init({
@@ -23,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     startDate: {
       type: DataTypes.DATE,
       validate: {
+        isAfter: new Date(),
         checkDate(date) {
           let current = new Date();
           if (date < current)
@@ -33,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     endDate: {
       type: DataTypes.DATE,
       validate: {
+        isAfter: this.startDate,
         checkDate(date) {
           let current = new Date();
           if (date < current)

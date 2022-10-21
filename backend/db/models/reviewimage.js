@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+
+      // Defines the relationship between the ReviewImages and the Reviews Tables, in a many-to-one relationship
+      ReviewImage.hasMany( models.Review, { foreignKey: 'reviewId', onDelete: 'CASCADE' } );
     }
   }
   ReviewImage.init({

@@ -34,7 +34,7 @@ router.post('/', validateLogin, async (req, res, next) => {
         err.title = 'Login failed';
         err.errors = ['The provided credentials were invalid.'];
         return next(err);
-    }
+    };
 
     await setTokenCookie(res, user);
 
@@ -44,26 +44,19 @@ router.post('/', validateLogin, async (req, res, next) => {
 });
 
 //Log out
-router.delete(
-    '/',
-    (_req, res) => {
-        res.clearCookie('token');
-        return res.json({ message: 'success' });
-    }
-);
+router.delete('/', (_req, res) => {
+    res.clearCookie('token');
+    return res.json({ message: 'success' });
+});
 
 // Restore session user
-router.get(
-    '/',
-    restoreUser,
-    (req, res) => {
-        const { user } = req;
-        if (user) {
-            return res.json({
-                user: user.toSafeObject()
-            });
-        } else return res.json({});
-    }
-);
+router.get('/', restoreUser, (req, res) => {
+    const { user } = req;
+    if (user) {
+        return res.json({
+            user: user.toSafeObject()
+        });
+    } else return res.json({});
+});
 
 module.exports = router;
