@@ -106,6 +106,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     hashedPassword: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
         len: [60, 60],
       },
