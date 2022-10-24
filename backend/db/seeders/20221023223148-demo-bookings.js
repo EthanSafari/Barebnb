@@ -16,20 +16,20 @@ module.exports = {
     {
       userId: 3,
       spotId: 1,
-      startDate: 2023-01-01,
-      endDate: 2023-02-02,
+      startDate: '2023-01-01',
+      endDate: '2023-02-02',
     },
     {
       userId: 3,
       spotId: 3,
-      startDate: 2023-03-03,
-      endDate: 2023-04-04,
+      startDate: '2023-03-03',
+      endDate: '2023-04-04',
     },
     {
       userId: 1,
       spotId: 2,
-      startDate: 2023-05-05,
-      endDate: 2023-06-06,
+      startDate: '2023-05-05',
+      endDate: '2023-06-06',
     },
    ]);
   },
@@ -44,5 +44,5 @@ module.exports = {
     await queryInterface.bulkDelete('Bookings', {
       spotId: { [Op.in]: [1, 2, 3] },
     }, {});
-  }, 
+  },
 };
