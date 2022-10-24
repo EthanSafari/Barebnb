@@ -22,14 +22,8 @@ module.exports = (sequelize, DataTypes) => {
   Review.init({
     spotId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,
-    review: DataTypes.STRING(500),
-    stars: {
-      type :DataTypes.INTEGER,
-      validate: {
-        min: 0,
-        max: 5,
-      },
-    },
+    review: DataTypes.STRING,
+    stars: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Review',
