@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
     };
 
     //creates a new instance of the User class by appending the username, the email, and a hashed version of the password
-    static async signup({ username, email, password }) {
+    static async signup({ username, email, password, firstName, lastName }) {
       const hashedPassword = bcrypt.hashSync(password);
       const user = await User.create({
         username,
@@ -91,9 +91,15 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       validate: {
         len: [4, 30],
+<<<<<<< HEAD
         isNotEmail(username) { // checks to see if the username entered is not an email
           if (username.includes('@') && username.includes('.'))
             throw new Error('Username must not be an email!');
+=======
+        isNotEmail(value) { // checks to see if the username entered is not an email
+          if (Validator.isEmail(value))
+            throw new Error('Cannot be an email.');
+>>>>>>> 6fa38a35524f16c168ca98943dd65f4d02e76538
         },
       },
     },

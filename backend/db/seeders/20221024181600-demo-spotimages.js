@@ -38,7 +38,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface('SpotImages', {
+    await queryInterface.bulkDelete('SpotImages', {
       url: {
         [Op.in]: [
           'https://vignette3.wikia.nocookie.net/kingofthehill/images/a/a4/HILL.png/revision/latest?cb=20170706011030',
