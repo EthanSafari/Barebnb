@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       // Defines the relationship betweeen the User and the Spot models and Tables through their respective foreign keys
       Review.belongsTo( models.User, { foreignKey: 'userId' } );
       Review.belongsTo( models.Spot, { foreignKey: 'spotId' } );
-
+      // Defines the relationship between the ReviewImage model and the Review model in a one-to-many relationship
       Review.belongsTo( models.ReviewImage, { foreignKey: 'reviewId' } );
     }
   }
@@ -28,10 +28,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    review: DataTypes.STRING,
+    review: {
+      type: DataTypes.STRING(500),
+    },
     stars: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        min: 0,
+        max: 5,
+      },
     },
   }, {
     sequelize,

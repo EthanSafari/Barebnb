@@ -24,8 +24,15 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id',
       },
     },
-    url: DataTypes.STRING,
-    preview: DataTypes.BOOLEAN
+    url: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    preview: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
   }, {
     sequelize,
     modelName: 'SpotImage',
