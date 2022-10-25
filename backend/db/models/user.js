@@ -51,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
         email,
         firstName,
         lastName,
-        hashedPassword
+        hashedPassword,
       });
       return await User.scope('currentUser').findByPk(user.id);
     };
@@ -92,7 +92,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         len: [4, 30],
         isNotEmail(username) { // checks to see if the username entered is not an email
-          if (username.includes('@') || username.includes('.'))
+          if (username.includes('@') && username.includes('.'))
             throw new Error('Username must not be an email!');
         },
       },
