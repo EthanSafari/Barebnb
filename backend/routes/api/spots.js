@@ -240,7 +240,7 @@ router.get('/', async (req, res, next) => {
             attributes: {
                 exclude: ['createdAt', 'updatedAt'],
             },
-            group: 'city',
+            group: 'id',
         });
         if (!spot) break;
         else {
