@@ -61,10 +61,12 @@ module.exports = (sequelize, DataTypes) => {
       // defines the association between the User model and the Spot model, where the User:Owner can have many Spots
       User.hasMany( models.Spot, { foreignKey: 'ownerId', onDelete: 'CASCADE', hooks: true } );
       // defines the association between the User model and the Spot model, with a many-to-many relationship through the Booking model
-      User.belongsToMany( models.Spot, { through: models.Booking } );
+      // User.belongsToMany( models.Spot, { through: models.Booking } );
+      User.belongsToMany( models.Spot, { through: 'Booking', otherKey: 'spotId', foreignKey: 'userId' } );
       User.hasMany( models.Booking, { foreignKey: 'userId', onDelete: 'CASCADE', hooks: true } );
       // defines the association between the User model and the Spot model, with a many-to-many relationship through the Review model
-      User.belongsToMany( models.Spot, { through: models.Review } );
+      // User.belongsToMany( models.Spot, { through: models.Review } );
+      User.belongsToMany( models.Spot, { through: 'Review', otherKey: 'spotId', foreignKey: 'userId' } );
       User.hasMany( models.Review, { foreignKey: 'userId' } );
       // may need onDelete CASCADE later
       // don't want to affect avg review rating
