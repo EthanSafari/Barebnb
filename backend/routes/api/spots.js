@@ -247,6 +247,7 @@ router.get('/', async (req, res, next) => {
             spot = spot.toJSON();
             rating = await Review.findByPk(i, {
                 attributes: {
+                    exclude: ['reviewId', 'userId'],
                     include: ['stars',
                         [
                             sequelize.fn("AVG", sequelize.col("stars")),
@@ -257,13 +258,14 @@ router.get('/', async (req, res, next) => {
                 where: {
                     spotId: spot.id,
                 },
-                group: 'spotId',
             });
             imagePreview = await SpotImage.findOne({
+                attributes: {
+                    exclude: ['spotId'],
+                },
                 where: {
                     spotId: i,
                 },
-                group: 'spotId',
             });
             spot.avgRating = (rating.dataValues.avgRating) ? rating.dataValues.avgRating
                 : `${spot.name} has yet to be rated!`;
