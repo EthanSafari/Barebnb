@@ -233,7 +233,7 @@ router.get('/', async (req, res, next) => {
             {model: SpotImage}
         ]
     })
-    res.json(allSpots)
+    res.status(200).json(allSpots);
 });
 
 // gets all the spots, however, it does not get the averageRating or the previewImage url
