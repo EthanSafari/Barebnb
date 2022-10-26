@@ -10,6 +10,51 @@ const { requireAuth } = require('../../utils/auth');
 const router = express.Router();
 
 
+router.put('/:spotId', requireAuth, async (req, res, next) => {
+    const { spotId } = req.params;
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+    const findSpotById = await Spot.findByPk(spotId, {
+        attributes: {
+            exclude: ['spotId'],
+        },
+    });
+    if (findSpotById) {
+        findSpotById.update({
+            address,
+            city,
+            state,
+            country,
+            lat,
+            lng,
+            name,
+            description,
+            price,
+        });
+        res.status(200).json(findSpotById);
+    } else {
+        const err = new Error;
+        err.status = 400;
+        err.message = {
+            "message": "Validation Error",
+            "statusCode": 400,
+            "errors": {
+              "address": "Street address is required",
+              "city": "City is required",
+              "state": "State is required",
+              "country": "Country is required",
+              "lat": "Latitude is not valid",
+              "lng": "Longitude is not valid",
+              "name": "Name must be less than 50 characters",
+              "description": "Description is required",
+              "price": "Price per day is required"
+            },
+        };
+        // res.status(err.status).json({errorCode: err.status, message: err.message});
+        next(err);
+    };
+});
+
+// allows for an authorized user to add images to their spots
 router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     const { spotId } = req.params;
     const { url, preview } = req.body;
@@ -30,9 +75,10 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
         const err = new Error;
         err.status = 404;
         err.message = "Spot couldn't be found";
+        // res.status(err.status).json({errorCode: err.status, message: err.message});
         next(err);
-    }
-})
+    };
+});
 
 // allows an authorized user to create a new listing
 router.post('/', requireAuth, async (req, res, next) => {
@@ -70,6 +116,7 @@ router.post('/', requireAuth, async (req, res, next) => {
                 "price": "Price per day is required"
             },
         };
+        // res.status(err.status).json({errorCode: err.status, message: err.message});
         next(err);
     };
 });
@@ -123,7 +170,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
     return res.status(200).json(spots);
 })
 
-// need to fix avgStarRating for the response
+// need to fix avgStarRating for the response ******************************************************************************
 router.get('/:spotId', requireAuth, async (req, res, next) => {
     const { spotId } = req.params;
     let findSpotById = await Spot.findByPk(spotId, {
@@ -174,9 +221,10 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
         const err = new Error;
         err.status = 404;
         err.message = "Spot couldn't be found";
+        // res.status(err.status).json({errorCode: err.status, message: err.message});
         next(err);
     };
-})
+});
 
 // gets all the spots, however, it does not get the averageRating or the previewImage url
 router.get('/', async (req, res, next) => {
