@@ -49,7 +49,7 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
               "price": "Price per day is required"
             },
         };
-        // res.status(err.status).json({errorCode: err.status, message: err.message});
+        res.status(err.status).json({errorCode: err.status, message: err.message});
         next(err);
     };
 });
@@ -75,7 +75,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
         const err = new Error;
         err.status = 404;
         err.message = "Spot couldn't be found";
-        // res.status(err.status).json({errorCode: err.status, message: err.message});
+        res.status(err.status).json({errorCode: err.status, message: err.message});
         next(err);
     };
 });
@@ -116,7 +116,7 @@ router.post('/', requireAuth, async (req, res, next) => {
                 "price": "Price per day is required"
             },
         };
-        // res.status(err.status).json({errorCode: err.status, message: err.message});
+        res.status(err.status).json({errorCode: err.status, message: err.message});
         next(err);
     };
 });
@@ -221,7 +221,7 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
         const err = new Error;
         err.status = 404;
         err.message = "Spot couldn't be found";
-        // res.status(err.status).json({errorCode: err.status, message: err.message});
+        res.status(err.status).json({errorCode: err.status, message: err.message});
         next(err);
     };
 });
