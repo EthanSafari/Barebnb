@@ -247,7 +247,7 @@ router.get('/', async (req, res, next) => {
             spot = spot.toJSON();
             rating = await Review.findByPk(i, {
                 attributes: {
-                    exclude: ['reviewId', 'userId'],
+                    exclude: ['spotId', 'userId'],
                     include: ['stars',
                         [
                             sequelize.fn("AVG", sequelize.col("stars")),
@@ -261,7 +261,7 @@ router.get('/', async (req, res, next) => {
             });
             imagePreview = await SpotImage.findOne({
                 attributes: {
-                    exclude: ['spotId'],
+                    exclude: ['spotId', 'imageId'],
                 },
                 where: {
                     spotId: i,
