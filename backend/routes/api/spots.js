@@ -238,7 +238,9 @@ router.get('/', async (req, res, next) => {
     for (let i = 1; i < Infinity; i++) {
         spot = await Spot.findByPk(i, {
             attributes: {
-                exclude: ['spotId', 'createdAt', 'updatedAt'],
+                exclude: [
+                    // 'spotId',
+                    'createdAt', 'updatedAt'],
             },
         });
         if (!spot) break;
