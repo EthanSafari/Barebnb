@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
 
       // defines the association between the SpotImages and the Spots in a one-to-many relationship
-      SpotImage.hasMany( models.Spot, { foreignKey: 'spotId', onDelete: 'CASCADE' } );
+      SpotImage.belongsTo( models.Spot, { foreignKey: 'spotId' } );
     }
   }
   SpotImage.init({

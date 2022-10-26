@@ -13,17 +13,21 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
 
       // defines the relationship between spots and users through the booking join table
+
       // Spot.belongsToMany( models.User, { through: models.Booking } );
+
       Spot.belongsToMany( models.User, { through: 'Booking', otherKey: 'userId', foreignKey: 'spotId' } );
       Spot.hasMany( models.Booking, { foreignKey: 'spotId', onDelete: 'CASCADE'} );
       // defines the relationship between spots and users from the perspective of an owner
       Spot.belongsTo( models.User, { foreignKey: 'ownerId' } );
       // defines the relationship between spots and users in the form of a review
+
       // Spot.belongsToMany( models.User, { through: models.Review } );
+
       Spot.belongsToMany( models.User, { through: 'Review', otherKey: 'userId', foreignKey: 'spotId' } );
       Spot.hasMany( models.Review, { foreignKey: 'spotId', onDelete: 'CASCADE' } );
       // defines the relationship between a spot and its images
-      Spot.belongsTo( models.SpotImage, { foreignKey: 'spotId'} );
+      Spot.hasMany( models.SpotImage, { foreignKey: 'spotId', onDelete: 'CASCADE' } );
     }
   }
   Spot.init({
