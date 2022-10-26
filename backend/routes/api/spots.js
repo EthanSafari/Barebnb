@@ -226,6 +226,16 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
     };
 });
 
+router.get('/', async (req, res, next) => {
+    const allSpots = await Spot.findAll({
+        include: [
+            {model: Review},
+            {model: SpotImage}
+        ]
+    })
+    res.json(allSpots)
+});
+
 // gets all the spots, however, it does not get the averageRating or the previewImage url
 router.get('/', async (req, res, next) => {
 
