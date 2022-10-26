@@ -245,32 +245,32 @@ router.get('/', async (req, res, next) => {
         if (!spot) break;
         else {
             spot = spot.toJSON();
-            rating = await Review.findByPk(i, {
-                attributes: {
-                    exclude: ['reviewId'],
-                    include: ['stars',
-                        [
-                            sequelize.fn("AVG", sequelize.col("stars")),
-                            "avgRating",
-                        ],
-                    ],
-                },
-                where: {
-                    spotId: spot.id,
-                },
-            });
-            imagePreview = await SpotImage.findOne({
-                attributes: {
-                    exclude: ['spotId'],
-                },
-                where: {
-                    spotId: i,
-                },
-            });
-            spot.avgRating = (rating.dataValues.avgRating) ? rating.dataValues.avgRating
-                : `${spot.name} has yet to be rated!`;
-            spot.previewImage = (imagePreview !== null) ? imagePreview.dataValues.url
-                : `${spot.name} doesn't have a preview image!`;
+            // rating = await Review.findByPk(i, {
+            //     attributes: {
+            //         exclude: ['reviewId'],
+            //         include: ['stars',
+            //             [
+            //                 sequelize.fn("AVG", sequelize.col("stars")),
+            //                 "avgRating",
+            //             ],
+            //         ],
+            //     },
+            //     where: {
+            //         spotId: spot.id,
+            //     },
+            // });
+            // imagePreview = await SpotImage.findOne({
+            //     attributes: {
+            //         exclude: ['spotId'],
+            //     },
+            //     where: {
+            //         spotId: i,
+            //     },
+            // });
+            // spot.avgRating = (rating.dataValues.avgRating) ? rating.dataValues.avgRating
+            //     : `${spot.name} has yet to be rated!`;
+            // spot.previewImage = (imagePreview !== null) ? imagePreview.dataValues.url
+            //     : `${spot.name} doesn't have a preview image!`;
             spotArray.push(spot);
         };
     };
