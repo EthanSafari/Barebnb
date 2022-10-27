@@ -211,7 +211,7 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
                 userId: findSpotById.ownerId,
             },
         });
-        findSpotById.numReviews = rating[0].dataValues.reviewCount;
+        findSpotById.numreviews = rating[0].dataValues.reviewCount;
         findSpotById.avgStarRating = (rating[0].dataValues.avgRating) ? rating[0].dataValues.avgRating : 0;
         findSpotById.SpotImages = (findAllSpotImages.length) ? findAllSpotImages
             : `There are no images associated with ${findSpotById.name}`;
@@ -226,9 +226,61 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
     };
 });
 
+// router.get('/', async (req, res, next) => {
+//     const spots = {};
+//     const idArray = [];
+//     let spot;
+//     const allSpots = await Spot.findAll({
+//         // include: [
+//         //     {
+//         //         model: Review,
+//         //         where: {
+//         //         },
+//         //         attributes: {
+//         //             include: [
+//         //                 [
+//         //                     sequelize.fn("AVG", sequelize.col("stars")),
+//         //                     "avgRating",
+//         //                 ],
+//         //             ],
+//         //         },
+//         //     },
+//         //     { model: SpotImage }
+//         // ],
+//         attributes: {
+//             exclude: ['updatedAt', 'createdAt'],
+//         },
+//     });
+//     for (let i = 0; i < allSpots.length; i++) {
+//         spot = allSpots[i];
+//         const ratings = await Review.findAll({
+//             where: {
+//                 spotId: spot.dataValues.id,
+//             },
+//             attributes: {
+//                 include: [
+//                     [
+//                         sequelize.fn("SUM", sequelize.col("stars")),
+//                         "totalStars",
+//                     ],
+//                 ],
+//             },
+//             group: ['spotId', 'userId', 'review', 'stars', 'createdAt', 'updatedAt'],
+//         });
+//         console.log(rating)
+//         spot = spot.toJSON();
+//         spot.avgRating = ratings[0].dataValues.totalStars / ratings.length;
+//         idArray.push(spot)
+//     };
+//     spots.Spots = idArray;
+//     res.status(200).json(spots);
+// });
+
+// gets all the spots, however, it does not get the averageRating or the previewImage url
 router.get('/', async (req, res, next) => {
+
     const spots = {};
-    const idArray = [];
+    const spotArray = [];
     let spot;
     const allSpots = await Spot.findAll({
         // include: [
@@ -265,7 +317,7 @@ router.get('/', async (req, res, next) => {
                     ],
                 ],
             },
-            group: ['spotId', 'userId'],
+            group: ['spotId', 'userId', 'review', 'stars', 'totalStars'],
         });
         console.log(rating)
         spot = spot.toJSON();
@@ -276,56 +328,5 @@ router.get('/', async (req, res, next) => {
     res.status(200).json(spots);
 });
 
-// gets all the spots, however, it does not get the averageRating or the previewImage url
-// router.get('/', async (req, res, next) => {
-
-//     const spots = {};
-//     const spotArray = [];
-//     let spot;
-//     let rating;
-//     let imagePreview;
-
-//     for (let i = 1; i < Infinity; i++) {
-//         spot = await Spot.findByPk(i, {
-//             attributes: {
-//                 exclude: ['createdAt', 'updatedAt'],
-//             },
-//             group: 'id',
-//         });
-//         if (!spot) break;
-//         else {
-//             spot = spot.toJSON();
-//             rating = await Review.findByPk(i, {
-//                 attributes: {
-//                     exclude: ['spotId', 'userId', 'review'],
-//                     include: ['stars',
-//                         [
-//                             sequelize.fn("AVG", sequelize.col("stars")),
-//                             "avgRating",
-//                         ],
-//                     ],
-//                 },
-//                 where: {
-//                     spotId: spot.id,
-//                 },
-//             });
-//             imagePreview = await SpotImage.findOne({
-//                 attributes: {
-//                     exclude: ['spotId', 'imageId', 'preview'],
-//                 },
-//                 where: {
-//                     spotId: i,
-//                 },
-//             });
-//             spot.avgRating = (rating.dataValues.avgRating) ? rating.dataValues.avgRating
-//                 : `${spot.name} has yet to be rated!`;
-//             spot.previewImage = (imagePreview !== null) ? imagePreview.dataValues.url
-//                 : `${spot.name} doesn't have a preview image!`;
-//             spotArray.push(spot);
-//         };
-//     };
-//     spots.Spots = spotArray;
-//     return res.status(200).json(spots);
-// });
 
 module.exports = router;
