@@ -188,17 +188,31 @@ router.get('/current', requireAuth, async (req, res, next) => {
         };
         spots.Spots = spotArray;
         return res.status(200).json(spots)
-    } else res.status(200).json({ message: 'You currently have no spots!'});
+    } else res.status(200).json({ message: 'You currently have no spots!' });
 });
 
 router.get('/:spotId/reviews', async (req, res, next) => {
     const { spotId } = req.params;
-    let getASpotReviews = await Review.findAll({
-        where: {
-            spotId: spotId,
-        },
-    })
-    return res.status(200).json(getASpotReviews)
+    const reviews = {};
+    const findSpot = await Spot.findByPk(spotId);
+    if (findSpot) {
+        let getASpotReviews = await Review.findAll({
+            where: {
+                spotId: spotId,
+            },
+            include: { model: ReviewImage, attributes: ['id', 'url'] },
+        });
+        if (getASpotReviews.length) {
+        reviews.Reviews = getASpotReviews;
+        return res.status(200).json(reviews);
+        } else return res.status(200).json({ message: `${findSpot.name} doesn't have any reviews yet!`});
+    } else {
+        const err = new Error;
+        err.status = 404;
+        err.message = "Spot couldn't be found";
+        res.status(err.status).json({ errorCode: err.status, message: err.message });
+        next(err);
+    };
 });
 
 // gets Spot by spotId

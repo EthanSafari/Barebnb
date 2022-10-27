@@ -18,11 +18,11 @@ module.exports = {
       url: 'https://gamefaqs.gamespot.com/a/screen/full/0/7/4/396074.jpg',
     },
     {
-      reviewId: 3,
+      reviewId: 2,
       url: 'https://static.wikia.nocookie.net/kingofthehill/images/3/31/That%27s_What_She_Said_5.jpg/revision/latest/scale-to-width-down/1000?cb=20160203091358',
     },
     {
-      reviewId: 3,
+      reviewId: 2,
       url: 'https://static.wikia.nocookie.net/kingofthehill/images/a/a5/Strick_Prop._Season_13.png/revision/latest/scale-to-width-down/1000?cb=20180213051003',
     }
    ]);
