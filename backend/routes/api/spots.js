@@ -317,7 +317,7 @@ router.get('/', async (req, res, next) => {
             where: {
                 spotId: spot.dataValues.id,
             },
-            group: ['spotId', 'preview', 'url', 'updatedAt', 'createdAt'],
+            group: ['id','spotId', 'preview', 'url', 'updatedAt', 'createdAt'],
         });
         spot = spot.toJSON();
         spot.avgRating = ratings[0].dataValues.totalStars / ratings.length;
