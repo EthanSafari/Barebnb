@@ -304,7 +304,7 @@ router.get('/', async (req, res, next) => {
                             "avgRating",
                         ],
                     ],
-                    group: ['spotId', 'userId', 'review', 'stars', 'createdAt', 'updatedAt'],
+                    group: ['spotId', 'userId', 'review', '"stars"', 'createdAt', 'updatedAt'],
                 },
                 where: {
                     spotId: spot.id,
