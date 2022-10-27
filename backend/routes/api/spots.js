@@ -182,20 +182,15 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
             {
                 model: User,
                 attributes: []
-            }
+            },
+            {
+                model: Review,
+                attributes: [],
+            },
         ],
     });
     if (findSpotById) {
         findSpotById = findSpotById.toJSON();
-        // const findAllSpotImages = await SpotImage.findAll({
-        //     attributes: {
-        //         exclude: ['createdAt', 'updatedAt'],
-        //     },
-        //     where: {
-        //         spotId: spotId,
-        //     },
-        //     group: ['id','spotId', 'preview', 'url', 'updatedAt', 'createdAt'],
-        // });
         const findOwner = await User.findByPk(findSpotById.ownerId, {
             attributes: {
                 exclude: ['userId', 'username'],
@@ -204,7 +199,7 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
         });
         const ratingCount = await Review.findOne({
             attributes: {
-                include: [
+                include: ['stars',
                     [
                         sequelize.fn("COUNT", sequelize.col("stars")),
                         "reviewCount",
@@ -214,7 +209,7 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
             where: {
                 userId: findSpotById.ownerId,
             },
-            // group: ['spotId', 'review', 'stars', 'updatedAt', 'createdAt'],
+            group: ['spotId', 'review', 'updatedAt', 'createdAt'],
         });
         const ratingTotal = await Review.findOne({
             attributes: {
@@ -226,13 +221,11 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
                 ],
             },
             where: {
-                spotId: findSpotById.id,
+                spotId: spotId,
             },
-            // group: ['spotId', 'userId', 'review', 'stars', 'updatedAt', 'createdAt'],
-        })
-        // console.log(rating)
-        // findSpotById.SpotImages = (findAllSpotImages.length) ? findAllSpotImages
-        //     : `There are no images associated with ${findSpotById.name}`;
+            group: ['spotId', 'userId', 'review', 'updatedAt', 'createdAt'],
+        });
+        console.log(ratingTotal)
         findSpotById.Owner = findOwner;
         findSpotById.numReviews = ratingCount.dataValues.reviewCount;
         findSpotById.avgStarRating = (ratingTotal.dataValues.totalStars)
