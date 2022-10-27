@@ -313,9 +313,9 @@ router.get('/', async (req, res, next) => {
         });
         spot = spot.toJSON();
         spot.avgRating = ratings[0].dataValues.totalStars / ratings.length;
-        idArray.push(spot)
+        spotArray.push(spot)
     };
-    spots.Spots = idArray;
+    spots.Spots = spotArray;
     res.status(200).json(spots);
 });
 
