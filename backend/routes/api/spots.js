@@ -125,49 +125,111 @@ router.post('/', requireAuth, async (req, res, next) => {
 router.get('/current', requireAuth, async (req, res, next) => {
     const spots = {};
     const spotArray = [];
-    let spot;
-    let rating;
 
-    for (let i = 1; i < Infinity; i++) {
-        spot = await Spot.findByPk(i, {
-            attributes: {
-                exclude: ['spotId'],
+    const getAllSpotsCurrentUser = await Spot.findAll({
+        where: {
+            ownerId: req.user.id
+        },
+        include: [
+            {
+                model: SpotImage,
+                attributes: [],
             },
-        });
-        if (!spot) break;
-        else {
-            spot = spot.toJSON();
-            rating = await Review.findByPk(i, {
+            {
+                model: Review,
+                attributes: [],
+            },
+        ],
+    });
+    if (getAllSpotsCurrentUser.length) {
+        for (let i = 0; i < getAllSpotsCurrentUser.length; i++) {
+            let spot = getAllSpotsCurrentUser[i];
+            const ratingCount = await Review.findOne({
                 attributes: {
-                    exclude: ['reviewId'],
-                    include: ['stars',
+                    include: [
                         [
-                            sequelize.fn("AVG", sequelize.col("stars")),
-                            "avgRating",
+                            sequelize.fn("COUNT", sequelize.col("stars")),
+                            "reviewCount",
                         ],
                     ],
                 },
                 where: {
-                    spotId: spot.id,
+                    spotId: spot.dataValues.id,
                 },
+                group: ['spotId', 'userId', 'stars', 'review', 'updatedAt', 'createdAt'],
             });
-            imagePreview = await SpotImage.findOne({
+            const ratingTotal = await Review.findOne({
                 attributes: {
-                    exclude: ['spotId'],
+                    include: [
+                        [
+                            sequelize.fn("SUM", sequelize.col("stars")),
+                            "totalStars",
+                        ],
+                    ],
                 },
                 where: {
-                    spotId: i,
+                    spotId: spot.dataValues.id,
                 },
+                group: ['spotId', 'userId', 'stars', 'review', 'updatedAt', 'createdAt'],
             });
-            spot.avgRating = (rating.dataValues.avgRating) ? rating.dataValues.avgRating
-                : `${spot.name} has yet to be rated!`;
-            spot.previewImage = (imagePreview !== null) ? imagePreview.dataValues.url
-                : `${spot.name} doesn't have a preview image!`;
-            if (spot.ownerId === req.user.id) spotArray.push(spot);
+            const previewImage = await SpotImage.findOne({
+                where: {
+                    spotId: spot.dataValues.id,
+                },
+                group: ['id', 'spotId', 'preview', 'url', 'updatedAt', 'createdAt'],
+            });
+            spot = spot.toJSON();
+            spot.avgStarRating = (ratingTotal !== null)
+                ? ratingTotal.dataValues.totalStars / ratingCount.dataValues.reviewCount
+                : 0;
+            spot.preview = (previewImage !== null)
+                ? previewImage.url : `${spot.name} doesn't have a preview!`;
+            spotArray.push(spot);
         };
-    };
-    spots.Spots = spotArray;
-    return res.status(200).json(spots);
+        spots.Spots = spotArray;
+        return res.status(200).json(spots)
+    }
+
+    // for (let i = 1; i < Infinity; i++) {
+    // spot = await Spot.findByPk(i, {
+    //     attributes: {
+    //         exclude: ['spotId'],
+    //     },
+    // });
+    // if (!spot) break;
+    // else {
+    //     spot = spot.toJSON();
+    //     rating = await Review.findByPk(i, {
+    //         attributes: {
+    //             exclude: ['reviewId'],
+    //             include: ['stars',
+    //                 [
+    //                     sequelize.fn("AVG", sequelize.col("stars")),
+    //                     "avgRating",
+    //                 ],
+    //             ],
+    //         },
+    //         where: {
+    //             spotId: spot.id,
+    //         },
+    //     });
+    //     imagePreview = await SpotImage.findOne({
+    //         attributes: {
+    //             exclude: ['spotId'],
+    //         },
+    //         where: {
+    //             spotId: i,
+    //         },
+    //     });
+    //     spot.avgRating = (rating.dataValues.avgRating) ? rating.dataValues.avgRating
+    //         : `${spot.name} has yet to be rated!`;
+    //     spot.previewImage = (imagePreview !== null) ? imagePreview.dataValues.url
+    //         : `${spot.name} doesn't have a preview image!`;
+    //     if (spot.ownerId === req.user.id) spotArray.push(spot);
+    // };
+    // };
+    // spots.Spots = spotArray;
+    else res.status(200).json({ message: 'You currently have no spots!'});
 })
 
 // gets Spot by spotId
