@@ -34,21 +34,68 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
     } else {
         const err = new Error;
         err.status = 400;
-        err.message = {
-            "message": "Validation Error",
-            "statusCode": 400,
-            "errors": {
-                "address": "Street address is required",
-                "city": "City is required",
-                "state": "State is required",
-                "country": "Country is required",
-                "lat": "Latitude is not valid",
-                "lng": "Longitude is not valid",
-                "name": "Name must be less than 50 characters",
-                "description": "Description is required",
-                "price": "Price per day is required"
-            },
+        err.message = "Validation Error";
+        err.errors = {
+            "address": "Street address is required",
+            "city": "City is required",
+            "state": "State is required",
+            "country": "Country is required",
+            "lat": "Latitude is not valid",
+            "lng": "Longitude is not valid",
+            "name": "Name must be less than 50 characters",
+            "description": "Description is required",
+            "price": "Price per day is required"
         };
+        res.status(err.status).json({ errorCode: err.status, message: err.message, errors: err.errors });
+        next(err);
+    };
+});
+
+// allows an authorized user to post reviews about a spot
+router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
+    const { spotId } = req.params;
+
+    const getSpotById = await Spot.findByPk(spotId);
+    if (getSpotById) {
+        const spotsReviews = await Review.findAll({
+            where: {
+                spotId: spotId,
+            },
+        });
+        spotsReviews.forEach(review => {
+            if (review.dataValues.userId === req.user.id) {
+                const err = new Error;
+                err.status = 403;
+                err.message = "User already has a review for this spot";
+                res.status(err.status).json({ errorCode: err.status, message: err.message });
+                next(err);
+            };
+        });
+        const { review, stars } = req.body;
+        const createReview = Review.build({
+            spotId: spotId,
+            userId: req.user.id,
+            review,
+            stars,
+        });
+        if (createReview) {
+            await createReview.save();
+            return res.status(201).json(createReview);
+        } else {
+            const err = new Error;
+            err.status = 400;
+            err.message = "Validation error";
+            err.errors = {
+                "review": "Review text is required",
+                "stars": "Stars must be an integer from 1 to 5",
+            };
+            res.status(err.status).json({ errorCode: err.status, message: err.message, errors: err.errors });
+            next(err);
+        };
+    } else {
+        const err = new Error;
+        err.status = 404;
+        err.message = "Spot couldn't be found";
         res.status(err.status).json({ errorCode: err.status, message: err.message });
         next(err);
     };
@@ -66,7 +113,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     });
     if (getSpotById) {
         const newRelationship = await SpotImage.create({
-            spotId: spotId,
+            spotId: Number(spotId),
             url,
             preview,
         });
@@ -101,22 +148,19 @@ router.post('/', requireAuth, async (req, res, next) => {
     } else {
         const err = new Error;
         err.status = 400;
-        err.message = {
-            "message": "Validation Error",
-            "statusCode": 400,
-            "errors": {
-                "address": "Street address is required",
-                "city": "City is required",
-                "state": "State is required",
-                "country": "Country is required",
-                "lat": "Latitude is not valid",
-                "lng": "Longitude is not valid",
-                "name": "Name must be less than 50 characters",
-                "description": "Description is required",
-                "price": "Price per day is required"
-            },
+        err.message = "Validation Error";
+        err.errors = {
+            "address": "Street address is required",
+            "city": "City is required",
+            "state": "State is required",
+            "country": "Country is required",
+            "lat": "Latitude is not valid",
+            "lng": "Longitude is not valid",
+            "name": "Name must be less than 50 characters",
+            "description": "Description is required",
+            "price": "Price per day is required"
         };
-        res.status(err.status).json({ errorCode: err.status, message: err.message });
+        res.status(err.status).json({ errorCode: err.status, message: err.message, errors: err.errors });
         next(err);
     };
 });
@@ -180,8 +224,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
             });
             spot = spot.toJSON();
             spot.avgRating = (ratingTotal !== null)
-                ? ratingTotal.dataValues.totalStars / ratingCount.dataValues.reviewCount
-                : 0;
+                ? ratingTotal.dataValues.totalStars / ratingCount.dataValues.reviewCount : 0;
             spot.previewImage = (previewImage !== null)
                 ? previewImage.url : `${spot.name} doesn't have a preview!`;
             spotArray.push(spot);
@@ -191,6 +234,8 @@ router.get('/current', requireAuth, async (req, res, next) => {
     } else res.status(200).json({ message: 'You currently have no spots!' });
 });
 
+
+//gets the reviews for a Spot based on spotId
 router.get('/:spotId/reviews', async (req, res, next) => {
     const { spotId } = req.params;
     const reviews = {};
@@ -198,14 +243,14 @@ router.get('/:spotId/reviews', async (req, res, next) => {
     if (findSpot) {
         let getASpotReviews = await Review.findAll({
             where: {
-                spotId: spotId,
+                spotId: Number(spotId),
             },
             include: { model: ReviewImage, attributes: ['id', 'url'] },
         });
         if (getASpotReviews.length) {
-        reviews.Reviews = getASpotReviews;
-        return res.status(200).json(reviews);
-        } else return res.status(200).json({ message: `${findSpot.name} doesn't have any reviews yet!`});
+            reviews.Reviews = getASpotReviews;
+            return res.status(200).json(reviews);
+        } else return res.status(200).json({ message: `${findSpot.name} doesn't have any reviews yet!` });
     } else {
         const err = new Error;
         err.status = 404;
