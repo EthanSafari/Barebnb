@@ -286,9 +286,11 @@ router.get('/', async (req, res, next) => {
         include: [
             {
                 model: Review,
+                attributes: [],
             },
             {
-                model: SpotImage
+                model: SpotImage,
+                attributes: [],
             },
         ],
         attributes: {
@@ -311,9 +313,16 @@ router.get('/', async (req, res, next) => {
             },
             group: ['spotId', 'userId', 'review', 'stars', 'updatedAt', 'createdAt'],
         });
+        const previewImage = await SpotImage.findOne({
+            where: {
+                spotId: spot.dataValues.id,
+            },
+            group: ['spotId', 'preview', 'url', 'updatedAt', 'createdAt'],
+        });
         spot = spot.toJSON();
         spot.avgRating = ratings[0].dataValues.totalStars / ratings.length;
-        spotArray.push(spot)
+        spot.preview = (previewImage !== null) ? previewImage.url : "This spot doesn't have a preview";
+        spotArray.push(spot);
     };
     spots.Spots = spotArray;
     res.status(200).json(spots);
