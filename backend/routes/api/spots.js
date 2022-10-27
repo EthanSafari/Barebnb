@@ -330,4 +330,5 @@ router.get('/', async (req, res, next) => {
     return res.status(200).json(spots);
 });
 
+
 module.exports = router;
