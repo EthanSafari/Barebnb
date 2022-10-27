@@ -265,7 +265,7 @@ router.get('/', async (req, res, next) => {
                     ],
                 ],
             },
-            group: 'spotId',
+            group: ['spotId', 'userId'],
         });
         console.log(rating)
         spot = spot.toJSON();
