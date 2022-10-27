@@ -209,7 +209,7 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
             where: {
                 userId: findSpotById.ownerId,
             },
-            group: ['spotId', 'review', 'updatedAt', 'createdAt'],
+            group: ['spotId', 'userId', 'review', 'updatedAt', 'createdAt'],
         });
         const ratingTotal = await Review.findOne({
             attributes: {
