@@ -199,7 +199,7 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
         });
         const ratingCount = await Review.findOne({
             attributes: {
-                include: ['stars',
+                include: [
                     [
                         sequelize.fn("COUNT", sequelize.col("stars")),
                         "reviewCount",
@@ -209,7 +209,7 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
             where: {
                 userId: findSpotById.ownerId,
             },
-            group: ['spotId', 'userId', 'review', 'updatedAt', 'createdAt'],
+            group: ['spotId', 'userId', 'stars', 'review', 'updatedAt', 'createdAt'],
         });
         const ratingTotal = await Review.findOne({
             attributes: {
@@ -223,7 +223,7 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
             where: {
                 spotId: spotId,
             },
-            group: ['spotId', 'userId', 'review', 'updatedAt', 'createdAt'],
+            group: ['spotId', 'userId', 'stars', 'review', 'updatedAt', 'createdAt'],
         });
         console.log(ratingTotal)
         findSpotById.Owner = findOwner;
