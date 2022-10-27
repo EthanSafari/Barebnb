@@ -211,7 +211,7 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
                 userId: findSpotById.ownerId,
             },
         });
-        findSpotById.numReviews = rating[0].dataValues.reviewCount;
+        findSpotById.numreviews = rating[0].dataValues.reviewCount;
         findSpotById.avgStarRating = (rating[0].dataValues.avgRating) ? rating[0].dataValues.avgRating : 0;
         findSpotById.SpotImages = (findAllSpotImages.length) ? findAllSpotImages
             : `There are no images associated with ${findSpotById.name}`;

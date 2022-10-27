@@ -280,7 +280,7 @@ Returns all the spots owned (created) by the current user.
 * Require Authentication: true
 * Request
   * Method: `GET`
-  * URL: `/api/spots/current` 
+  * URL: `/api/spots/current`
   * Body: none
 
 * Successful Response
@@ -344,7 +344,7 @@ Returns the details of a spot specified by its id.
       "price": 123,
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36" ,
-      "numReviews": 5,
+      "numreviews": 5,
       "avgStarRating": 4.5,
       "SpotImages": [
         {
@@ -625,9 +625,9 @@ Deletes an existing spot.
     }
     ```
 
-## REVIEWS
+## reviews
 
-### Get all Reviews of the Current User
+### Get all reviews of the Current User
 
 Returns all the reviews written by the current user.
 
@@ -645,7 +645,7 @@ Returns all the reviews written by the current user.
 
     ```json
     {
-      "Reviews": [
+      "reviews": [
         {
           "id": 1,
           "userId": 1,
@@ -683,7 +683,7 @@ Returns all the reviews written by the current user.
     }
     ```
 
-### Get all Reviews by a Spot's id
+### Get all reviews by a Spot's id
 
 Returns all the reviews that belong to a spot specified by id.
 
@@ -701,7 +701,7 @@ Returns all the reviews that belong to a spot specified by id.
 
     ```json
     {
-      "Reviews": [
+      "reviews": [
         {
           "id": 1,
           "userId": 1,

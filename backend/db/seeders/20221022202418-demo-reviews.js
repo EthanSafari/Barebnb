@@ -12,7 +12,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-   await queryInterface.bulkInsert('Reviews', [
+   await queryInterface.bulkInsert('reviews', [
     {
       spotId: 1,
       userId: 3,
@@ -41,7 +41,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('Reviews', {
+    await queryInterface.bulkDelete('reviews', {
       review: {
         [Op.in]: [
           "I don't know you! That's my purse!",
