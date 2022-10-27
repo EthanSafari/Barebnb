@@ -65,7 +65,7 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany( models.Booking, { foreignKey: 'userId', onDelete: 'CASCADE', hooks: true } );
       // defines the association between the User model and the Spot model, with a many-to-many relationship through the Review model
       User.belongsToMany( models.Spot, { through: 'Review', otherKey: 'spotId', foreignKey: 'userId' } );
-      User.hasMany( models.Review, { foreignKey: 'userId' } );
+      User.hasMany( models.review, { foreignKey: 'userId' } );
       // may need onDelete CASCADE later
       // don't want to affect avg review rating
     };

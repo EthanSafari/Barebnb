@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       Review.belongsTo( models.User, { foreignKey: 'userId' } );
       Review.belongsTo( models.Spot, { foreignKey: 'spotId' } );
       // Defines the relationship between the ReviewImage model and the Review model in a one-to-many relationship
-      Review.hasMany( models.ReviewImage, { foreignKey: 'reviewId', onDelete: 'CASCADE' } );
+      Review.hasMany( models.reviewImage, { foreignKey: 'reviewId', onDelete: 'CASCADE' } );
     }
   }
   Review.init({
@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     sequelize,
-    modelName: 'Review',
+    modelName: 'review',
   });
   return Review;
 };

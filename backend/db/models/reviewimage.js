@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
 
       // Defines the relationship between the ReviewImages and the reviews Tables, in a many-to-one relationship
-      ReviewImage.belongsTo( models.Review, { foreignKey: 'reviewId' } );
+      ReviewImage.belongsTo( models.review, { foreignKey: 'reviewId' } );
     }
   }
   ReviewImage.init({
