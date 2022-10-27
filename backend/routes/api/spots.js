@@ -253,7 +253,7 @@ router.get('/', async (req, res, next) => {
     });
     for (let i = 0; i < allSpots.length; i++) {
         spot = allSpots[i];
-        const rating = await Review.findAll({
+        const ratings = await Review.findAll({
             where: {
                 spotId: spot.dataValues.id,
             },
@@ -265,10 +265,11 @@ router.get('/', async (req, res, next) => {
                     ],
                 ],
             },
-        })
+            group: 'spotId',
+        });
         console.log(rating)
         spot = spot.toJSON();
-        spot.avgRating = rating[0].dataValues.totalStars / rating.length;
+        spot.avgRating = ratings[0].dataValues.totalStars / ratings.length;
         idArray.push(spot)
     };
     spots.Spots = idArray;
