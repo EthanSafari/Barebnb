@@ -310,19 +310,19 @@ router.get('/', async (req, res, next) => {
                     spotId: spot.id,
                 },
             });
-            imagePreview = await SpotImage.findOne({
-                attributes: {
-                    exclude: ['spotId', 'imageId', 'preview'],
-                },
-                where: {
-                    spotId: i,
-                },
-                group: ['spotId', 'preview', 'url', 'createdAt', 'updatedAt'],
-            });
+            // imagePreview = await SpotImage.findOne({
+            //     attributes: {
+            //         exclude: ['spotId', 'imageId', 'preview'],
+            //     },
+            //     where: {
+            //         spotId: i,
+            //     },
+            //     group: ['spotId', 'preview', 'url', 'createdAt', 'updatedAt'],
+            // });
             spot.avgRating = (rating.dataValues.avgRating) ? rating.dataValues.avgRating
                 : `${spot.name} has yet to be rated!`;
-            spot.previewImage = (imagePreview !== null) ? imagePreview.dataValues.url
-                : `${spot.name} doesn't have a preview image!`;
+            // spot.previewImage = (imagePreview !== null) ? imagePreview.dataValues.url
+            //     : `${spot.name} doesn't have a preview image!`;
             spotArray.push(spot);
         };
     };
