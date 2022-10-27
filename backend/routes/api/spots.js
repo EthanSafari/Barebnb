@@ -179,58 +179,17 @@ router.get('/current', requireAuth, async (req, res, next) => {
                 group: ['id', 'spotId', 'preview', 'url', 'updatedAt', 'createdAt'],
             });
             spot = spot.toJSON();
-            spot.avgStarRating = (ratingTotal !== null)
+            spot.avgRating = (ratingTotal !== null)
                 ? ratingTotal.dataValues.totalStars / ratingCount.dataValues.reviewCount
                 : 0;
-            spot.preview = (previewImage !== null)
+            spot.previewImage = (previewImage !== null)
                 ? previewImage.url : `${spot.name} doesn't have a preview!`;
             spotArray.push(spot);
         };
         spots.Spots = spotArray;
         return res.status(200).json(spots)
-    }
-
-    // for (let i = 1; i < Infinity; i++) {
-    // spot = await Spot.findByPk(i, {
-    //     attributes: {
-    //         exclude: ['spotId'],
-    //     },
-    // });
-    // if (!spot) break;
-    // else {
-    //     spot = spot.toJSON();
-    //     rating = await Review.findByPk(i, {
-    //         attributes: {
-    //             exclude: ['reviewId'],
-    //             include: ['stars',
-    //                 [
-    //                     sequelize.fn("AVG", sequelize.col("stars")),
-    //                     "avgRating",
-    //                 ],
-    //             ],
-    //         },
-    //         where: {
-    //             spotId: spot.id,
-    //         },
-    //     });
-    //     imagePreview = await SpotImage.findOne({
-    //         attributes: {
-    //             exclude: ['spotId'],
-    //         },
-    //         where: {
-    //             spotId: i,
-    //         },
-    //     });
-    //     spot.avgRating = (rating.dataValues.avgRating) ? rating.dataValues.avgRating
-    //         : `${spot.name} has yet to be rated!`;
-    //     spot.previewImage = (imagePreview !== null) ? imagePreview.dataValues.url
-    //         : `${spot.name} doesn't have a preview image!`;
-    //     if (spot.ownerId === req.user.id) spotArray.push(spot);
-    // };
-    // };
-    // spots.Spots = spotArray;
-    else res.status(200).json({ message: 'You currently have no spots!'});
-})
+    } else res.status(200).json({ message: 'You currently have no spots!'});
+});
 
 // gets Spot by spotId
 router.get('/:spotId', requireAuth, async (req, res, next) => {
