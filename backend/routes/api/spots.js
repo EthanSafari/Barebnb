@@ -174,22 +174,15 @@ router.get('/current', requireAuth, async (req, res, next) => {
 router.get('/:spotId', requireAuth, async (req, res, next) => {
     const { spotId } = req.params;
     let findSpotById = await Spot.findByPk(spotId, {
-        attributes: {
-            exclude: ['spotId'],
-        },
         include: [
             {
                 model: SpotImage,
-                // attributes: [],
+                attributes: ['id', 'url', 'preview'],
             },
             {
                 model: User,
-                // attributes: [],
-            },
-            {
-                model: Review,
-                // attributes: []
-            },
+                attributes: []
+            }
         ],
     });
     if (findSpotById) {
@@ -203,33 +196,34 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
         //     },
         //     group: ['id','spotId', 'preview', 'url', 'updatedAt', 'createdAt'],
         // });
-        // const findOwner = await User.findByPk(findSpotById.ownerId, {
+        const findOwner = await User.findByPk(findSpotById.ownerId, {
+            attributes: {
+                exclude: ['userId', 'username'],
+            },
+            group: ['id', 'firstName', 'lastName', 'username', 'email', 'hashedPassword', 'createdAt', 'updatedAt'],
+        });
+        // const rating = await Review.findAll({
         //     attributes: {
-        //         exclude: ['userId', 'username'],
+        //         include: [
+        //             [
+        //                 sequelize.fn("SUM", sequelize.col("stars")),
+        //                 "totalStars",
+        //             ],
+        //             [
+        //                 sequelize.fn("COUNT", sequelize.col("stars")),
+        //                 "reviewCount",
+        //             ],
+        //         ],
+        //     },
+        //     where: {
+        //         userId: findSpotById.ownerId,
         //     },
         // });
-        const rating = await Review.findAll({
-            attributes: {
-                exclude: ['reviewId'],
-                include: ['stars',
-                    [
-                        sequelize.fn("AVG", sequelize.col("stars")),
-                        "avgRating",
-                    ],
-                    [
-                        sequelize.fn("COUNT", sequelize.col("stars")),
-                        "reviewCount",
-                    ],
-                ],
-            },
-            where: {
-                userId: findSpotById.ownerId,
-            },
-        });
-        findSpotById.numreviews = rating[0].dataValues.reviewCount;
-        findSpotById.avgStarRating = (rating[0].dataValues.avgRating) ? rating[0].dataValues.avgRating : 0;
-        findSpotById.SpotImages = (findAllSpotImages.length) ? findAllSpotImages
-            : `There are no images associated with ${findSpotById.name}`;
+        // findSpotById.numreviews = rating[0].dataValues.reviewCount;
+        // console.log(rating)
+        // findSpotById.avgStarRating = (rating[0].dataValues.totalStars) ? rating[0].dataValues.totalStars : 0;
+        // findSpotById.SpotImages = (findAllSpotImages.length) ? findAllSpotImages
+        //     : `There are no images associated with ${findSpotById.name}`;
         findSpotById.Owner = findOwner;
         return res.status(200).json(findSpotById);
     } else {
@@ -284,8 +278,11 @@ router.get('/', async (req, res, next) => {
             group: ['id','spotId', 'preview', 'url', 'updatedAt', 'createdAt'],
         });
         spot = spot.toJSON();
-        spot.avgRating = (ratings.length) ? Number(ratings[0].dataValues.totalStars / ratings.length) : `${spot.name} doesn't have any reviews yet!`;
-        spot.preview = (previewImage !== null) ? previewImage.url : `${spot.name} doesn't have a preview!`;
+        spot.avgRating = (ratings.length)
+            ? Number(ratings[0].dataValues.totalStars / ratings.length)
+            : `${spot.name} doesn't have any reviews yet!`;
+        spot.preview = (previewImage !== null)
+            ? previewImage.url : `${spot.name} doesn't have a preview!`;
         spotArray.push(spot);
     };
     spots.Spots = spotArray;
