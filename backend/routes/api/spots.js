@@ -298,7 +298,7 @@ router.get('/', async (req, res, next) => {
             rating = await Review.findByPk(i, {
                 attributes: {
                     exclude: ['spotId', 'userId', 'review'],
-                    include: ['stars',
+                    include: [
                         [
                             sequelize.fn("AVG", sequelize.col("stars")),
                             "avgRating",
