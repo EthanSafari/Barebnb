@@ -170,7 +170,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
     return res.status(200).json(spots);
 })
 
-// need to fix avgStarRating for the response ******************************************************************************
+// gets Spot by spotId
 router.get('/:spotId', requireAuth, async (req, res, next) => {
     const { spotId } = req.params;
     let findSpotById = await Spot.findByPk(spotId, {
@@ -225,10 +225,10 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
             },
             group: ['spotId', 'userId', 'stars', 'review', 'updatedAt', 'createdAt'],
         });
-        console.log(ratingTotal)
         findSpotById.Owner = findOwner;
-        findSpotById.numReviews = ratingCount.dataValues.reviewCount;
-        findSpotById.avgStarRating = (ratingTotal.dataValues.totalStars)
+        findSpotById.numReviews = (ratingCount !== null)
+            ? Number(ratingCount.dataValues.reviewCount) : 0;
+        findSpotById.avgStarRating = (ratingTotal !== null)
             ? ratingTotal.dataValues.totalStars / ratingCount.dataValues.reviewCount
             : 0;
         return res.status(200).json(findSpotById);
