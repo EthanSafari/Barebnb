@@ -214,7 +214,7 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
             where: {
                 userId: findSpotById.ownerId,
             },
-            group: ['spotId', 'userId', 'review', 'stars', 'updatedAt', 'createdAt'],
+            // group: ['spotId', 'review', 'stars', 'updatedAt', 'createdAt'],
         });
         const ratingTotal = await Review.findAll({
             attributes: {
@@ -228,12 +228,13 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
             where: {
                 spotId: findSpotById.id,
             },
-            group: ['spotId', 'userId', 'review', 'stars', 'updatedAt', 'createdAt'],
+            // group: ['spotId', 'userId', 'review', 'stars', 'updatedAt', 'createdAt'],
         })
         // console.log(rating)
         // findSpotById.SpotImages = (findAllSpotImages.length) ? findAllSpotImages
         //     : `There are no images associated with ${findSpotById.name}`;
         findSpotById.Owner = findOwner;
+        console.log(ratingCount)
         findSpotById.numReviews = ratingCount[0].dataValues.reviewCount;
         findSpotById.avgStarRating = (ratingTotal[0].dataValues.totalStars)
             ? ratingTotal[0].dataValues.totalStars / ratingCount[0].dataValues.reviewCount
