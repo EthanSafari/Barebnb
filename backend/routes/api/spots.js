@@ -283,22 +283,14 @@ router.get('/', async (req, res, next) => {
     const spotArray = [];
     let spot;
     const allSpots = await Spot.findAll({
-        // include: [
-        //     {
-        //         model: Review,
-        //         where: {
-        //         },
-        //         attributes: {
-        //             include: [
-        //                 [
-        //                     sequelize.fn("AVG", sequelize.col("stars")),
-        //                     "avgRating",
-        //                 ],
-        //             ],
-        //         },
-        //     },
-        //     { model: SpotImage }
-        // ],
+        include: [
+            {
+                model: Review,
+            },
+            {
+                model: SpotImage
+            },
+        ],
         attributes: {
             exclude: ['updatedAt', 'createdAt'],
         },
