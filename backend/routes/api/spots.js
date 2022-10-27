@@ -191,6 +191,16 @@ router.get('/current', requireAuth, async (req, res, next) => {
     } else res.status(200).json({ message: 'You currently have no spots!'});
 });
 
+router.get('/:spotId/reviews', async (req, res, next) => {
+    const { spotId } = req.params;
+    let getASpotReviews = await Review.findAll({
+        where: {
+            spotId: spotId,
+        },
+    })
+    return res.status(200).json(getASpotReviews)
+});
+
 // gets Spot by spotId
 router.get('/:spotId', requireAuth, async (req, res, next) => {
     const { spotId } = req.params;
