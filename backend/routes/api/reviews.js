@@ -9,6 +9,37 @@ const { requireAuth } = require('../../utils/auth');
 
 const router = express.Router();
 
+// allows an authorized user to update their reviews
+router.put('/:reviewId', requireAuth, async (req, res, next) => {
+    const { reviewId } = req.params;
+    const { review, stars } = req.body;
+    const findReview = await Review.findByPk(reviewId);
+    if (!review || !stars) {
+        const err = new Error;
+        err.message = "Validation error";
+        err.status = 400;
+        err.errors = {
+            "review": "Review text is required",
+            "stars": "Stars must be an integer from 1 to 5",
+        };
+        res.status(err.status).json({ errorCode: err.status, message: err.message, errors: err.errors });
+        next(err);
+    }
+    if (findReview) {
+        findReview.update({
+            review,
+            stars,
+        });
+        return res.status(200).json(findReview);
+    } else if (!findReview) {
+        const err = new Error;
+        err.status = 404;
+        err.message = "Review couldn't be found";
+        res.status(err.status).json({ errorCode: err.status, message: err.message });
+        next(err);
+    };
+});
+
 // allows an authorized user to post an image to a review
 router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
     const { reviewId } = req.params;
@@ -43,6 +74,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
     next(err);
 });
 
+// get all the reviews left by the current user
 router.get('/current', requireAuth, async (req, res, next) => {
     const findCurrentUserReviews = await Review.findAll({
         where: {

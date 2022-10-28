@@ -9,7 +9,7 @@ const { requireAuth } = require('../../utils/auth');
 
 const router = express.Router();
 
-
+// allows an authorized user to update a spots information
 router.put('/:spotId', requireAuth, async (req, res, next) => {
     const { spotId } = req.params;
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
@@ -59,7 +59,7 @@ router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
     if (getSpotById) {
         const spotsReviews = await Review.findAll({
             where: {
-                spotId: spotId,
+                spotId: Number(spotId),
             },
         });
         spotsReviews.forEach(review => {
