@@ -200,7 +200,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
                 where: {
                     spotId: spot.dataValues.id,
                 },
-                group: ['spotId', 'userId', 'stars', 'review', 'updatedAt', 'createdAt'],
+                group: ['id', 'spotId', 'userId', 'stars', 'review', 'updatedAt', 'createdAt'],
             });
             const ratingTotal = await Review.findOne({
                 attributes: {
@@ -214,7 +214,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
                 where: {
                     spotId: spot.dataValues.id,
                 },
-                group: ['spotId', 'userId', 'stars', 'review', 'updatedAt', 'createdAt'],
+                group: ['id', 'spotId', 'userId', 'stars', 'review', 'updatedAt', 'createdAt'],
             });
             const previewImage = await SpotImage.findOne({
                 where: {
@@ -299,7 +299,7 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
             where: {
                 userId: findSpotById.ownerId,
             },
-            group: ['spotId', 'userId', 'stars', 'review', 'updatedAt', 'createdAt'],
+            group: ['id', 'spotId', 'userId', 'stars', 'review', 'updatedAt', 'createdAt'],
         });
         const ratingTotal = await Review.findOne({
             attributes: {
@@ -313,7 +313,7 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
             where: {
                 spotId: spotId,
             },
-            group: ['spotId', 'userId', 'stars', 'review', 'updatedAt', 'createdAt'],
+            group: ['id', 'spotId', 'userId', 'stars', 'review', 'updatedAt', 'createdAt'],
         });
         findSpotById.Owner = findOwner;
         findSpotById.numReviews = (ratingCount !== null)
@@ -365,7 +365,7 @@ router.get('/', async (req, res, next) => {
                     ],
                 ],
             },
-            group: ['spotId', 'userId', 'review', 'stars', 'updatedAt', 'createdAt'],
+            group: ['id', 'spotId', 'userId', 'review', 'stars', 'updatedAt', 'createdAt'],
         });
         const previewImage = await SpotImage.findOne({
             where: {
