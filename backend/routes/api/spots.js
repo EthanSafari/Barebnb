@@ -51,6 +51,71 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
     };
 });
 
+// allows a user to create a booking for a spot given the spots id
+router.post('/:spotIdForBooking/bookings', requireAuth, async (req, res, next) => {
+    const { spotIdForBooking } = req.params;
+    const { startDate, endDate } = req.body;
+    const findSpot = await Spot.findByPk(spotIdForBooking);
+    if (!startDate || !endDate) {
+        const err = new Error;
+        err.message = "Validation error";
+        err.status = 400;
+        err.errors = {
+            "review": "Review text is required",
+            "stars": "Stars must be an integer from 1 to 5",
+        };
+        res.status(err.status).json({ errorCode: err.status, message: err.message, errors: err.errors });
+        next(err);
+    };
+    if (findSpot) {
+        const findSpotsBookings = await Booking.findAll({
+            where: {
+                spotId: Number(spotIdForBooking),
+            },
+        });
+        if (findSpotsBookings.length) {
+            findSpotsBookings.forEach(booking => {
+                console.log(typeof(booking.startDate))
+                if (booking.dataValues.startDate <= startDate && booking.dataValues.endDate >= endDate) {
+                    const err = new Error;
+                    err.message = "Sorry, this spot is already booked for the specified dates";
+                    err.status = 403;
+                    err.errors = {
+                        "startDate": "Start date conflicts with an existing booking",
+                        "endDate": "End date conflicts with an existing booking",
+                    };
+                    res.status(err.status).json({ errorCode: err.status, message: err.message, errors: err.errors });
+                    next(err);
+                };
+            });
+        };
+        if (startDate < endDate) {
+            const createBooking = await Booking.create({
+                userId: req.user.id,
+                spotId: Number(spotIdForBooking),
+                startDate,
+                endDate,
+            });
+            return res.status(200).json(createBooking);
+        } else {
+            const err = new Error;
+            err.message = "Validation error";
+            err.status = 400;
+            err.errors = {
+                "endDate": "endDate cannot be on or before startDate"
+            };
+            res.status(err.status).json({ errorCode: err.status, message: err.message, errors: err.errors });
+            next(err);
+        };
+    } else {
+        const err = new Error;
+        err.status = 404;
+        err.message = "Spot couldn't be found";
+        res.status(err.status).json({ errorCode: err.status, message: err.message });
+        next(err);
+    };
+});
+
 // allows an authorized user to post reviews about a spot
 router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
     const { spotId } = req.params;

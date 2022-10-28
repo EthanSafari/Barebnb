@@ -24,7 +24,7 @@ router.put('/:reviewId', requireAuth, async (req, res, next) => {
         };
         res.status(err.status).json({ errorCode: err.status, message: err.message, errors: err.errors });
         next(err);
-    }
+    };
     if (findReview) {
         findReview.update({
             review,

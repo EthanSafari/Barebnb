@@ -27,23 +27,14 @@ module.exports = (sequelize, DataTypes) => {
     startDate: {
       type: DataTypes.DATE,
       validate: {
-        isAfter: new Date(),
-        checkDate(date) {
-          let current = new Date();
-          if (date < current)
-            throw new Error(`Date entered must be a future date`);
-        },
+        isAfter: `${new Date().getUTCFullYear()}-${new Date().getUTCMonth() + 1}-${new Date().getUTCDate()}`,
+        isBefore: this.endDate,
       },
     },
     endDate: {
       type: DataTypes.DATE,
       validate: {
         isAfter: this.startDate,
-        checkDate(date) {
-          let current = new Date();
-          if (date < current)
-            throw new Error(`Date entered must be a future date`);
-        },
       },
     },
   }, {
