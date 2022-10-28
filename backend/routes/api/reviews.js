@@ -9,6 +9,7 @@ const { requireAuth } = require('../../utils/auth');
 
 const router = express.Router();
 
+// allows an authorized user to post an image to a review
 router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
     const { reviewId } = req.params;
     const { url } = req.body;
@@ -24,7 +25,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
                 reviewId: reviewId,
             },
         });
-        if (findReviewAmount.length < 10 ) {
+        if (findReviewAmount.length < 10) {
             await addReviewImage.save();
             return res.status(200).json({ id: addReviewImage.id, url: addReviewImage.url });
         } else {
@@ -42,5 +43,36 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
     next(err);
 });
 
+router.get('/current', requireAuth, async (req, res, next) => {
+    const findCurrentUserReviews = await Review.findAll({
+        where: {
+            userId: req.user.id,
+        },
+        include: [
+            {
+                model: Spot,
+                attributes: [
+                    "id",
+                    "ownerId",
+                    "address",
+                    "city",
+                    "state",
+                    "country",
+                    "lat",
+                    "lng",
+                    "name",
+                    "description",
+                    "price"
+                ]
+            },
+            {
+                model: ReviewImage,
+                attributes: ['id', 'url'],
+            },
+        ],
+    });
+    if (findCurrentUserReviews.length) return res.status(200).json(findCurrentUserReviews);
+    else return res.status(200).json({ message: "Looks like you haven't left any reviews!" });
+});
 
 module.exports = router;
