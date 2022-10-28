@@ -70,7 +70,7 @@ router.post('/:spotIdForBooking/bookings', requireAuth, async (req, res, next) =
     if (findSpot) {
         const findSpotsBookings = await Booking.findAll({
             where: {
-                spotId: Number(spotIdForBooking),
+                spotId: spotIdForBooking,
             },
         });
         if (findSpotsBookings.length) {
@@ -137,14 +137,13 @@ router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
             };
         });
         const { review, stars } = req.body;
-        const createReview = Review.build({
-            spotId: spotId,
-            userId: req.user.id,
-            review,
-            stars,
-        });
-        if (createReview) {
-            await createReview.save();
+        if (review && stars) {
+            const createReview = await Review.create({
+                spotId: spotId,
+                userId: req.user.id,
+                review,
+                stars,
+            });
             return res.status(201).json(createReview);
         } else {
             const err = new Error;
