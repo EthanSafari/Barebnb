@@ -20,22 +20,22 @@ module.exports = (sequelize, DataTypes) => {
   Booking.init({
     spotId: {
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
     userId: {
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
     startDate: {
-      type: DataTypes.DATE,
-      validate: {
-        isAfter: `${new Date().getUTCFullYear()}-${new Date().getUTCMonth() + 1}-${new Date().getUTCDate()}`,
-        isBefore: this.endDate,
-      },
+      type: DataTypes.DATEONLY,
+      allowNull: false,
     },
     endDate: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
+      allowNull: false,
       validate: {
         isAfter: this.startDate,
-      },
+      }
     },
   }, {
     sequelize,
