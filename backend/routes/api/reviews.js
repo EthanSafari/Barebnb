@@ -24,7 +24,6 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
                 reviewId: reviewId,
             },
         });
-        console.log(findReviewAmount)
         if (findReviewAmount.length < 10 ) {
             await addReviewImage.save();
             return res.status(200).json({ id: addReviewImage.id, url: addReviewImage.url });
