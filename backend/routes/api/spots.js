@@ -54,7 +54,9 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
 // allows a user to create a booking for a spot given the spots id
 router.post('/:spotIdForBooking/bookings', requireAuth, async (req, res, next) => {
     const { spotIdForBooking } = req.params;
-    const { startDate, endDate } = req.body;
+    let { startDate, endDate } = req.body;
+    startDate = new Date(startDate);
+    endDate = new Date(endDate);
     const findSpot = await Spot.findByPk(spotIdForBooking);
     if (!startDate || !endDate) {
         const err = new Error;
