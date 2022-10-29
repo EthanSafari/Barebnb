@@ -74,28 +74,29 @@ router.post('/:spotIdForBooking/bookings', requireAuth, async (req, res, next) =
             },
         });
         if (findSpotsBookings.length) {
-            findSpotsBookings.forEach(booking => {
-                if (booking.dataValues.startDate <= startDate && booking.dataValues.endDate >= endDate) {
-                    const err = new Error;
-                    err.message = "Sorry, this spot is already booked for the specified dates";
-                    err.status = 403;
-                    err.errors = {
-                        "startDate": "Start date conflicts with an existing booking",
-                        "endDate": "End date conflicts with an existing booking",
+            if (startDate < endDate) {
+                const createBooking = Booking.build({
+                    userId: req.user.id,
+                    spotId: Number(spotIdForBooking),
+                    startDate,
+                    endDate,
+                });
+                findSpotsBookings.forEach(booking => {
+                    if (booking.dataValues.startDate <= startDate && booking.dataValues.endDate >= endDate && booking !== createBooking) {
+                        const err = new Error;
+                        err.message = "Sorry, this spot is already booked for the specified dates";
+                        err.status = 403;
+                        err.errors = {
+                            "startDate": "Start date conflicts with an existing booking",
+                            "endDate": "End date conflicts with an existing booking",
+                        };
+                        res.status(err.status).json({ errorCode: err.status, message: err.message, errors: err.errors });
+                        throw err;
                     };
-                    res.status(err.status).json({ errorCode: err.status, message: err.message, errors: err.errors });
-                    next(err);
-                };
-            });
-        };
-        if (startDate < endDate) {
-            const createBooking = await Booking.create({
-                userId: req.user.id,
-                spotId: Number(spotIdForBooking),
-                startDate,
-                endDate,
-            });
-            return res.status(200).json(createBooking);
+                });
+                await createBooking.save();
+                return res.status(200).json(createBooking);
+            };
         } else {
             const err = new Error;
             err.message = "Validation error";
@@ -132,13 +133,13 @@ router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
                 err.status = 403;
                 err.message = "User already has a review for this spot";
                 res.status(err.status).json({ errorCode: err.status, message: err.message });
-                next(err);
+                throw err;
             };
         });
         const { review, stars } = req.body;
         if (review && stars) {
             const createReview = await Review.create({
-                spotId: spotId,
+                spotId: parseInt(spotId),
                 userId: req.user.id,
                 review,
                 stars,

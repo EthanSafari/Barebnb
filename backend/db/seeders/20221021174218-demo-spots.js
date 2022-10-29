@@ -55,8 +55,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('Spots', {
-      name: { [Op.in]: ['The Hill Residence', "Peggy's Secret Pad", 'Strickland Propane'] }
-    }, {});
+    await queryInterface.bulkDelete('Spots', null, {});
   }
 };

@@ -41,14 +41,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('Reviews', {
-      review: {
-        [Op.in]: [
-          "I don't know you! That's my purse!",
-          "Hank loves this place, he never wants to come home!",
-          "PEGGY DID HWAAAAAATTTTTTTT!!!!!",
-        ],
-      },
-    });
+    await queryInterface.bulkDelete('Reviews', null, {});
   }
 };
