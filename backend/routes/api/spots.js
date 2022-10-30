@@ -33,20 +33,9 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
         res.status(200).json(findSpotById);
     } else {
         const err = new Error;
-        err.status = 400;
-        err.message = "Validation Error";
-        err.errors = {
-            "address": "Street address is required",
-            "city": "City is required",
-            "state": "State is required",
-            "country": "Country is required",
-            "lat": "Latitude is not valid",
-            "lng": "Longitude is not valid",
-            "name": "Name must be less than 50 characters",
-            "description": "Description is required",
-            "price": "Price per day is required"
-        };
-        res.status(err.status).json({ errorCode: err.status, message: err.message, errors: err.errors });
+        err.status = 404;
+        err.message = "Spot couldn't be found";
+        res.status(err.status).json({ errorCode: err.status, message: err.message });
         next(err);
     };
 });
