@@ -11,15 +11,15 @@ const router = express.Router();
 
 router.delete('/:reviewId', requireAuth, async (req, res, next) => {
     const { reviewId } = req.params;
-    const findBooking = await Booking.findByPk(reviewId);
-    if (!findBooking) {
+    const findReview = await Review.findByPk(reviewId);
+    if (!findReview) {
         const err = new Error;
         err.status = 404;
-        err.message = "Spot Image couldn't be found";
+        err.message = "Review couldn't be found";
         res.status(err.status).json({ errorCode: err.status, message: err.message });
         next(err);
     };
-    await findBooking.destroy();
+    await findReview.destroy();
     return res.status(200).json({ message: 'Successfully Deleted' });
 });
 
