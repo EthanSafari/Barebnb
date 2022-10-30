@@ -278,6 +278,48 @@ router.get('/current', requireAuth, async (req, res, next) => {
     } else res.status(200).json({ message: 'You currently have no spots!' });
 });
 
+router.get('/:spotIdForBooking/bookings', requireAuth, async (req, res, next) => {
+    let { spotIdForBooking } = req.params;
+    spotIdForBooking = parseInt(spotIdForBooking);
+    const bookings = {};
+    const findSpot = await Spot.findByPk(spotIdForBooking);
+    if (!findSpot) {
+        const err = new Error;
+        err.status = 404;
+        err.message = "Spot couldn't be found";
+        res.status(err.status).json({ errorCode: err.status, message: err.message });
+        next(err);
+    };
+    if (req.user.id === findSpot.dataValues.ownerId) {
+        const ownerResponse = await Booking.findAll({
+            where: {
+                spotId: spotIdForBooking,
+            },
+            attributes: {
+                include: ['id'],
+            },
+            include: {
+                model: User,
+                attributes: {
+                    exclude: ['username', 'hashedPassword', 'createdAt', 'updatedAt', 'email'],
+                },
+            },
+        });
+        bookings.Bookings = ownerResponse;
+        return res.status(200).json(bookings);
+    } else {
+        const clientResponse = await Booking.findAll({
+            where: {
+                spotId: spotIdForBooking,
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt', 'userId'],
+                },
+            },
+        });
+        bookings.Bookings = clientResponse;
+        return res.status(200).json(bookings);
+    };
+});
 
 //gets the reviews for a Spot based on spotId
 router.get('/:spotId/reviews', async (req, res, next) => {
