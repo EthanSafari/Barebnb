@@ -90,6 +90,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
 
 // get all the reviews left by the current user
 router.get('/current', requireAuth, async (req, res, next) => {
+    const reviews = {};
     const findCurrentUserReviews = await Review.findAll({
         where: {
             userId: req.user.id,
@@ -117,7 +118,8 @@ router.get('/current', requireAuth, async (req, res, next) => {
             },
         ],
     });
-    if (findCurrentUserReviews.length) return res.status(200).json(findCurrentUserReviews);
+    reviews.Reviews = findCurrentUserReviews;
+    if (findCurrentUserReviews.length) return res.status(200).json(reviews);
     else return res.status(200).json({ message: "Looks like you haven't left any reviews!" });
 });
 
