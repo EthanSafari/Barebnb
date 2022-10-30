@@ -464,7 +464,7 @@ router.get('/', handleValidationErrors, async (req, res, next) => {
 
     let limit;
     let offset;
-    if (page >= 0 && size >= 0 && size <= 20) {
+    if (page >= 1 && size >= 1 && size <= 20) {
         limit = size;
         offset = (page - 1) * size;
     };
