@@ -44,8 +44,6 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
 router.post('/:spotIdForBooking/bookings', requireAuth, async (req, res, next) => {
     const { spotIdForBooking } = req.params;
     const { startDate, endDate } = req.body;
-    // startDate = new Date(startDate);
-    // endDate = new Date(endDate);
     const findSpot = await Spot.findByPk(spotIdForBooking);
     const findSpotsBookings = await Booking.findAll({
         where: {
@@ -91,6 +89,16 @@ router.post('/:spotIdForBooking/bookings', requireAuth, async (req, res, next) =
                 throw err;
             };
         });
+    };
+    if (startDate > endDate) {
+        const err = new Error;
+        err.message = "Validation error";
+        err.status = 400;
+        err.errors = {
+            "endDate": "endDate cannot come before startDate"
+        }
+        res.status(err.status).json({ errorCode: err.status, message: err.message, errors: err.errors });
+        throw err;
     };
     await createBooking.save();
     return res.status(200).json(createBooking);

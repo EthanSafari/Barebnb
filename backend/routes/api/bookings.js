@@ -9,6 +9,74 @@ const { requireAuth } = require('../../utils/auth');
 
 const router = express.Router();
 
+router.put('/:bookingId', requireAuth, handleValidationErrors, async (req, res, next) => {
+    const { bookingId } = req.params;
+    const { startDate, endDate } = req.body;
+    const findBooking = await Booking.findByPk(bookingId);
+    const findBookings = await Booking.findAll({
+        where: {
+            id: bookingId,
+        },
+    });
+    if (!findBooking) {
+        const err = new Error;
+        err.status = 404;
+        err.message = "Booking couldn't be found";
+        res.status(err.status).json({ errorCode: err.status, message: err.message });
+        next(err);
+    };
+    if (findBookings.length) {
+        findBookings.forEach(booking => {
+            if (booking.dataValues.startDate <= startDate && booking.dataValues.endDate >= endDate) {
+                const err = new Error;
+                err.message = "Sorry, this spot is already booked for the specified dates";
+                err.status = 403;
+                err.errors = {
+                    "startDate": "Start date conflicts with an existing booking",
+                    "endDate": "End date conflicts with an existing booking",
+                };
+                res.status(err.status).json({ errorCode: err.status, message: err.message, errors: err.errors });
+                throw err;
+            };
+            // const currentDate = new Date();
+            // if (new Date(booking.dataValues.startDate) < currentDate
+            //     && new Date(booking.dataValues.endDate) < currentDate
+            //     && startDate > booking.dataValues.startDate
+            //     && endDate > booking.dataValues.endDate) {
+            //     const err = new Error;
+            //     err.message = "Past bookings can't be modified";
+            //     err.status = 403;
+            //     res.status(err.status).json({ errorCode: err.status, message: err.message });
+            //     throw err;
+            // }
+        });
+    };
+    if (startDate > endDate) {
+        const err = new Error;
+        err.message = "Validation error";
+        err.status = 400;
+        err.errors = {
+            "endDate": "endDate cannot come before startDate"
+        };
+        res.status(err.status).json({ errorCode: err.status, message: err.message, errors: err.errors });
+        throw err;
+    };
+    if (new Date(findBooking.dataValues.startDate) >= new Date(startDate) && new Date(findBooking.dataValues.endDate) >= new Date(endDate)) {
+        findBooking.update({
+            startDate,
+            endDate,
+        });
+        return res.status(200).json(findBooking);
+    } else {
+    const err = new Error;
+    err.message = "Past bookings can't be modified";
+    err.status = 403;
+    res.status(err.status).json({ errorCode: err.status, message: err.message });
+    throw err;
+    };
+});
+
+// allows a current user to view all the existing bookings
 router.get('/current', requireAuth, async (req, res, next) => {
     const bookings = {};
     const bookingArray = [];
@@ -35,7 +103,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
         });
         findSpot.previewImage = findPreviewImage.dataValues.url;
         booking.Spot = findSpot;
-        bookingArray.push(booking)
+        bookingArray.push(booking);
     };
     bookings.Bookings = bookingArray;
     return res.status(200).json(bookings);
