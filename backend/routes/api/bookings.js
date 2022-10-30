@@ -9,6 +9,27 @@ const { requireAuth } = require('../../utils/auth');
 
 const router = express.Router();
 
+router.delete('/:bookingId', requireAuth, async (req, res, next) => {
+    const { bookingId } = req.params;
+    const findBooking = await Booking.findByPk(bookingId);
+    if (!findBooking) {
+        const err = new Error;
+        err.status = 404;
+        err.message = "Spot Image couldn't be found";
+        res.status(err.status).json({ errorCode: err.status, message: err.message });
+        next(err);
+    };
+    if ((new Date()) > (new Date(findBooking.dataValues.startDate))) {
+        const err = new Error;
+        err.status = 403;
+        err.message = "Bookings that have been started can't be deleted";
+        res.status(err.status).json({ errorCode: err.status, message: err.message });
+        next(err);
+    };
+    await findBooking.destroy();
+    return res.status(200).json({ message: 'Successfully Deleted' });
+});
+
 router.put('/:bookingId', requireAuth, handleValidationErrors, async (req, res, next) => {
     const { bookingId } = req.params;
     const { startDate, endDate } = req.body;
