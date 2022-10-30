@@ -38,17 +38,6 @@ router.put('/:bookingId', requireAuth, handleValidationErrors, async (req, res, 
                 res.status(err.status).json({ errorCode: err.status, message: err.message, errors: err.errors });
                 throw err;
             };
-            // const currentDate = new Date();
-            // if (new Date(booking.dataValues.startDate) < currentDate
-            //     && new Date(booking.dataValues.endDate) < currentDate
-            //     && startDate > booking.dataValues.startDate
-            //     && endDate > booking.dataValues.endDate) {
-            //     const err = new Error;
-            //     err.message = "Past bookings can't be modified";
-            //     err.status = 403;
-            //     res.status(err.status).json({ errorCode: err.status, message: err.message });
-            //     throw err;
-            // }
         });
     };
     if (startDate > endDate) {
