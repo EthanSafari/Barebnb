@@ -313,7 +313,7 @@ router.get('/:spotIdForBooking/bookings', requireAuth, async (req, res, next) =>
                 spotId: spotIdForBooking,
             },
             attributes: {
-                exclude: ['createdAt', 'updatedAt', 'userId'],
+                exclude: ['createdAt', 'updatedAt'],
             },
         });
         bookings.Bookings = clientResponse;
