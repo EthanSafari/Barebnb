@@ -15,7 +15,7 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
     if (!findBooking) {
         const err = new Error;
         err.status = 404;
-        err.message = "Spot Image couldn't be found";
+        err.message = "Booking couldn't be found";
         res.status(err.status).json({ errorCode: err.status, message: err.message });
         next(err);
     };
