@@ -11,6 +11,8 @@ const router = express.Router();
 
 router.get('/current', requireAuth, async (req, res, next) => {
     const bookings = {};
+    const bookingArray = [];
+    let booking;
     const findCurrentUserBookings = await Booking.findAll({
         attributes: {
             include: ['id'],
@@ -19,17 +21,23 @@ router.get('/current', requireAuth, async (req, res, next) => {
         where: {
             userId: req.user.id,
         },
-        include: {
-            model: Spot,
-            include: {
-                model: SpotImage,
-                attributes: {
-                    exclude: ['createdAt', 'updatedAt', 'spotId', 'id', 'preview'],
-                },
-            }
-         },
     });
-    bookings.Bookings = findCurrentUserBookings;
+    for (let i = 0; i < findCurrentUserBookings.length; i++) {
+        booking = findCurrentUserBookings[i];
+        booking = booking.toJSON();
+        let findSpot = await Spot.findByPk(booking.spotId);
+        findSpot = findSpot.toJSON();
+        const findPreviewImage = await SpotImage.findOne({
+            where: {
+                id: booking.spotId,
+                preview: true,
+            },
+        });
+        findSpot.previewImage = findPreviewImage.dataValues.url;
+        booking.Spot = findSpot;
+        bookingArray.push(booking)
+    };
+    bookings.Bookings = bookingArray;
     return res.status(200).json(bookings);
 });
 

@@ -54,10 +54,22 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
 // allows a user to create a booking for a spot given the spots id
 router.post('/:spotIdForBooking/bookings', requireAuth, async (req, res, next) => {
     const { spotIdForBooking } = req.params;
-    let { startDate, endDate } = req.body;
-    startDate = new Date(startDate);
-    endDate = new Date(endDate);
+    const { startDate, endDate } = req.body;
+    // startDate = new Date(startDate);
+    // endDate = new Date(endDate);
     const findSpot = await Spot.findByPk(spotIdForBooking);
+    const findSpotsBookings = await Booking.findAll({
+        where: {
+            spotId: spotIdForBooking,
+        },
+    });
+    if (!findSpot) {
+        const err = new Error;
+        err.status = 404;
+        err.message = "Spot couldn't be found";
+        res.status(err.status).json({ errorCode: err.status, message: err.message });
+        next(err);
+    };
     if (!startDate || !endDate) {
         const err = new Error;
         err.message = "Validation error";
@@ -69,53 +81,30 @@ router.post('/:spotIdForBooking/bookings', requireAuth, async (req, res, next) =
         res.status(err.status).json({ errorCode: err.status, message: err.message, errors: err.errors });
         next(err);
     };
-    if (findSpot) {
-        const findSpotsBookings = await Booking.findAll({
-            where: {
-                spotId: spotIdForBooking,
-            },
+    const createBooking = Booking.build({
+        userId: req.user.id,
+        spotId: Number(spotIdForBooking),
+        startDate,
+        endDate,
+    });
+    if (findSpotsBookings.length) {
+        findSpotsBookings.forEach(booking => {
+            if (booking.dataValues.startDate <= startDate && booking.dataValues.endDate >= endDate
+                || booking.dataValues.userId == createBooking.userId) {
+                const err = new Error;
+                err.message = "Sorry, this spot is already booked for the specified dates";
+                err.status = 403;
+                err.errors = {
+                    "startDate": "Start date conflicts with an existing booking",
+                    "endDate": "End date conflicts with an existing booking",
+                };
+                res.status(err.status).json({ errorCode: err.status, message: err.message, errors: err.errors });
+                throw err;
+            };
         });
-        if (findSpotsBookings.length) {
-            if (startDate < endDate) {
-                const createBooking = Booking.build({
-                    userId: req.user.id,
-                    spotId: Number(spotIdForBooking),
-                    startDate,
-                    endDate,
-                });
-                findSpotsBookings.forEach(booking => {
-                    if (booking.dataValues.startDate <= startDate && booking.dataValues.endDate >= endDate && booking !== createBooking) {
-                        const err = new Error;
-                        err.message = "Sorry, this spot is already booked for the specified dates";
-                        err.status = 403;
-                        err.errors = {
-                            "startDate": "Start date conflicts with an existing booking",
-                            "endDate": "End date conflicts with an existing booking",
-                        };
-                        res.status(err.status).json({ errorCode: err.status, message: err.message, errors: err.errors });
-                        throw err;
-                    };
-                });
-                await createBooking.save();
-                return res.status(200).json(createBooking);
-            };
-        } else {
-            const err = new Error;
-            err.message = "Validation error";
-            err.status = 400;
-            err.errors = {
-                "endDate": "endDate cannot be on or before startDate"
-            };
-            res.status(err.status).json({ errorCode: err.status, message: err.message, errors: err.errors });
-            next(err);
-        };
-    } else {
-        const err = new Error;
-        err.status = 404;
-        err.message = "Spot couldn't be found";
-        res.status(err.status).json({ errorCode: err.status, message: err.message });
-        next(err);
     };
+    await createBooking.save();
+    return res.status(200).json(createBooking);
 });
 
 // allows an authorized user to post reviews about a spot

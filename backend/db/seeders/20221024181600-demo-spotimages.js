@@ -26,7 +26,7 @@ module.exports = {
     {
       spotId: 3,
       url: 'https://th.bing.com/th/id/R.28bb83111dbd4929ffa5a8dcf8328aad?rik=CumSxQPlRa81DA&riu=http%3a%2f%2fasshawk.com%2fwp-content%2fuploads%2f2012%2f02%2fstrickland-propane.jpg&ehk=SgH1XJG2%2b9sOeTrwnDrqPRwDIzCmIa8Xwp9WpaZSnas%3d&risl=&pid=ImgRaw&r=0',
-      preview: false,
+      preview: true,
     },
    ])
   },
