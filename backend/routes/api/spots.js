@@ -9,6 +9,20 @@ const { requireAuth } = require('../../utils/auth');
 
 const router = express.Router();
 
+router.delete('/:spotId', requireAuth, async (req, res, next) => {
+    const { spotId } = req.params;
+    const findSpot = await Spot.findByPk(spotId);
+    if (!findSpot) {
+        const err = new Error;
+        err.status = 404;
+        err.message = "Spot couldn't be found";
+        res.status(err.status).json({ errorCode: err.status, message: err.message });
+        next(err);
+    };
+    await findSpot.destroy();
+    return res.status(200).json({ message: 'Successfully Deleted' });
+});
+
 // allows an authorized user to update a spots information
 router.put('/:spotId', requireAuth, async (req, res, next) => {
     const { spotId } = req.params;
