@@ -311,9 +311,9 @@ router.get('/:spotIdForBooking/bookings', requireAuth, async (req, res, next) =>
         const clientResponse = await Booking.findAll({
             where: {
                 spotId: spotIdForBooking,
-                attributes: {
-                    exclude: ['createdAt', 'updatedAt', 'userId'],
-                },
+            },
+            attributes: {
+                exclude: ['createdAt', 'updatedAt', 'userId'],
             },
         });
         bookings.Bookings = clientResponse;
