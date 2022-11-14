@@ -1,0 +1,10 @@
+.signup-form {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+}
+
+.signup-label {
+    display: flex;
+    justify-content: space-between;
+}

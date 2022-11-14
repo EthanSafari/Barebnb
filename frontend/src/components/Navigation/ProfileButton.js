@@ -31,7 +31,9 @@ function ProfileButton({ user }) {
   return (
     <>
       <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
+        <i class="fa-solid fa-skull" style={{
+          cursor: 'pointer',
+        }}></i>
       </button>
       {showMenu && (
         <ul className="profile-dropdown">
