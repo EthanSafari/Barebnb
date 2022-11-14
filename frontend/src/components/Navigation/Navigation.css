@@ -1,0 +1,13 @@
+.navBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 2%;
+    padding-bottom: .2em;
+    border-bottom: .01em solid black;
+    align-items: center;
+}
+
+.userSignOptions {
+    display: flex;
+}
