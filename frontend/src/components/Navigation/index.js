@@ -27,7 +27,12 @@ function Navigation({ isLoaded }) {
         <nav className='navbar'>
             <div className='brand-name'>
                 <NavLink exact to="/">
-                    scarebnb
+                <i className="fa-brands fa-airbnb" style={{
+                    backgroundColor: 'transparent',
+                    margin: '0 .5rem',
+                    fontSize: '2rem'
+                }}></i>
+                airbnb
                 </NavLink>
             </div>
             <div className='navbar-links'>

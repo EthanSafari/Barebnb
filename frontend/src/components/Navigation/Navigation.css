@@ -4,11 +4,8 @@
     align-items: center;
     margin: 2%;
     padding-bottom: .2em;
-    border-bottom: .01em solid black;
-    box-shadow: 0 .05rem .2rem white;
-    background-image: linear-gradient(black, grey,lightgrey,grey, black);
+    box-shadow: 0 .05rem .1rem rgba(0, 0, 0, 80%);
     margin: 0;
-    color: white;
     margin: 0 0 1rem 0;
     padding: .5rem;
 }
@@ -17,12 +14,17 @@
     font-size: 1.5rem;
     margin: .5rem;
     background-color: transparent;
+    color: rgb(255,183,196);
+    text-decoration: none;
 }
 
-.navbar-links li {
+.navbar-links {
     display: inline-flex;
     justify-content: space-between;
     background-color: transparent;
+    border: .08rem solid black;
+    padding: .3rem;
+    border-radius: 20px;
 }
 
 .navbar-links a {

@@ -286,6 +286,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
             const previewImage = await SpotImage.findOne({
                 where: {
                     spotId: spot.dataValues.id,
+                    preview: true,
                 },
                 group: ['id', 'spotId', 'preview', 'url', 'updatedAt', 'createdAt'],
             });

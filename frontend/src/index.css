@@ -4,8 +4,6 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: black;
-    color: white;
 }
 
 body {
@@ -16,5 +14,4 @@ body {
 a {
     background-color: transparent;
     text-decoration: none;
-
 }
