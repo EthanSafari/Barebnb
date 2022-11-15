@@ -13,6 +13,7 @@ import configureStore from './store';
 import { restoreCSRF, csrfFetch } from './store/csrf';
 
 import * as sessionActions from './store/session';
+import * as spotActions from './store/spots';
 
 const store = configureStore();
 
@@ -22,15 +23,16 @@ if (process.env.NODE_ENV !== 'production') {
   window.csrfFetch = csrfFetch;
   window.store = store;
   window.sessionActions = sessionActions;
+  window.spotActions = spotActions;
 };
 
 function Root() {
   return (
     <Provider store={store}>
       <ModalProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </ModalProvider>
     </Provider>
   );
