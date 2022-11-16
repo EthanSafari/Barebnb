@@ -1,12 +1,20 @@
-import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
+import { deleteSpotById } from '../../store/spots';
 
 const SingleSpot = ({ spots }) => {
-    const { id } = useParams();
-    const singleSpot = spots.find(spot => spot.id == id);
+    const { spotId } = useParams();
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const singleSpot = spots.find(spot => spot.id === Number(spotId));
     const sessionUser = useSelector(state => state.session.user);
-    // console.log(sessionUser.id)
-    // console.log(singleSpot.ownerId)
+
+    const deleteSpot = (e) => {
+        e.preventDefault();
+        dispatch(deleteSpotById(singleSpot.id));
+        history.push('/')
+    };
+
     if (!sessionUser) return null;
     if (!singleSpot) return null;
     else return (
@@ -20,11 +28,11 @@ const SingleSpot = ({ spots }) => {
             <h4>{singleSpot.city}, {singleSpot.state}</h4>
             <h4>{singleSpot.country}</h4>
             <h5>${singleSpot.price}/night</h5>
-                {/* {sessionUser && sessionUser.id === singleSpot.ownerId ? (
-                    <button>
-                        click me
+                {sessionUser && sessionUser.id === singleSpot.ownerId ? (
+                    <button onClick={deleteSpot}>
+                        Delete Listing
                     </button>
-                ) : null} */}
+                ) : null}
         </div>
     );
 };

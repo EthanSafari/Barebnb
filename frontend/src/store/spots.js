@@ -18,10 +18,10 @@ const addSpot = (spot) => {
     };
 };
 
-const deleteSpot = (spot) => {
+const deleteSpot = (spotId) => {
     return {
         type: DELETE_SPOT,
-        spot,
+        spotId,
     };
 };
 
@@ -33,7 +33,7 @@ export const getAllSpots = () => async dispatch => {
 };
 
 export const addNewSpot = (spot) => async dispatch => {
-    const response = await csrfFetch('api/spots', {
+    const response = await csrfFetch('/api/spots', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(spot),
@@ -46,13 +46,12 @@ export const addNewSpot = (spot) => async dispatch => {
 };
 
 export const deleteSpotById = (spotId) => async dispatch => {
-    const response = await csrfFetch(`api/spots/${spotId}`, {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
         method: 'DELETE',
     });
     if (response.ok) {
         dispatch(deleteSpot(spotId));
-        return response;
-    } else throw Error;
+     } else throw Error;
 };
 
 const initialState = { spots: null };
