@@ -21,11 +21,16 @@ module.exports = {
     {
       spotId: 1,
       url: 'https://storage.planner5d.com/s/2f6ae95e21581f847bc6d2ca314ee9c2_10.jpg?v=1427463915.jpg',
-      preview: true,
+      preview: false,
     },
     {
       spotId: 3,
       url: 'https://th.bing.com/th/id/R.28bb83111dbd4929ffa5a8dcf8328aad?rik=CumSxQPlRa81DA&riu=http%3a%2f%2fasshawk.com%2fwp-content%2fuploads%2f2012%2f02%2fstrickland-propane.jpg&ehk=SgH1XJG2%2b9sOeTrwnDrqPRwDIzCmIa8Xwp9WpaZSnas%3d&risl=&pid=ImgRaw&r=0',
+      preview: true,
+    },
+    {
+      spotId: 2,
+      url: 'https://th.bing.com/th/id/OIP.vBBx_j7Ofy4jrQpQ7p2lWgHaFj?pid=ImgDet&rs=1',
       preview: true,
     },
    ])
