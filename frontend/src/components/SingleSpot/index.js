@@ -1,9 +1,13 @@
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 const SingleSpot = ({ spots }) => {
     const { id } = useParams();
     const singleSpot = spots.find(spot => spot.id == id);
-    console.log(singleSpot)
+    const sessionUser = useSelector(state => state.session.user);
+    // console.log(sessionUser.id)
+    // console.log(singleSpot.ownerId)
+    if (!sessionUser) return null;
     if (!singleSpot) return null;
     else return (
         <div>
@@ -16,6 +20,11 @@ const SingleSpot = ({ spots }) => {
             <h4>{singleSpot.city}, {singleSpot.state}</h4>
             <h4>{singleSpot.country}</h4>
             <h5>${singleSpot.price}/night</h5>
+                {/* {sessionUser && sessionUser.id === singleSpot.ownerId ? (
+                    <button>
+                        click me
+                    </button>
+                ) : null} */}
         </div>
     );
 };
