@@ -68,7 +68,7 @@ const spotsReducer = (state = initialState, action) => {
             return { ...newState, spots: { ...newState.spots, [action.spot['id']]: action.spot } };
         case DELETE_SPOT:
             const copyState = {...state};
-            newState = {};
+            newState = {...state};
             newState.session = copyState.session;
             const spots = Object.values(copyState.spots);
             const spotsObject = normalizeArray(spots);
