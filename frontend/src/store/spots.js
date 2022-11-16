@@ -67,12 +67,26 @@ const spotsReducer = (state = initialState, action) => {
             newState = Object.assign({}, state);
             return { ...newState, spots: { ...newState.spots, [action.spot['id']]: action.spot } };
         case DELETE_SPOT:
-            newState = Object.assign({}, state);
-            delete newState[action.spotId];
+            const copyState = {...state};
+            newState = {};
+            newState.session = copyState.session;
+            const spots = Object.values(copyState.spots);
+            const spotsObject = normalizeArray(spots);
+            newState.spots = spotsObject;
+            delete newState.spots[action.spotId];
             return newState;
         default:
             return state;
     };
+};
+
+const normalizeArray = (array) => {
+    const object = {};
+    const arr = array.slice();
+    arr.forEach(element => {
+        object[element.id] = element;
+    });
+    return object;
 };
 
 export default spotsReducer;

@@ -12,7 +12,7 @@ const SingleSpot = ({ spots }) => {
     const deleteSpot = (e) => {
         e.preventDefault();
         dispatch(deleteSpotById(singleSpot.id));
-        history.push('/')
+        history.push('/spots')
     };
 
     if (!sessionUser) return null;
