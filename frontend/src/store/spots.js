@@ -35,7 +35,7 @@ const updateSpot = (spotId, updatedSpot) => {
 };
 
 export const getAllSpots = () => async dispatch => {
-    const response = await fetch('/api/spots');
+    const response = await csrfFetch('/api/spots');
     const data = await response.json();
     dispatch(getSpots(data.Spots));
     return response;
