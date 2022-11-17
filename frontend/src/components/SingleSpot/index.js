@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { deleteSpotById } from '../../store/spots';
+import UpdateSpotModal from '../UpdateSpot';
 
 const SingleSpot = ({ spots }) => {
     const { spotId } = useParams();
@@ -31,6 +32,11 @@ const SingleSpot = ({ spots }) => {
                 {sessionUser && sessionUser.id === singleSpot.ownerId ? (
                     <button onClick={deleteSpot}>
                         Delete Listing
+                    </button>
+                ) : null}
+                {sessionUser && sessionUser.id === singleSpot.ownerId ? (
+                    <button>
+                        <UpdateSpotModal spots={spots} />
                     </button>
                 ) : null}
         </div>
