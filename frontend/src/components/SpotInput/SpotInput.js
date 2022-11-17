@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { addNewSpot } from "../../store/spots";
 
 const SpotInput = () => {
@@ -14,6 +15,7 @@ const SpotInput = () => {
     const [price, setPrice] = useState(0.00);
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -31,6 +33,8 @@ const SpotInput = () => {
 
         const spot = await dispatch(addNewSpot(newSpot));
         if (spot) reset();
+
+        history.push('/spots');
     };
 
     const reset = () => {

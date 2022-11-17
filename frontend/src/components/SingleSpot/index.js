@@ -2,14 +2,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { deleteSpotById } from '../../store/spots';
 import UpdateSpotModal from '../UpdateSpot';
+import SpotReviewsById from '../SpotReviews';
 
 const SingleSpot = () => {
     const { spotId } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
-    const spots = useSelector(state => state.spots.spots);
-    const singleSpot = spots.find(spot => spot.id === Number(spotId));
+
+    const sessionSpots = useSelector(state => state.spots.spots);
     const sessionUser = useSelector(state => state.session.user);
+
+    const spots = Object.values(sessionSpots);
+
+    if (!sessionUser) return null;
+    if (spots === undefined) return null;
+
+    const singleSpot = spots.find(spot => spot.id === Number(spotId));
+    if (!singleSpot) return null;
 
     const deleteSpot = (e) => {
         e.preventDefault();
@@ -17,10 +26,9 @@ const SingleSpot = () => {
         history.push('/spots')
     };
 
-    if (!sessionUser) return null;
-    if (!singleSpot) return null;
-    else return (
+    return (
         <div>
+            <div>
             {!singleSpot.preview ? null
                 : singleSpot.preview.includes("doesn't have") ? null
                     : <img className='all-spots-preview-image' src={singleSpot.preview} alt={singleSpot.name}></img>}
@@ -30,16 +38,16 @@ const SingleSpot = () => {
             <h4>{singleSpot.city}, {singleSpot.state}</h4>
             <h4>{singleSpot.country}</h4>
             <h5>${singleSpot.price}/night</h5>
-                {sessionUser && sessionUser.id === singleSpot.ownerId ? (
-                    <button onClick={deleteSpot}>
-                        Delete Listing
-                    </button>
-                ) : null}
-                {sessionUser && sessionUser.id === singleSpot.ownerId ? (
-                    <button>
-                        <UpdateSpotModal spots={spots} />
-                    </button>
-                ) : null}
+            {sessionUser && sessionUser.id === singleSpot.ownerId ? (
+                <button onClick={deleteSpot}>
+                    Delete Listing
+                </button>
+            ) : null}
+            {sessionUser && sessionUser.id === singleSpot.ownerId ? (
+                <UpdateSpotModal spots={spots} />
+            ) : null}
+            </div>
+            <SpotReviewsById spot={singleSpot} />
         </div>
     );
 };
