@@ -34,8 +34,8 @@ const SpotsList = () => {
                             {!spot.preview ? null
                                 : spot.preview.includes("doesn't have") ? null
                                     : <img className='all-spots-preview-image' src={spot.preview} alt={spot.name}></img>}
-                            <h4>{spot.name}</h4>
-                            <p>{spot.address}</p>
+                            <h3>{spot.name}</h3>
+                            <p>{spot.city}, {spot.state}</p>
                             <p>${spot.price}/night</p>
                         </NavLink>
                     </div>

@@ -3,10 +3,11 @@ import { useHistory, useParams } from 'react-router-dom';
 import { deleteSpotById } from '../../store/spots';
 import UpdateSpotModal from '../UpdateSpot';
 
-const SingleSpot = ({ spots }) => {
+const SingleSpot = () => {
     const { spotId } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
+    const spots = useSelector(state => state.spots.spots);
     const singleSpot = spots.find(spot => spot.id === Number(spotId));
     const sessionUser = useSelector(state => state.session.user);
 
