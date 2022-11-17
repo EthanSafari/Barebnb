@@ -30,8 +30,11 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
-        <i class="fa-solid fa-skull" style={{
+      <button className="profile-buttons-right" onClick={openMenu}>
+        <i class="fa-solid fa-bars" style={{
+          cursor: 'pointer',
+        }}></i>
+        <i class="fa-regular fa-user" style={{
           cursor: 'pointer',
         }}></i>
       </button>

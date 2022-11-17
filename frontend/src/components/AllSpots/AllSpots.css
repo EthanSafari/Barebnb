@@ -1,18 +1,32 @@
-.all-spots-preview-image {
-    width: fit-content;
-    max-width: 20%;
-}
-
 .all-spots-container {
     display: inline-flex;
     flex-direction: column;
     padding: 0 5%;
 }
 
+.all-spots-preview-image {
+    display: block;
+    max-width: 80%;
+    max-height: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: .3rem;
+    margin-bottom: .5rem;
+    object-fit: cover;
+}
+
 .all-spots-ul {
     display: inline-flex;
 }
 
-/* .all-spots-ul-li {
+.all-spots-card {
+    border: 1px solid black;
+    width: 33%;
+    margin: 1%;
+    border-radius: .3rem;
+    padding: 2%
+}
 
-} */
+.all-spots-card > p {
+    font-size: .2rem;
+}

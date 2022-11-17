@@ -31,7 +31,7 @@ function Navigation({ isLoaded }) {
         <nav className='navbar'>
             <div className='brand-name'>
                 <NavLink exact to="/">
-                    scarebnb
+                    barebnb
                 </NavLink>
             </div>
             <div className='navbar-links'>

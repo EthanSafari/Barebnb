@@ -29,16 +29,16 @@ const SpotsList = () => {
         <div className="all-spots-container">
             <ul className="all-spots-ul">
                 {spotsArray.map(spot => (
-                    <li key={spot.id} className="all-spots-ul-li">
+                    <div key={spot.id} className="all-spots-card">
                         <NavLink to={`/spots/${spot.id}`}>
                             {!spot.preview ? null
                                 : spot.preview.includes("doesn't have") ? null
                                     : <img className='all-spots-preview-image' src={spot.preview} alt={spot.name}></img>}
-                            <span>{spot.name}</span>
-                            <span>{spot.price}</span>
-                            <span>{spot.address}</span>
+                            <h4>{spot.name}</h4>
+                            <p>{spot.address}</p>
+                            <p>${spot.price}/night</p>
                         </NavLink>
-                    </li>
+                    </div>
                 ))}
             </ul>
             <Switch>

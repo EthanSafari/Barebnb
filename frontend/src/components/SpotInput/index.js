@@ -6,14 +6,18 @@ function SpotInputModal() {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <>
-      <button onClick={() => setShowModal(true)}>Create Spot</button>
-      {showModal && (
-        <Modal onClose={() => setShowModal(false)}>
-          <SpotInput />
-        </Modal>
-      )}
-    </>
+    <div className='right-side-user-menu'>
+      <div>
+        <button onClick={() => setShowModal(true)}>Create Spot</button>
+      </div>
+      <div>
+        {showModal && (
+          <Modal onClose={() => setShowModal(false)}>
+            <SpotInput />
+          </Modal>
+        )}
+      </div>
+    </div>
   );
 }
 
