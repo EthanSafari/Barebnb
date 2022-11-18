@@ -4,19 +4,24 @@ import { deleteSpotById, getAllSpots } from '../../store/spots';
 import UpdateSpotModal from '../UpdateSpot';
 import SpotReviewsById from '../SpotReviews';
 import CreateReviewModal from '../CreateReview';
+import { useEffect } from 'react';
 
 const SingleSpot = () => {
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getAllSpots())
+    }, [dispatch])
 
     const { spotId } = useParams();
     const history = useHistory();
 
     const sessionSpots = useSelector(state => state.spots.spots);
     const sessionUser = useSelector(state => state.session.user);
+    if (!sessionSpots) return null;
 
     const spots = Object.values(sessionSpots);
 
-    if (!sessionUser) return null;
     if (!spots) return null;
 
     const singleSpot = spots.find(spot => spot.id === Number(spotId));
@@ -25,9 +30,8 @@ const SingleSpot = () => {
     const deleteSpot = (e) => {
         e.preventDefault();
         dispatch(deleteSpotById(singleSpot.id));
-        history.push('/spots')
+        history.push('/')
     };
-
 
     return (
         <div>
@@ -51,7 +55,9 @@ const SingleSpot = () => {
             ) : null}
             </div>
             <SpotReviewsById spot={singleSpot} />
-            <CreateReviewModal spotId={Number(spotId)} />
+            {sessionUser && sessionUser.id !== singleSpot.ownerId ?
+                <CreateReviewModal spotId={Number(spotId)} />
+                : null }
         </div>
     );
 };
