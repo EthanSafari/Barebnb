@@ -55,7 +55,7 @@ const CreateReview = ({ spotId }) => {
             <button type='submit'>Submit</button>
             </form>
         </div>
-    );
+    )
 };
 
 export default CreateReview;

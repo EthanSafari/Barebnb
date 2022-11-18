@@ -34,7 +34,7 @@ const SpotInput = () => {
         const spot = await dispatch(addNewSpot(newSpot));
         if (spot) reset();
 
-        history.push('/spots');
+        history.push('/');
     };
 
     const reset = () => {
@@ -103,7 +103,7 @@ const SpotInput = () => {
                 <button type='submit'>Submit</button>
             </form>
         </div>
-    );
+    )
 };
 
 export default SpotInput;
