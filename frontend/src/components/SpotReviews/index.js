@@ -9,14 +9,11 @@ const SpotReviewsById = (spot) => {
 
     const reviewsArray = objectToArray(reviewsObject.reviews);
 
-    const reviewImagesArray = objectToArray(reviewsObject)
-    console.log(reviewsObject)
-
     useEffect(() => {
         dispatch(getSpotReviews(spot.spot.id))
     }, [dispatch]);
 
-    if (!reviewsArray) return null;
+    if (!reviewsArray.length) return null;
     else return (
         <div>
             <ul>

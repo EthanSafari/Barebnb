@@ -4,6 +4,7 @@ import { deleteSpotById, getAllSpots } from '../../store/spots';
 import UpdateSpotModal from '../UpdateSpot';
 import SpotReviewsById from '../SpotReviews';
 import { useEffect } from 'react';
+import CreateReviewModal from '../CreateReview';
 
 const SingleSpot = () => {
     const dispatch = useDispatch();
@@ -50,6 +51,7 @@ const SingleSpot = () => {
             ) : null}
             </div>
             <SpotReviewsById spot={singleSpot} />
+            <CreateReviewModal spotId={Number(spotId)} />
         </div>
     );
 };

@@ -94,7 +94,7 @@ const SpotInput = () => {
                     name='description'
                 />
                 <input
-                    type='text'
+                    type='number'
                     onChange={(e) => setPrice(e.target.value)}
                     value={price}
                     placeholder='price'
