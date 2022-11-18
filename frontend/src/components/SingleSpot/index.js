@@ -3,7 +3,6 @@ import { useHistory, useParams } from 'react-router-dom';
 import { deleteSpotById, getAllSpots } from '../../store/spots';
 import UpdateSpotModal from '../UpdateSpot';
 import SpotReviewsById from '../SpotReviews';
-import { useEffect } from 'react';
 import CreateReviewModal from '../CreateReview';
 
 const SingleSpot = () => {
@@ -28,6 +27,7 @@ const SingleSpot = () => {
         dispatch(deleteSpotById(singleSpot.id));
         history.push('/spots')
     };
+
 
     return (
         <div>

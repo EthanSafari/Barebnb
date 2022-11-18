@@ -1,7 +1,9 @@
 import { csrfFetch } from "./csrf";
+import { normalizeArray } from "./spots";
 
 const GET_REVIEWS = 'reviews/getReviews';
 const CREATE_REVIEW = 'reviews/createReview';
+const DELETE_REVIEW = 'reviews/deleteReview';
 
 const getReviews = (reviews) => {
     return {
@@ -14,6 +16,13 @@ const createReview = (review) => {
     return {
         type: CREATE_REVIEW,
         review,
+    };
+};
+
+const deleteReview = (reviewId) => {
+    return {
+        type: DELETE_REVIEW,
+        reviewId,
     };
 };
 
@@ -37,6 +46,15 @@ export const createReviewForSpot = (spotId, review) => async dispatch => {
     } else throw Error;
 };
 
+export const deleteReviewById = (reviewId) => async dispatch => {
+    const response = await csrfFetch(`/api/reviews/${reviewId}`, {
+        method: 'DELETE',
+    });
+    if (response.ok) {
+        dispatch(deleteReview(reviewId));
+    } else throw Error;
+};
+
 const initialState = { reviews: null };
 
 const reviewsReducer = (state = initialState, action) => {
@@ -48,7 +66,16 @@ const reviewsReducer = (state = initialState, action) => {
             return newState;
         case CREATE_REVIEW:
             newState = Object.assign({}, state);
-            return { ...newState, reviews: { ...newState.reviews, [action.review['id']]: action.review } }
+            return { ...newState, reviews: { ...newState.reviews, [action.review['id']]: action.review } };
+        case DELETE_REVIEW:
+            const copyState = {...state};
+            newState = {...state};
+            newState.reviews = copyState.reviews;
+            const reviews = Object.values(copyState.reviews);
+            const reviewsObject = normalizeArray(reviews);
+            newState.reviews = reviewsObject;
+            delete newState.reviews[action.reviewId];
+            return newState;
         default:
             return state;
     };

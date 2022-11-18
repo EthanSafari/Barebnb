@@ -104,7 +104,7 @@ const spotsReducer = (state = initialState, action) => {
     };
 };
 
-const normalizeArray = (array) => {
+export const normalizeArray = (array) => {
     const object = {};
     const arr = array.slice();
     arr.forEach(element => {
