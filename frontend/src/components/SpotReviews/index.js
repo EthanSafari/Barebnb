@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteReviewById, getSpotReviews } from "../../store/review";
 import { objectToArray } from "../AllSpots";
+import ReviewUpdateModal from "../UpdateReview";
 
 const SpotReviewsById = (spot) => {
     const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const SpotReviewsById = (spot) => {
     else return (
         <div>
             <ul>
-                {reviewsArray.map(review => (
+                {reviewsArray.map(review => review !== undefined ? (
                     <li key={review.id}>
                         <div>{review.review}</div>
                         <div>{(review.stars > 1) ? `${review.stars} stars` : `${review.stars} star`}</div>
@@ -30,6 +31,9 @@ const SpotReviewsById = (spot) => {
                             </div>
                         ) : null}
                         {sessionUser && review.userId === sessionUser.id ? (
+                            <ReviewUpdateModal reviews={reviewsArray} reviewId={review.id} />
+                        ) : null}
+                        {sessionUser && review.userId === sessionUser.id ? (
                             <button onClick={e => {
                                 e.preventDefault();
                                 const singleReview = reviewsArray.find(thisReview => thisReview.id === review.id);
@@ -39,7 +43,7 @@ const SpotReviewsById = (spot) => {
                             </button>
                         ) : null}
                     </li>
-                ))}
+                ) : null)}
             </ul>
             <ul>
 

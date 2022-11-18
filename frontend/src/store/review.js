@@ -4,6 +4,7 @@ import { normalizeArray } from "./spots";
 const GET_REVIEWS = 'reviews/getReviews';
 const CREATE_REVIEW = 'reviews/createReview';
 const DELETE_REVIEW = 'reviews/deleteReview';
+const UPDATE_REVIEW = 'reviews/updateReview';
 
 const getReviews = (reviews) => {
     return {
@@ -22,6 +23,13 @@ const createReview = (review) => {
 const deleteReview = (reviewId) => {
     return {
         type: DELETE_REVIEW,
+        reviewId,
+    };
+};
+
+const updateReview = (reviewId, updatedSpot) => {
+    return {
+        type: UPDATE_REVIEW,
         reviewId,
     };
 };
@@ -55,6 +63,18 @@ export const deleteReviewById = (reviewId) => async dispatch => {
     } else throw Error;
 };
 
+export const updateReviewById = (reviewId, updatedReview) => async dispatch => {
+    const response = await csrfFetch(`/api/reviews/${reviewId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedReview),
+    });
+    if (response.ok) {
+        dispatch(updateReview(reviewId, updatedReview));
+        return response;
+    } else throw Error;
+};
+
 const initialState = { reviews: null };
 
 const reviewsReducer = (state = initialState, action) => {
@@ -76,6 +96,9 @@ const reviewsReducer = (state = initialState, action) => {
             newState.reviews = reviewsObject;
             delete newState.reviews[action.reviewId];
             return newState;
+        case UPDATE_REVIEW:
+            newState = Object.assign({}, state);
+            return { ...newState, reviews: { ...newState.reviews, [action.reviewId]: action.updatedSpot } };
         default:
             return state;
     };
