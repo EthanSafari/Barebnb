@@ -16,7 +16,6 @@ const SingleSpot = () => {
 
     const spots = Object.values(sessionSpots);
 
-    if (!sessionUser) return null;
     if (!spots) return null;
 
     const singleSpot = spots.find(spot => spot.id === Number(spotId));
@@ -25,7 +24,7 @@ const SingleSpot = () => {
     const deleteSpot = (e) => {
         e.preventDefault();
         dispatch(deleteSpotById(singleSpot.id));
-        history.push('/spots')
+        history.push('/')
     };
 
 
@@ -51,7 +50,9 @@ const SingleSpot = () => {
             ) : null}
             </div>
             <SpotReviewsById spot={singleSpot} />
-            <CreateReviewModal spotId={Number(spotId)} />
+            {sessionUser && sessionUser.id !== singleSpot.ownerId ?
+                <CreateReviewModal spotId={Number(spotId)} />
+                : null }
         </div>
     );
 };

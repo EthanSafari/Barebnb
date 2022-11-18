@@ -30,7 +30,7 @@ function Navigation({ isLoaded }) {
     return (
         <nav className='navbar'>
             <div className='brand-name'>
-                <NavLink exact to="/spots">
+                <NavLink exact to="/">
                     barebnb
                 </NavLink>
             </div>
