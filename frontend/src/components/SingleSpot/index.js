@@ -25,7 +25,7 @@ const SingleSpot = () => {
     const deleteSpot = (e) => {
         e.preventDefault();
         dispatch(deleteSpotById(singleSpot.id));
-        history.push('/spots')
+        history.push('/')
     };
 
 
