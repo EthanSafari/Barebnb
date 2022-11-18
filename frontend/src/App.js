@@ -19,7 +19,7 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded}
       <Switch>
-        <Route exact path='/spots' component={SpotsList} />
+        <Route exact path='/' component={SpotsList} />
         <Route path='/spots/:spotId' component={SingleSpot} />
       </Switch>
     </>
