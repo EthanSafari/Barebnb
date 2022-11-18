@@ -43,7 +43,7 @@ const SpotsList = () => {
             </ul>
             <Switch>
                 <Route path='/spots/:spotId'>
-                    <SingleSpot spots={spotsArray} />
+                    <SingleSpot />
                 </Route>
             </Switch>
         </div>

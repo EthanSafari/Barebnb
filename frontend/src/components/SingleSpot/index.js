@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { deleteSpotById } from '../../store/spots';
+import { deleteSpotById, getAllSpots } from '../../store/spots';
 import UpdateSpotModal from '../UpdateSpot';
 import SpotReviewsById from '../SpotReviews';
+import { useEffect } from 'react';
 
 const SingleSpot = () => {
-    const { spotId } = useParams();
     const dispatch = useDispatch();
+
+    const { spotId } = useParams();
     const history = useHistory();
 
     const sessionSpots = useSelector(state => state.spots.spots);
@@ -15,7 +17,7 @@ const SingleSpot = () => {
     const spots = Object.values(sessionSpots);
 
     if (!sessionUser) return null;
-    if (spots === undefined) return null;
+    if (!spots) return null;
 
     const singleSpot = spots.find(spot => spot.id === Number(spotId));
     if (!singleSpot) return null;

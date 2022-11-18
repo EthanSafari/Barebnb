@@ -5,9 +5,11 @@ import { objectToArray } from "../AllSpots";
 
 const SpotReviewsById = (spot) => {
     const dispatch = useDispatch();
-    const reviewsObject = useSelector(state => state.reviews.reviews);
+    const reviewsObject = useSelector(state => state.reviews);
 
-    const reviewsArray = objectToArray(reviewsObject);
+    const reviewsArray = objectToArray(reviewsObject.reviews);
+
+    const reviewImagesArray = objectToArray(reviewsObject)
     console.log(reviewsObject)
 
     useEffect(() => {
@@ -21,9 +23,15 @@ const SpotReviewsById = (spot) => {
                 {reviewsArray.map(review => (
                     <li key={review.id}>
                         <div>{review.review}</div>
-                        <div>{review.stars}</div>
+                        <div>{(review.stars > 1) ? `${review.stars} stars` : `${review.stars} star`}</div>
+                        <div>{review.ReviewImages.map(image => (
+                            <img src={image.url} />
+                        ))}</div>
                     </li>
                 ))}
+            </ul>
+            <ul>
+
             </ul>
         </div>
     )
