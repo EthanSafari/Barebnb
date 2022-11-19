@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { updateSpotById } from "../../store/spots";
 
 const UpdateCurrentSpot = ({ spots }) => {
     const { spotId } = useParams();
+    const history = useHistory();
     const singleSpot = spots.find(spot => spot.id === Number(spotId));
 
     const sessionUser = useSelector((state) => state.session.user);
@@ -16,6 +17,8 @@ const UpdateCurrentSpot = ({ spots }) => {
     const [name, setName] = useState(singleSpot.name);
     const [description, setDescription] = useState(singleSpot.description);
     const [price, setPrice] = useState(singleSpot.price);
+
+    const previewImageUrl = singleSpot.preview;
 
     const dispatch = useDispatch();
 
@@ -34,7 +37,9 @@ const UpdateCurrentSpot = ({ spots }) => {
             price,
         };
 
-        await dispatch(updateSpotById(parseInt(spotId), updateSpot));
+        await dispatch(updateSpotById(parseInt(spotId), updateSpot, previewImageUrl));
+
+        history.push(`/`);
     };
 
     return (

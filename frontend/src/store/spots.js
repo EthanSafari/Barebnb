@@ -71,17 +71,18 @@ export const deleteSpotById = (spotId) => async dispatch => {
     });
     if (spotResponse.ok) {
         dispatch(deleteSpot(spotId));
-     };
+    };
 };
 
-export const updateSpotById = (spotId, updatedSpot) => async dispatch => {
+export const updateSpotById = (spotId, updatedSpot, previewImageUrl) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedSpot),
     });
     if (response.ok) {
-        dispatch(updateSpot(spotId, updatedSpot))
+        response.preview = previewImageUrl;
+        dispatch(updateSpot(spotId, updatedSpot));
         return response;
     };
 };
@@ -99,8 +100,8 @@ const spotsReducer = (state = initialState, action) => {
             newState = Object.assign({}, state);
             return { ...newState, spots: { ...newState.spots, [action.spot['id']]: action.spot } };
         case DELETE_SPOT:
-            const copyState = {...state};
-            newState = {...state};
+            const copyState = { ...state };
+            newState = { ...state };
             newState.session = copyState.session;
             const spots = Object.values(copyState.spots);
             const spotsObject = normalizeArray(spots);
@@ -109,7 +110,7 @@ const spotsReducer = (state = initialState, action) => {
             return newState;
         case UPDATE_SPOT:
             newState = Object.assign({}, state);
-            return { ...newState, spots: { ...newState.spots, [action.spotId]: action.updatedSpot } };
+            return { ...newState };
         default:
             return state;
     };
