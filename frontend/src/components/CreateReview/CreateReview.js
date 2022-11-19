@@ -13,6 +13,7 @@ const CreateReview = ({ spotId }) => {
 
     const [review, setReview] = useState('');
     const [stars, setStars] = useState(1);
+    const [reviews, setReviews] = useState([]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
