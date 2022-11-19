@@ -14,6 +14,8 @@ const SpotInput = () => {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(0.00);
 
+    const [previewImageUrl, setPreviewImageUrl] = useState('');
+
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -31,7 +33,7 @@ const SpotInput = () => {
             price,
         };
 
-        const spot = await dispatch(addNewSpot(newSpot));
+        const spot = await dispatch(addNewSpot(newSpot, previewImageUrl));
         if (spot) reset();
 
         history.push('/');
@@ -99,6 +101,13 @@ const SpotInput = () => {
                     value={price}
                     placeholder='price'
                     name='price'
+                />
+                <input
+                    type='url'
+                    onChange={(e) => setPreviewImageUrl(e.target.value)}
+                    value={previewImageUrl}
+                    placeholder='previewImage'
+                    name="previewImage"
                 />
                 <button type='submit'>Submit</button>
             </form>

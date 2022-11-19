@@ -77,7 +77,7 @@ const sessionReducer = (state = initialState, action) => {
       return newState;
     default:
       return state;
-  }
+  };
 };
 
 export default sessionReducer;

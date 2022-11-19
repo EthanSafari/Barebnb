@@ -41,26 +41,37 @@ export const getAllSpots = () => async dispatch => {
     return response;
 };
 
-export const addNewSpot = (spot) => async dispatch => {
-    const response = await csrfFetch('/api/spots', {
+export const addNewSpot = (spot, previewImageUrl) => async dispatch => {
+    const spotResponse = await csrfFetch('/api/spots', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(spot),
     });
-    if (response.ok) {
-        const spot = await response.json();
+    if (spotResponse.ok) {
+        const spot = await spotResponse.json();
+        const imageResponse = await csrfFetch(`/api/spots/${spot.id}/images`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                url: previewImageUrl,
+                preview: true,
+                spotId: spot.id,
+            }),
+        });
+        const image = await imageResponse.json();
+        spot.preview = image.url;
         dispatch(addSpot(spot));
-        return response;
-    } else throw Error;
+        return spotResponse;
+    };
 };
 
 export const deleteSpotById = (spotId) => async dispatch => {
-    const response = await csrfFetch(`/api/spots/${spotId}`, {
+    const spotResponse = await csrfFetch(`/api/spots/${spotId}`, {
         method: 'DELETE',
     });
-    if (response.ok) {
+    if (spotResponse.ok) {
         dispatch(deleteSpot(spotId));
-     } else throw Error;
+     };
 };
 
 export const updateSpotById = (spotId, updatedSpot) => async dispatch => {
@@ -72,7 +83,7 @@ export const updateSpotById = (spotId, updatedSpot) => async dispatch => {
     if (response.ok) {
         dispatch(updateSpot(spotId, updatedSpot))
         return response;
-    } else throw Error;
+    };
 };
 
 const initialState = { spots: null };
