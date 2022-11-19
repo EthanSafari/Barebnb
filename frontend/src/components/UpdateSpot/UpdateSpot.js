@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { updateSpotById } from "../../store/spots";
+import { getAllSpots, updateSpotById } from "../../store/spots";
 
 const UpdateCurrentSpot = ({ spots }) => {
     const { spotId } = useParams();
