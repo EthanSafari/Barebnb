@@ -14,9 +14,8 @@ function LoginForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
-    history.push('/')
-
-    console.log(history)
+    history.push('/');
+    
     return dispatch(sessionActions.login({ credential, password })).catch(
       async (res) => {
         const data = await res.json();
