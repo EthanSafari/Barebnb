@@ -44,3 +44,12 @@
 .all-spots-card > p {
     font-size: .2rem;
 }
+
+.top-part-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.rating{
+    display: flex;
+}

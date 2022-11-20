@@ -20,6 +20,8 @@ const SpotsList = () => {
 
     const spotsArray = objectToArray(spotsObject);
 
+    const date = new Date();
+
     useEffect(() => {
         dispatch(getAllSpots());
     }, [dispatch]);
@@ -34,9 +36,14 @@ const SpotsList = () => {
                             {!spot.preview ? null
                                 : spot.preview.includes("doesn't have") ? null
                                     : <img className='all-spots-preview-image' src={spot.preview} alt={spot.name}></img>}
-                            <h3>{spot.name}</h3>
-                            <p>{spot.city}, {spot.state}</p>
-                            <p>${spot.price}/night</p>
+                            <div className="top-part-info">
+                                <h3>{spot.city}, {spot.state}</h3>
+                                <div className="rating">
+                                <h4><i class="fa-solid fa-star"></i></h4>
+                                {spot.avgRating.toString().includes("doesn't") ? (<h3>New</h3>) : (<h3>{spot.avgRating}</h3>)}
+                                </div>
+                            </div>
+                            <p><strong>${spot.price}</strong> night</p>
                         </NavLink>
                     </div>
                 ))}

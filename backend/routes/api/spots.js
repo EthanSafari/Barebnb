@@ -547,6 +547,7 @@ router.get('/', handleValidationErrors, async (req, res, next) => {
             },
             group: ['id', 'spotId', 'userId', 'review', 'stars', 'updatedAt', 'createdAt'],
         });
+        console.log(ratings)
         const previewImage = await SpotImage.findOne({
             where: {
                 spotId: spot.dataValues.id,
@@ -555,8 +556,16 @@ router.get('/', handleValidationErrors, async (req, res, next) => {
             group: ['id', 'spotId', 'preview', 'url', 'updatedAt', 'createdAt'],
         });
         spot = spot.toJSON();
+        const ratingTotal = () => {
+            let total = 0;
+            for (let i = 0; i < ratings.length; i++) {
+                const element = ratings[i];
+                total += element.dataValues.stars;
+            };
+            return total;
+        };
         spot.avgRating = (ratings.length)
-            ? Number(ratings[0].dataValues.totalStars / ratings.length)
+            ? Number(ratingTotal() / ratings.length)
             : `${spot.name} doesn't have any reviews yet!`;
         spot.preview = (previewImage !== null)
             ? previewImage.url : `${spot.name} doesn't have a preview!`;
