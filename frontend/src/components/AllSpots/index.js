@@ -37,8 +37,8 @@ const SpotsList = () => {
                             <div className="top-part-info">
                                 <h3>{spot.city}, {spot.state}</h3>
                                 <div className="rating">
-                                <h4><i class="fa-solid fa-star"></i></h4>
-                                {spot.avgRating && spot.avgRating.toString().includes("doesn't") ? (<h3>New</h3>) : (<h3>{spot.avgRating}</h3>)}
+                                    <h4><i class="fa-solid fa-star"></i></h4>
+                                    {spot.avgRating && spot.avgRating.toString().includes("doesn't") ? (<h3>New</h3>) : (<h3>{spot.avgRating}</h3>)}
                                 </div>
                             </div>
                             <p><strong>${spot.price}</strong> night</p>
@@ -46,6 +46,15 @@ const SpotsList = () => {
                     </div>
                 ))}
             </ul>
+            <button style={{
+                marginTop: '3%',
+                border: '1px solid grey',
+                borderradius: '3px',
+            }}>
+                <a href='https://github.com/EthanSafari/API-Project/blob/main/README.md'>
+                    Github Link
+                </a>
+            </button>
             <Switch>
                 <Route path='/spots/:spotId'>
                     <SingleSpot />
