@@ -40,7 +40,6 @@ function Navigation({ isLoaded }) {
             </div>
             <div className='navbar-links'>
                 <ul>
-                    {/* <NavLink exact to="/">Home</NavLink> */}
                     {isLoaded && sessionLinks}
 
                 </ul>

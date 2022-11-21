@@ -29,7 +29,7 @@
 }
 
 .right-side-user-menu {
-    display: inline-flex;
+    display: flex;
     flex-direction: row;
     margin: .7rem;
 }

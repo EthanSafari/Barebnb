@@ -2,3 +2,10 @@ form {
     display: flex;
     flex-direction: column;
 }
+
+.login-button {
+   border: none;
+   outline: none;
+   margin-right: 1em;
+   cursor: pointer;
+}

@@ -8,3 +8,10 @@
     display: flex;
     justify-content: space-between;
 }
+
+.signup-button {
+    border: none;
+    outline: none;
+    margin-right: 1em;
+    cursor: pointer;
+ }
