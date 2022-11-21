@@ -38,10 +38,9 @@ function Navigation({ isLoaded }) {
                     barebnb
                 </NavLink>
             </div>
-            <div className='navbar-links'>
-                <ul>
+            <div>
+                <ul className='navbar-links'>
                     {isLoaded && sessionLinks}
-
                 </ul>
             </div>
         </nav>

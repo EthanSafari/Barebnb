@@ -29,14 +29,20 @@ function ProfileButton({ user }) {
   };
 
   return (
-    <>
+    <div>
       <button className="profile-buttons-right" onClick={openMenu}>
-        <i class="fa-solid fa-bars" style={{
-          cursor: 'pointer',
-        }}></i>
-        <i class="fa-regular fa-user" style={{
-          cursor: 'pointer',
-        }}></i>
+        <div>
+          <i class="fa-solid fa-bars" style={{
+            cursor: 'pointer',
+            margin: '2px',
+          }}></i>
+        </div>
+        <div>
+          <i class="fa-regular fa-user" style={{
+            cursor: 'pointer',
+            margin: '2px',
+          }}></i>
+        </div>
       </button>
       {showMenu && (
         <ul className="profile-dropdown">
@@ -47,7 +53,7 @@ function ProfileButton({ user }) {
           </li>
         </ul>
       )}
-    </>
+    </div>
   );
 }
 

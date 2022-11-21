@@ -31,5 +31,22 @@
 .right-side-user-menu {
     display: flex;
     flex-direction: row;
-    margin: .7rem;
+    flex-flow: row nowrap;
+    margin: 5px;
+
+}
+.navbar-links {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+}
+
+.profile-buttons-right {
+    display: flex;
+    width: 3rem;
+    justify-content: space-between;
+    padding: .1em .5em;
+    border-radius: 20px;
+    margin-top: .3em;
+    border: 1px solid grey;
 }
