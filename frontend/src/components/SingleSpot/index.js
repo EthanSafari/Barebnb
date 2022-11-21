@@ -85,7 +85,7 @@ const SingleSpot = () => {
             </div>
             <div>
                 <SpotReviewsById spot={singleSpot} />
-                {sessionUser && sessionUser.id === singleSpot.ownerId ?
+                {sessionUser && sessionUser.id === singleSpot.ownerId || !sessionUser ?
                     null : <CreateReviewModal spotId={Number(spotId)} />
                 }
             </div>
