@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
@@ -6,9 +6,14 @@ import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
 import SignupFormModal from '../SignupFormPage';
 import SpotInputModal from '../SpotInput';
+import { Modal } from '../../context/Modal';
+import LoginForm from '../LoginFormModal/LoginForm';
+import SignupFormPage from '../SignupFormPage/SignupForm';
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
+    const [showModal, setShowModal] = useState(false);
+    const [login, setLogin] = useState(true);
 
     let sessionLinks;
     if (sessionUser) {
@@ -40,8 +45,17 @@ function Navigation({ isLoaded }) {
             </div>
             <div>
                 <ul className='navbar-links'>
-                    {isLoaded && sessionLinks}
+                    {isLoaded && (
+                       <ProfileButton
+                       user={sessionUser}
+                       setLogin={setLogin}
+                       setShowModal={setShowModal}
+                       />
+                    )}
                 </ul>
+                {showModal && <Modal onClose={() => setShowModal(false)}>
+                        {login ? <LoginForm /> : <SignupFormPage />}
+                </Modal>}
             </div>
         </nav>
     );
