@@ -1,0 +1,22 @@
+.review-form {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    align-items: center;
+    padding: 3vw;
+    /* height: 10rem; */
+    justify-content: space-evenly;
+}
+
+.review-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 1em;
+    border: 3px solid black;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 5%;
+    max-width: 25em;
+    max-height: 30em;
+}
