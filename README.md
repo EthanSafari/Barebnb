@@ -21,6 +21,10 @@ Don't fret though, there is no need to sign up. In the "Log In" button, there is
 
 > Allows a logged in user to create new listings and reviews. It also allows the logged in user to update their listings, and delete both the reviews and listings they created
 
+# Backend API README
+The link below provides information about the API that the frontend is using. Feel free to check it out!
+[API DOCUMENTATION](backend/README.md)
+
 # Contact Information
 If you approve of what is to be seen, feel free to contact me at:
 > Linkedin: https://www.linkedin.com/in/ethan-sauri-57a9b9240/
