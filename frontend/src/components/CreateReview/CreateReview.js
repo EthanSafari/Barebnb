@@ -53,6 +53,7 @@ const CreateReview = ({ spotId }) => {
                         marginBottom: '3%',
                         borderRadius: '3px',
                     }}
+                    required
                 />
                 <input
                     type={'number'}
@@ -66,6 +67,7 @@ const CreateReview = ({ spotId }) => {
                         width: '20em',
                         borderRadius: '3px',
                     }}
+                    required
                 />
             <button type='submit'>Submit Review</button>
             </form>

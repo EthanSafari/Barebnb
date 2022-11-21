@@ -51,7 +51,7 @@ const SpotInput = () => {
 
     return (
         <div className="inputSpot">
-            <h1>Create Spot</h1>
+            <h1>Create a Listing</h1>
             <form onSubmit={handleSubmit}>
                 <input
                     type='text'
@@ -59,6 +59,7 @@ const SpotInput = () => {
                     value={name}
                     placeholder='name'
                     name='name'
+                    required
                 />
                 <input
                     type='text'
@@ -66,6 +67,7 @@ const SpotInput = () => {
                     value={address}
                     placeholder='address'
                     name='address'
+                    required
                 />
                 <input
                     type='text'
@@ -73,6 +75,7 @@ const SpotInput = () => {
                     value={city}
                     placeholder='city'
                     name='city'
+                    required
                 />
                 <input
                     type='text'
@@ -80,6 +83,7 @@ const SpotInput = () => {
                     value={state}
                     placeholder='state'
                     name='state'
+                    required
                 />
                 <input
                     type='text'
@@ -87,6 +91,7 @@ const SpotInput = () => {
                     value={country}
                     placeholder='country'
                     name='country'
+                    required
                 />
                 <input
                     type='text'
@@ -94,6 +99,7 @@ const SpotInput = () => {
                     value={description}
                     placeholder='description'
                     name='description'
+                    required
                 />
                 <input
                     type='number'
@@ -101,6 +107,8 @@ const SpotInput = () => {
                     value={price}
                     placeholder='price'
                     name='price'
+                    required
+                    min={15}
                 />
                 <input
                     type='url'
@@ -108,6 +116,7 @@ const SpotInput = () => {
                     value={previewImageUrl}
                     placeholder='previewImage'
                     name="previewImage"
+                    required
                 />
                 <button type='submit'>Submit</button>
             </form>

@@ -4,3 +4,74 @@
     flex-direction: column;
     align-items: center;
 }
+
+.single-spot-images-container {
+    display: flex;
+    width: 80%;
+    justify-content: center;
+    border-bottom: 1px solid lightgrey;
+    padding: 1em;
+}
+
+.single-spot-image {
+    display: block;
+    width: 15rem;
+    height: 15rem;
+    object-fit: cover;
+    border-radius: .5em 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .7);
+    margin: .5%;
+}
+
+.spot-name {
+    display: flex;
+    justify-content: flex-start;
+    width: 80%;
+    margin: 0 0 1% 0;
+}
+
+.info-under-spot-name {
+    display: flex;
+    justify-content: flex-start;
+    width: 80%;
+}
+
+.hosted-by {
+    display: flex;
+    width: 80%;
+    padding: 2% 1%;
+    border-bottom: 1px solid lightgrey;
+}
+
+.description {
+    display: flex;
+    width: 80%;
+    padding: 2% 1%;
+    border-bottom: 1px solid lightgrey;
+}
+
+.full-address {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 80%;
+    padding: 2% 1%;
+    border-bottom: 1px solid lightgrey;
+}
+
+.average-rating {
+    display: flex;
+    margin-right: .5rem;
+}
+
+.rating-info {
+    display: flex;
+}
+
+.price {
+    display: flex;
+    width: 80%;
+    justify-content: flex-start;
+    padding: 2% 1%;
+    border-bottom: 1px solid lightgrey;
+}

@@ -22,13 +22,13 @@ const SpotReviewsById = (spot) => {
                     <li key={review.id}>
                         <div>{review.review}</div>
                         <div>{(review.stars > 1) ? `${review.stars} stars` : `${review.stars} star`}</div>
-                        {review.ReviewImages !== undefined ? (
+                        {/* {review.ReviewImages !== undefined ? (
                             <div>
                                 {review.ReviewImages.map(image => (
                                     <img src={image.url} />
                                 ))}
                             </div>
-                        ) : null}
+                        ) : null} */}
                         {sessionUser && review.userId === sessionUser.id ? (
                             <button onClick={e => {
                                 e.preventDefault();

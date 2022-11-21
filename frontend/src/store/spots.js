@@ -5,12 +5,21 @@ const ADD_SPOT = 'spots/addSpot';
 const DELETE_SPOT = 'spots/deleteSpot';
 const UPDATE_SPOT = 'spots/updateSpot';
 
+const GET_SINGLE_SPOT = 'spots/getSingleSpot'
+
 const getSpots = (spots) => {
     return {
         type: GET_SPOTS,
         spots
     };
 };
+
+const singleSpot = (spot) => {
+    return {
+        type: GET_SINGLE_SPOT,
+        spot,
+    }
+}
 
 const addSpot = (spot) => {
     return {
@@ -39,6 +48,13 @@ export const getAllSpots = () => async dispatch => {
     const data = await response.json();
     dispatch(getSpots(data.Spots));
     return response;
+};
+
+export const getSingleSpot = (spotId) => async dispatch => {
+    const response = await csrfFetch(`/api/spots/${spotId}`);
+    const data = await response.json();
+    dispatch(singleSpot(data));
+    return data;
 };
 
 export const addNewSpot = (spot, previewImageUrl) => async dispatch => {
@@ -111,6 +127,10 @@ const spotsReducer = (state = initialState, action) => {
         case UPDATE_SPOT:
             newState = Object.assign({}, state);
             return { ...newState };
+        case GET_SINGLE_SPOT:
+                newState = Object.assign({}, state);
+                newState.currentSpot = action.spot;
+                return newState;
         default:
             return state;
     };
