@@ -73,6 +73,12 @@ const SingleSpot = () => {
             <div className='price'>
             <h5><strong>${singleSpot.price}</strong> night</h5>
             </div>
+            <div>
+                <SpotReviewsById spot={singleSpot} />
+                {sessionUser && sessionUser.id === singleSpot.ownerId || !sessionUser ?
+                    null : <CreateReviewModal spotId={Number(spotId)} />
+                }
+            </div>
             <div className='spot-owner-options'>
                 {sessionUser && sessionUser.id === singleSpot.ownerId ? (
                     <button onClick={deleteSpot} className="delete-button">
@@ -82,12 +88,6 @@ const SingleSpot = () => {
                 {sessionUser && sessionUser.id === singleSpot.ownerId ? (
                     <UpdateSpotModal spots={spots} />
                 ) : null}
-            </div>
-            <div>
-                <SpotReviewsById spot={singleSpot} />
-                {sessionUser && sessionUser.id === singleSpot.ownerId || !sessionUser ?
-                    null : <CreateReviewModal spotId={Number(spotId)} />
-                }
             </div>
         </div >
     );
