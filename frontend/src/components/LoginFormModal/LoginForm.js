@@ -57,7 +57,19 @@ function LoginForm() {
         />
       </label>
       </div>
+      <button onClick={() => {
+        setPassword('password');
+        setCredential('demo@user.io');
+      }} style={{
+        padding: '.3em',
+        borderRadius: '4px',
+        margin: '5px',
+        border: '1px solid grey',
+      }}>
+        Demo User
+      </button>
       <button type="submit" className="login-button-on-modal">Log In</button>
+
     </form>
     </div>
   );
