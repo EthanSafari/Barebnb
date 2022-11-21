@@ -39,7 +39,7 @@ const CreateReview = ({ spotId }) => {
 
     return (
         <div className="review-modal">
-            <h1>Create Review</h1>
+            <h1>Leave a Review</h1>
             <form onSubmit={handleSubmit} className='review-form'>
                 <textarea
                     type='text'

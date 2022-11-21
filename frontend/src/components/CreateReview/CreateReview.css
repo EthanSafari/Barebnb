@@ -12,11 +12,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-radius: 1em;
-    border: 3px solid black;
-    border-radius: 10px;
+    border: 2px solid grey;
     overflow: hidden;
     padding: 5%;
     max-width: 25em;
     max-height: 30em;
+}
+
+.review-modal-button-container {
+    display: flex;
+    justify-content: center;
+    margin: 1em;
+}
+
+.review-modal-button {
+    border: 1px solid grey;
+    padding: .5%;
+    border-radius: 3px;
 }
