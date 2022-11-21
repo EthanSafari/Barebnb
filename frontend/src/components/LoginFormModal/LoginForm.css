@@ -2,3 +2,37 @@ form {
     display: flex;
     flex-direction: column;
 }
+
+.login-button {
+   border: none;
+   outline: none;
+   margin-right: 1em;
+   cursor: pointer;
+}
+
+.login-modal-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid grey;
+    overflow: hidden;
+    padding: 5%;
+    width: 35em;
+    max-height: 30em;
+}
+
+.user-login,
+.password-login {
+    display: flex;
+    justify-content: space-between;
+}
+
+input {
+    margin-left: 10px;
+}
+
+.login-button-on-modal {
+    margin-top: 3%;
+    border: 1px solid grey;
+    border-radius: 3px;
+}

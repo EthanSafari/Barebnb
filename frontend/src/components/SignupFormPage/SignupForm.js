@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 
 import './SignupForm.css';
@@ -16,12 +16,15 @@ function SignupFormPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
+  const history = useHistory();
+
   if (sessionUser) return <Redirect to="/" />;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors([]);
+      history.push('/');
       return dispatch(sessionActions.signup({ email, username, password, firstName, lastName }))
         .catch(async (res) => {
           const data = await res.json();
@@ -32,6 +35,8 @@ function SignupFormPage() {
   };
 
   return (
+    <div className="signup-modal-form">
+ <h1 style={{marginBottom: '5%'}}>Sign Up</h1>
     <form onSubmit={handleSubmit} className='signup-form'>
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
@@ -45,7 +50,7 @@ function SignupFormPage() {
           required
         />
       </label>
-      <label>
+      <label className="signup-label">
         Username
         <input
           type="text"
@@ -90,8 +95,9 @@ function SignupFormPage() {
           required
         />
       </label>
-      <button type="submit">Sign Up</button>
+      <button type="submit" className="signup-form-button">Sign Up</button>
     </form>
+    </div>
   );
 }
 

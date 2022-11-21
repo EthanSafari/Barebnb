@@ -5,6 +5,8 @@
     margin: 0;
     padding: 0;
     background-color: white;
+    font-family: 'Poppins', sans-serif;
+    color: rgba(0, 0, 0, .8);
 }
 
 body {
@@ -15,5 +17,4 @@ body {
 a {
     background-color: transparent;
     text-decoration: none;
-
 }

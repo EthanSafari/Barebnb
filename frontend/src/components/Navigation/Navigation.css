@@ -1,13 +1,13 @@
 .navbar {
+    position: fixed;
+    width: 100vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 2%;
-    padding-bottom: .2em;
     box-shadow: 0 .05rem .2rem black;
     margin: 0;
-    margin: 0 0 1rem 0;
-    padding: .5rem;
+    padding: .5rem 3vw;
+    top: 0;
 }
 
 .brand-name {
@@ -29,7 +29,47 @@
 }
 
 .right-side-user-menu {
-    display: inline-flex;
+    display: flex;
     flex-direction: row;
-    margin: .7rem;
+    flex-flow: row nowrap;
+    margin: 5px;
+
+}
+.navbar-links {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+}
+
+.profile-buttons-right {
+    display: flex;
+    width: 3rem;
+    justify-content: space-between;
+    padding: .1em .5em;
+    border-radius: 20px;
+    margin-top: .3em;
+    border: 1px solid grey;
+}
+
+.profile-dropdown {
+    position: absolute;
+    float: left;
+    border: 1px solid grey;
+    padding: 1rem;
+    right: 5%;
+    display: flex;
+    flex-direction: column;
+    width: 15rem;
+    border-radius: 1rem 0;
+}
+
+.dropdown-menu {
+    position: relative;
+    float: left;
+    margin-right: 7rem;
+}
+
+.login-button {
+    display: flex;
+    justify-content: flex-end;
 }

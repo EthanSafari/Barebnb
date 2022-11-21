@@ -43,7 +43,7 @@ export const createReviewForSpot = (spotId, review) => async dispatch => {
         const data = await response.json();
         dispatch(createReview(data));
         return response;
-    } else throw Error;
+    };
 };
 
 export const deleteReviewById = (reviewId) => async dispatch => {
@@ -52,7 +52,7 @@ export const deleteReviewById = (reviewId) => async dispatch => {
     });
     if (response.ok) {
         dispatch(deleteReview(reviewId));
-    } else throw Error;
+    };
 };
 
 const initialState = { reviews: null };

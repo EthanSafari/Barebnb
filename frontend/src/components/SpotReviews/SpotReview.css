@@ -1,0 +1,30 @@
+.review-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    padding: 2% 5%;
+}
+
+.review {
+    width: 50%;
+    border: 1px solid lightgrey;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+ul li {
+    list-style-type: none;
+}
+
+.review-stars {
+    margin: 3%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.reviews {
+    width: 75vw;
+    margin-top: -15%;
+
+}

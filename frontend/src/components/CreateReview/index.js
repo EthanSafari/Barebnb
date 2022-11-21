@@ -2,18 +2,20 @@ import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
 import CreateReview from './CreateReview';
 
+import './CreateReview.css';
+
 function CreateReviewModal({ spotId }) {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <>
-      <button onClick={() => setShowModal(true)}>CreateReview</button>
+    <div className='review-modal-button-container'>
+      <button onClick={() => setShowModal(true)} className='review-modal-button'>CreateReview</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <CreateReview spotId={spotId} />
         </Modal>
       )}
-    </>
+    </div>
   );
 }
 

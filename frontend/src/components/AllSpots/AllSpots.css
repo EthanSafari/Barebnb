@@ -1,32 +1,57 @@
 .all-spots-container {
-    display: inline-flex;
+    display: flex;
     flex-direction: column;
-    padding: 0 5%;
+    justify-content: center;
+    margin-top: 5rem;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    object-position: 50% 50%;
+    padding: auto;
+    margin-bottom: 2rem;
 }
 
 .all-spots-preview-image {
     display: block;
-    max-width: 80%;
-    max-height: 80%;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: .3rem;
-    margin-bottom: .5rem;
+    width: 300px;
+    height: 300px;
+    border-radius: .5em 0;
     object-fit: cover;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .7);
+    margin-bottom: 2%;
 }
 
 .all-spots-ul {
-    display: inline-flex;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: start;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding: 0;
+    flex-shrink: 0;
+    padding-left: auto;
+    padding-right: auto;
+    object-fit: contain;
 }
 
 .all-spots-card {
-    border: 1px solid black;
-    width: 33%;
     margin: 1%;
-    border-radius: .3rem;
-    padding: 2%
+    padding: 2%;
+    flex-shrink: 0;
+    padding: 0;
+    border-bottom: 1px solid lightgrey;
+    padding-bottom: 1%;
 }
 
 .all-spots-card > p {
     font-size: .2rem;
+}
+
+.top-part-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.rating{
+    display: flex;
 }

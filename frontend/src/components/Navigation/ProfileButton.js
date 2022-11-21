@@ -29,25 +29,43 @@ function ProfileButton({ user }) {
   };
 
   return (
-    <>
+    <div>
       <button className="profile-buttons-right" onClick={openMenu}>
-        <i class="fa-solid fa-bars" style={{
-          cursor: 'pointer',
-        }}></i>
-        <i class="fa-regular fa-user" style={{
-          cursor: 'pointer',
-        }}></i>
+        <div>
+          <i class="fa-solid fa-bars" style={{
+            cursor: 'pointer',
+            margin: '2px',
+          }}></i>
+        </div>
+        <div>
+          <i class="fa-regular fa-user" style={{
+            cursor: 'pointer',
+            margin: '2px',
+          }}></i>
+        </div>
       </button>
       {showMenu && (
         <ul className="profile-dropdown">
-          <li>{user.username}</li>
-          <li>{user.email}</li>
+          <div>
+            <div>
+              <li>{user.username}</li>
+            </div>
+            <li>{user.email}</li>
+          </div>
+          <div className="login-button">
+
           <li>
-            <button onClick={logout}>Log Out</button>
+            <button onClick={logout} style={{
+              padding: '.3em',
+              borderRadius: '4px',
+              margin: '3px',
+              border: '1px solid grey',
+            }}>Log Out</button>
           </li>
+          </div>
         </ul>
       )}
-    </>
+    </div>
   );
 }
 

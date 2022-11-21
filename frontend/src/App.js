@@ -21,6 +21,10 @@ function App() {
       <Switch>
         <Route exact path='/' component={SpotsList} />
         <Route path='/spots/:spotId' component={SingleSpot} />
+        <Route>
+          <h1>Page Not Found</h1>
+          <p>Looks like you've stumbled upon a bare beach! Please press the home button to continue looking at barebnb's!</p>
+          </Route>
       </Switch>
     </>
   );

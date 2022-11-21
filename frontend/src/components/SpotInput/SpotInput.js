@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { addNewSpot } from "../../store/spots";
 
+import './SpotInput.css';
+
 const SpotInput = () => {
     const sessionUser = useSelector((state) => state.session.user);
 
@@ -13,6 +15,8 @@ const SpotInput = () => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(0.00);
+
+    const [previewImageUrl, setPreviewImageUrl] = useState('');
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -31,7 +35,7 @@ const SpotInput = () => {
             price,
         };
 
-        const spot = await dispatch(addNewSpot(newSpot));
+        const spot = await dispatch(addNewSpot(newSpot, previewImageUrl));
         if (spot) reset();
 
         history.push('/');
@@ -49,7 +53,7 @@ const SpotInput = () => {
 
     return (
         <div className="inputSpot">
-            <h1>Create Spot</h1>
+            <h1 style={{marginBottom: '5%'}}>Create a Listing</h1>
             <form onSubmit={handleSubmit}>
                 <input
                     type='text'
@@ -57,6 +61,7 @@ const SpotInput = () => {
                     value={name}
                     placeholder='name'
                     name='name'
+                    required
                 />
                 <input
                     type='text'
@@ -64,6 +69,7 @@ const SpotInput = () => {
                     value={address}
                     placeholder='address'
                     name='address'
+                    required
                 />
                 <input
                     type='text'
@@ -71,6 +77,7 @@ const SpotInput = () => {
                     value={city}
                     placeholder='city'
                     name='city'
+                    required
                 />
                 <input
                     type='text'
@@ -78,6 +85,7 @@ const SpotInput = () => {
                     value={state}
                     placeholder='state'
                     name='state'
+                    required
                 />
                 <input
                     type='text'
@@ -85,13 +93,15 @@ const SpotInput = () => {
                     value={country}
                     placeholder='country'
                     name='country'
+                    required
                 />
-                <input
+                <textarea
                     type='text'
                     onChange={(e) => setDescription(e.target.value)}
                     value={description}
                     placeholder='description'
                     name='description'
+                    required
                 />
                 <input
                     type='number'
@@ -99,8 +109,18 @@ const SpotInput = () => {
                     value={price}
                     placeholder='price'
                     name='price'
+                    required
+                    min={15}
                 />
-                <button type='submit'>Submit</button>
+                <input
+                    type='url'
+                    onChange={(e) => setPreviewImageUrl(e.target.value)}
+                    value={previewImageUrl}
+                    placeholder='previewImage'
+                    name="previewImage"
+                    required
+                />
+                <button type='submit' className="spot-input-submit-button">Submit</button>
             </form>
         </div>
     );

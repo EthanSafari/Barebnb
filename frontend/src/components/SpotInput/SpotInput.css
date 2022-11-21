@@ -1,0 +1,31 @@
+.create-spot-button {
+    border: none;
+    outline: none;
+    margin-right: 1em;
+    cursor: pointer;
+ }
+
+ .inputSpot {
+   border: 2px solid grey;
+    width: 20em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5%;
+    justify-content: space-between;
+ }
+
+ .inputSpot > form > input {
+   margin: 2px;
+ }
+
+ .inputSpot > form > textarea {
+   margin: 2px;
+   height: 5em;
+ }
+
+ .spot-input-submit-button {
+   margin-top: 3%;
+   border: 1px solid grey;
+   border-radius: 3px;
+ }

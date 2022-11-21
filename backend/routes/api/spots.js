@@ -370,7 +370,7 @@ router.get('/:spotId/reviews', async (req, res, next) => {
 });
 
 // gets Spot by spotId
-router.get('/:spotId', requireAuth, async (req, res, next) => {
+router.get('/:spotId', async (req, res, next) => {
     const { spotId } = req.params;
     let findSpotById = await Spot.findByPk(spotId, {
         include: [
@@ -555,8 +555,16 @@ router.get('/', handleValidationErrors, async (req, res, next) => {
             group: ['id', 'spotId', 'preview', 'url', 'updatedAt', 'createdAt'],
         });
         spot = spot.toJSON();
+        const ratingTotal = () => {
+            let total = 0;
+            for (let i = 0; i < ratings.length; i++) {
+                const element = ratings[i];
+                total += element.dataValues.stars;
+            };
+            return total;
+        };
         spot.avgRating = (ratings.length)
-            ? Number(ratings[0].dataValues.totalStars / ratings.length)
+            ? Number(ratingTotal() / ratings.length)
             : `${spot.name} doesn't have any reviews yet!`;
         spot.preview = (previewImage !== null)
             ? previewImage.url : `${spot.name} doesn't have a preview!`;
