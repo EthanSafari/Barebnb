@@ -44,7 +44,7 @@ const UpdateCurrentSpot = ({ spots }) => {
 
     return (
         <div className="inputSpot">
-            <h1>Update Spot</h1>
+            <h1 style={{marginBottom: '5%'}}>Update Spot</h1>
             <form onSubmit={handleSubmit}>
                 <input
                     type='text'
@@ -81,7 +81,7 @@ const UpdateCurrentSpot = ({ spots }) => {
                     placeholder='country'
                     name='country'
                 />
-                <input
+                <textarea
                     type='text'
                     onChange={(e) => setDescription(e.target.value)}
                     value={description}
@@ -95,7 +95,11 @@ const UpdateCurrentSpot = ({ spots }) => {
                     placeholder='price'
                     name='price'
                 />
-                <button type='submit'>Submit</button>
+                <button type='submit' style={{
+                    marginTop: '3%',
+                    border: '1px solid grey',
+                    borderradius: '3px',
+                }}>Submit</button>
             </form>
         </div>
     );

@@ -35,6 +35,8 @@ function SignupFormPage() {
   };
 
   return (
+    <div className="signup-modal-form">
+ <h1 style={{marginBottom: '5%'}}>Sign Up</h1>
     <form onSubmit={handleSubmit} className='signup-form'>
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
@@ -48,7 +50,7 @@ function SignupFormPage() {
           required
         />
       </label>
-      <label>
+      <label className="signup-label">
         Username
         <input
           type="text"
@@ -93,8 +95,9 @@ function SignupFormPage() {
           required
         />
       </label>
-      <button type="submit">Sign Up</button>
+      <button type="submit" className="signup-form-button">Sign Up</button>
     </form>
+    </div>
   );
 }
 

@@ -75,3 +75,14 @@
     padding: 2% 1%;
     border-bottom: 1px solid lightgrey;
 }
+
+.spot-owner-options {
+    display: flex;
+    margin: 5%;
+}
+
+.spot-owner-options>button {
+    margin: 5%;
+    border: 1px solid grey;
+    border-radius: 3px;
+}

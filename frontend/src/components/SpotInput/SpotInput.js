@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { addNewSpot } from "../../store/spots";
 
+import './SpotInput.css';
+
 const SpotInput = () => {
     const sessionUser = useSelector((state) => state.session.user);
 
@@ -51,7 +53,7 @@ const SpotInput = () => {
 
     return (
         <div className="inputSpot">
-            <h1>Create a Listing</h1>
+            <h1 style={{marginBottom: '5%'}}>Create a Listing</h1>
             <form onSubmit={handleSubmit}>
                 <input
                     type='text'
@@ -93,7 +95,7 @@ const SpotInput = () => {
                     name='country'
                     required
                 />
-                <input
+                <textarea
                     type='text'
                     onChange={(e) => setDescription(e.target.value)}
                     value={description}
@@ -118,7 +120,7 @@ const SpotInput = () => {
                     name="previewImage"
                     required
                 />
-                <button type='submit'>Submit</button>
+                <button type='submit' className="spot-input-submit-button">Submit</button>
             </form>
         </div>
     );

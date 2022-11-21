@@ -37,6 +37,10 @@ const SpotReviewsById = (spot) => {
                                 e.preventDefault();
                                 const singleReview = reviewsArray.find(thisReview => thisReview.id === review.id);
                                 dispatch(deleteReviewById(singleReview.id));
+                            }} style={{
+                                marginTop: '3%',
+                                border: '1px solid grey',
+                                borderradius: '3px',
                             }}>
                                 Delete Review
                             </button>
