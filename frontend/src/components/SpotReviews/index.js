@@ -16,7 +16,17 @@ const SpotReviewsById = (spot) => {
         dispatch(getSpotReviews(spot.spot.id))
     }, [dispatch]);
 
-    if (!reviewsArray.length) return null;
+    if (!reviewsArray.length) return (
+        <div className="reviews">
+            <h3 style={{marginTop: '5%'}}>Reviews:</h3>
+            <h5 style={{
+                margin: '5% auto',
+                width: '50%',
+                display: 'flex',
+                justifyContent: 'center',
+            }}>This Listing doesn't have any reviews yet!</h5>
+        </div>
+    );
     else return (
         <div className="reviews">
             <h3 style={{marginTop: '5%'}}>Reviews:</h3>
