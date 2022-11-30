@@ -14,7 +14,6 @@ const SingleSpot = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // dispatch(getAllSpots())
         dispatch(getSingleSpot(spotId));
     }, [dispatch]);
 
@@ -40,7 +39,7 @@ const SingleSpot = () => {
     return (
         <div className='full-single-spot-page'>
             <div className='spot-name'>
-                <h1>{singleSpot.name}</h1>
+                <h1>{sessionCurrentSpot.name}</h1>
             </div>
             <div className='info-under-spot-name'>
                 <div className='rating-info'>
@@ -49,29 +48,35 @@ const SingleSpot = () => {
                         <h3><i class="fa-solid fa-star"></i></h3>
                         <h3>{singleSpot.avgRating}</h3>
                     </div>)}
-                {(sessionReviews && sessionReviews.length > 1) ? (<h3>~ {sessionReviews.length} reviews</h3>)
+
+
+                    {console.log(sessionReviews.length)}
+
+
+                    
+                {(sessionReviews && !sessionReviews.length) ? (<h3>~ this place has no reviews yet!</h3>)
                 : (sessionReviews && sessionReviews.length === 1) ? (<h3>~ {sessionReviews.length} review</h3>)
-                : (<h3>~ this place has no reviews yet!</h3>)}
+                : (<h3>~ {sessionReviews.length} reviews</h3>)}
                 </div>
             </div>
             <div className='single-spot-images-container'>
                 {sessionCurrentSpot.SpotImages.map(image => (
-                    <img src={image.url} alt={singleSpot.name} className='single-spot-image' />
+                    <img src={image.url} alt={sessionCurrentSpot.name} className='single-spot-image' />
                 ))}
             </div>
             <div className='hosted-by'>
                 <h3>Hosted by {sessionCurrentSpot.Owner.firstName} {sessionCurrentSpot.Owner.lastName}</h3>
             </div>
             <div className='description'>
-                <h4>{singleSpot.description}</h4>
+                <h4>{sessionCurrentSpot.description}</h4>
             </div>
             <div className='full-address'>
-                <h3>{singleSpot.address}</h3>
-                <h4>{singleSpot.city}, {singleSpot.state}</h4>
-                <h4>{singleSpot.country}</h4>
+                <h3>{sessionCurrentSpot.address}</h3>
+                <h4>{sessionCurrentSpot.city}, {sessionCurrentSpot.state}</h4>
+                <h4>{sessionCurrentSpot.country}</h4>
             </div>
             <div className='price'>
-            <h5><strong>${singleSpot.price}</strong> night</h5>
+            <h5><strong>${sessionCurrentSpot.price}</strong> night</h5>
             </div>
             <div>
                 <SpotReviewsById spot={singleSpot} />

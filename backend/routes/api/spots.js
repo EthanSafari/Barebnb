@@ -396,21 +396,12 @@ router.get('/:spotId', async (req, res, next) => {
             },
             group: ['id', 'firstName', 'lastName', 'username', 'email', 'hashedPassword', 'createdAt', 'updatedAt'],
         });
-        const ratingCount = await Review.findOne({
-            attributes: {
-                include: [
-                    [
-                        sequelize.fn("COUNT", sequelize.col("stars")),
-                        "reviewCount",
-                    ],
-                ],
-            },
+        const ratingCount = await Review.count({
             where: {
                 userId: findSpotById.ownerId,
             },
-            group: ['id', 'spotId', 'userId', 'stars', 'review', 'updatedAt', 'createdAt'],
         });
-        const ratingTotal = await Review.findOne({
+        const ratingTotal = await Review.findAll({
             attributes: {
                 include: [
                     [
@@ -426,9 +417,9 @@ router.get('/:spotId', async (req, res, next) => {
         });
         findSpotById.Owner = findOwner;
         findSpotById.numReviews = (ratingCount !== null)
-            ? Number(ratingCount.dataValues.reviewCount) : 0;
+            ? Number(ratingCount.length) : 0;
         findSpotById.avgStarRating = (ratingTotal !== null)
-            ? ratingTotal.dataValues.totalStars / ratingCount.dataValues.reviewCount
+            ? ratingTotal.totalStars / ratingCount
             : 0;
         return res.status(200).json(findSpotById);
     } else {

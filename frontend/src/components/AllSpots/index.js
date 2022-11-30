@@ -35,7 +35,14 @@ const SpotsList = () => {
                                 : spot.preview.includes("doesn't have") ? null
                                     : <img className='all-spots-preview-image' src={spot.preview} alt={spot.name}></img>}
                             <div className="top-part-info">
-                                <h3>{spot.city}, {spot.state}</h3>
+                                <div style={{
+                                    display: 'flex',
+                                    flexFlow: 'row wrap',
+                                    justifyContent: 'space-between'
+                                }}>
+                                    <h3>{spot.city},</h3>
+                                    <h3 style={{ paddingLeft: '5px'}}>{spot.state}</h3>
+                                </div>
                                 <div className="rating">
                                     <h4><i class="fa-solid fa-star"></i></h4>
                                     {spot.avgRating && spot.avgRating.toString().includes("doesn't") ? (<h3>New</h3>) : (<h3>{spot.avgRating}</h3>)}

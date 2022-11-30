@@ -39,7 +39,7 @@ const UpdateCurrentSpot = ({ spots }) => {
 
         await dispatch(updateSpotById(parseInt(spotId), updateSpot, previewImageUrl));
 
-        history.push(`/`);
+        return history.push(`/spots/${spotId}`);
     };
 
     return (
