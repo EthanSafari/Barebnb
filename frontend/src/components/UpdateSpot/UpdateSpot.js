@@ -98,7 +98,7 @@ const UpdateCurrentSpot = ({ spots }) => {
                 <button type='submit' style={{
                     marginTop: '3%',
                     border: '1px solid grey',
-                    borderradius: '3px',
+                    borderRadius: '3px',
                 }}>Submit</button>
             </form>
         </div>

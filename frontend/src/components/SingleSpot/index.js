@@ -14,7 +14,7 @@ const SingleSpot = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getAllSpots())
+        // dispatch(getAllSpots())
         dispatch(getSingleSpot(spotId));
     }, [dispatch]);
 

@@ -49,7 +49,8 @@ const SpotsList = () => {
             <button style={{
                 marginTop: '3%',
                 border: '1px solid grey',
-                borderradius: '3px',
+                borderRadius: '3px',
+                padding: '.5%'
             }}>
                 <a href='https://github.com/EthanSafari/API-Project/blob/main/README.md'>
                     Github Link

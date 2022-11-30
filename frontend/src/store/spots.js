@@ -54,7 +54,7 @@ export const getSingleSpot = (spotId) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}`);
     const data = await response.json();
     dispatch(singleSpot(data));
-    return data;
+    return response;
 };
 
 export const addNewSpot = (spot, previewImageUrl) => async dispatch => {
@@ -128,9 +128,9 @@ const spotsReducer = (state = initialState, action) => {
             newState = Object.assign({}, state);
             return { ...newState };
         case GET_SINGLE_SPOT:
-                newState = Object.assign({}, state);
-                newState.currentSpot = action.spot;
-                return newState;
+            newState = Object.assign({}, state);
+            newState.currentSpot = action.spot;
+            return newState;
         default:
             return state;
     };

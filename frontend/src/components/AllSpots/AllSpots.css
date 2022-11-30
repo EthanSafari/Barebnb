@@ -24,7 +24,7 @@
 .all-spots-ul {
     display: flex;
     flex-flow: row wrap;
-    justify-content: start;
+    justify-content: center;
     margin-left: 5%;
     margin-right: 5%;
     padding: 0;
@@ -32,6 +32,7 @@
     padding-left: auto;
     padding-right: auto;
     object-fit: contain;
+    width: 85vw;
 }
 
 .all-spots-card {
