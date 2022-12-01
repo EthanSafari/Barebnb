@@ -46,17 +46,11 @@ const SingleSpot = () => {
                 {singleSpot.avgRating.toString().includes("doesn't") ? (<h3>New Listing</h3>) : (
                     <div className='average-rating'>
                         <h3><i class="fa-solid fa-star"></i></h3>
-                        <h3>{singleSpot.avgRating}</h3>
+                        <h3>{singleSpot.avgRating.toFixed(1)}</h3>
                     </div>)}
-
-
-                    {console.log(sessionReviews.length)}
-
-
-                    
-                {(sessionReviews && !sessionReviews.length) ? (<h3>~ this place has no reviews yet!</h3>)
-                : (sessionReviews && sessionReviews.length === 1) ? (<h3>~ {sessionReviews.length} review</h3>)
-                : (<h3>~ {sessionReviews.length} reviews</h3>)}
+                {(sessionReviews && sessionCurrentSpot.numReviews > 1) ? (<h3>~ {sessionCurrentSpot.numReviews} reviews</h3>)
+                : (sessionReviews && sessionCurrentSpot.numReviews === 1) ? (<h3>~ {sessionCurrentSpot.numReviews} review</h3>)
+                : (<h3>~ this place has no reviews yet!</h3>)}
                 </div>
             </div>
             <div className='single-spot-images-container'>

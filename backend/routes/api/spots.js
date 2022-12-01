@@ -398,7 +398,7 @@ router.get('/:spotId', async (req, res, next) => {
         });
         const ratingCount = await Review.count({
             where: {
-                userId: findSpotById.ownerId,
+                spotId: spotId,
             },
         });
         const ratingTotal = await Review.findAll({
@@ -415,12 +415,14 @@ router.get('/:spotId', async (req, res, next) => {
             },
             group: ['id', 'spotId', 'userId', 'stars', 'review', 'updatedAt', 'createdAt'],
         });
+        console.log(ratingCount)
         findSpotById.Owner = findOwner;
         findSpotById.numReviews = (ratingCount !== null)
-            ? Number(ratingCount.length) : 0;
+            ? ratingCount : 0;
         findSpotById.avgStarRating = (ratingTotal !== null)
-            ? ratingTotal.totalStars / ratingCount
+            ? (ratingTotal.totalStars / ratingCount)
             : 0;
+        console.log(findSpotById)
         return res.status(200).json(findSpotById);
     } else {
         const err = new Error;

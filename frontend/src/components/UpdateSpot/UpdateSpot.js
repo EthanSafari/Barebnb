@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { Redirect, useHistory, useParams } from "react-router-dom";
 import { getAllSpots, updateSpotById } from "../../store/spots";
 
 const UpdateCurrentSpot = ({ spots }) => {
@@ -39,7 +39,7 @@ const UpdateCurrentSpot = ({ spots }) => {
 
         await dispatch(updateSpotById(parseInt(spotId), updateSpot, previewImageUrl));
 
-        return history.push(`/spots/${spotId}`);
+        return <Redirect to={`/spots/${spotId}`} />;
     };
 
     return (
