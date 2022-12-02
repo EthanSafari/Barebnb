@@ -14,7 +14,7 @@ const SpotInput = () => {
     const [country, setCountry] = useState('');
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [price, setPrice] = useState(0.00);
+    const [price, setPrice] = useState(15.00);
 
     const [previewImageUrl, setPreviewImageUrl] = useState('');
 
@@ -48,7 +48,8 @@ const SpotInput = () => {
         setCountry('');
         setName('');
         setDescription('');
-        setPrice(0.00);
+        setPrice(15.00);
+        setPreviewImageUrl('');
     };
 
     return (
@@ -116,7 +117,7 @@ const SpotInput = () => {
                     type='url'
                     onChange={(e) => setPreviewImageUrl(e.target.value)}
                     value={previewImageUrl}
-                    placeholder='previewImage'
+                    placeholder='Preview Image'
                     name="previewImage"
                     required
                 />

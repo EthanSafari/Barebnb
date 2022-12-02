@@ -18,3 +18,12 @@ a {
     background-color: transparent;
     text-decoration: none;
 }
+
+button {
+    cursor: pointer;
+}
+
+input {
+    border: 1px solid grey;
+    width: 15rem;
+}

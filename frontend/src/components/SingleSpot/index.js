@@ -4,7 +4,7 @@ import { deleteSpotById, getAllSpots, getSingleSpot } from '../../store/spots';
 import UpdateSpotModal from '../UpdateSpot';
 import SpotReviewsById from '../SpotReviews';
 import CreateReviewModal from '../CreateReview';
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import './SingleSpot.css';
 
@@ -19,21 +19,16 @@ const SingleSpot = () => {
 
     const history = useHistory();
 
-    const sessionSpots = useSelector(state => state.spots.spots);
     const sessionUser = useSelector(state => state.session.user);
     const sessionCurrentSpot = useSelector(state => state.spots.currentSpot);
     const sessionReviews = useSelector(state => state.reviews.reviews);
-    if (!sessionSpots || !sessionCurrentSpot) return null;
-
-    const spots = Object.values(sessionSpots);
-    if (!spots) return null;
-
-    const singleSpot = spots.find(spot => spot.id === Number(spotId));
+    if (!sessionCurrentSpot) return null;
 
     const deleteSpot = (e) => {
         e.preventDefault();
-        dispatch(deleteSpotById(singleSpot.id));
-        history.push('/');
+        dispatch(deleteSpotById(sessionCurrentSpot.id));
+        dispatch(getAllSpots());
+        setTimeout(history.push('/'), 1250);
     };
 
     return (
@@ -43,10 +38,10 @@ const SingleSpot = () => {
             </div>
             <div className='info-under-spot-name'>
                 <div className='rating-info'>
-                {singleSpot.avgRating.toString().includes("doesn't") ? (<h3>New Listing</h3>) : (
+                {sessionCurrentSpot.avgStarRating === undefined || sessionCurrentSpot.avgStarRating === 0 ? (<h3>New Listing</h3>) : (
                     <div className='average-rating'>
                         <h3><i class="fa-solid fa-star"></i></h3>
-                        <h3>{singleSpot.avgRating.toFixed(1)}</h3>
+                        <h3>{sessionCurrentSpot.avgStarRating.toFixed(1)}</h3>
                     </div>)}
                 {(sessionReviews && sessionCurrentSpot.numReviews > 1) ? (<h3>~ {sessionCurrentSpot.numReviews} reviews</h3>)
                 : (sessionReviews && sessionCurrentSpot.numReviews === 1) ? (<h3>~ {sessionCurrentSpot.numReviews} review</h3>)
@@ -73,19 +68,19 @@ const SingleSpot = () => {
             <h5><strong>${sessionCurrentSpot.price}</strong> night</h5>
             </div>
             <div>
-                <SpotReviewsById spot={singleSpot} />
-                {sessionUser && sessionUser.id === singleSpot.ownerId || !sessionUser ?
+                <SpotReviewsById spot={sessionCurrentSpot} />
+                {sessionUser && sessionUser.id === sessionCurrentSpot.ownerId || !sessionUser ?
                     null : <CreateReviewModal spotId={Number(spotId)} />
                 }
             </div>
             <div className='spot-owner-options'>
-                {sessionUser && sessionUser.id === singleSpot.ownerId ? (
+                {sessionUser && sessionUser.id === sessionCurrentSpot.ownerId ? (
                     <button onClick={deleteSpot} className="delete-button">
                         Delete Listing
                     </button>
                 ) : null}
-                {sessionUser && sessionUser.id === singleSpot.ownerId ? (
-                    <UpdateSpotModal spots={spots} />
+                {sessionUser && sessionUser.id === sessionCurrentSpot.ownerId ? (
+                    <UpdateSpotModal />
                 ) : null}
             </div>
         </div >

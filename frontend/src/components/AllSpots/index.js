@@ -45,7 +45,7 @@ const SpotsList = () => {
                                 </div>
                                 <div className="rating">
                                     <h4><i class="fa-solid fa-star"></i></h4>
-                                    {spot.avgRating && spot.avgRating.toString().includes("doesn't") ? (<h3>New</h3>) : (<h3>{spot.avgRating.toFixed(1)}</h3>)}
+                                    {spot.avgRating && spot.avgRating.toString().includes("doesn't") || spot.avgRating === undefined ? (<h3>New</h3>) : (<h3>{spot.avgRating.toFixed(1)}</h3>)}
                                 </div>
                             </div>
                             <p><strong>${spot.price}</strong> night</p>

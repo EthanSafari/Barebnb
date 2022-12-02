@@ -401,28 +401,18 @@ router.get('/:spotId', async (req, res, next) => {
                 spotId: spotId,
             },
         });
-        const ratingTotal = await Review.findAll({
-            attributes: {
-                include: [
-                    [
-                        sequelize.fn("SUM", sequelize.col("stars")),
-                        "totalStars",
-                    ],
-                ],
-            },
+        const ratingTotal = await Review.sum('stars', {
             where: {
                 spotId: spotId,
             },
-            group: ['id', 'spotId', 'userId', 'stars', 'review', 'updatedAt', 'createdAt'],
         });
-        console.log(ratingCount)
         findSpotById.Owner = findOwner;
         findSpotById.numReviews = (ratingCount !== null)
             ? ratingCount : 0;
+            console.log(ratingTotal)
         findSpotById.avgStarRating = (ratingTotal !== null)
-            ? (ratingTotal.totalStars / ratingCount)
+            ? (ratingTotal / ratingCount)
             : 0;
-        console.log(findSpotById)
         return res.status(200).json(findSpotById);
     } else {
         const err = new Error;

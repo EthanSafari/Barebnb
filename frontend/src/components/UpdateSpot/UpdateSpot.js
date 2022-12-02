@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory, useParams } from "react-router-dom";
-import { getAllSpots, updateSpotById } from "../../store/spots";
+import { getAllSpots, getSingleSpot, updateSpotById } from "../../store/spots";
 
 const UpdateCurrentSpot = ({ spots }) => {
     const { spotId } = useParams();
@@ -9,6 +9,9 @@ const UpdateCurrentSpot = ({ spots }) => {
     const singleSpot = spots.find(spot => spot.id === Number(spotId));
 
     const sessionUser = useSelector((state) => state.session.user);
+    const sessionCurrentSpot = useSelector((state) => state.spots.currentSpot);
+
+    const [currentSpot, setCurrentSpot] = useState(sessionCurrentSpot)
 
     const [address, setAddress] = useState(singleSpot.address);
     const [city, setCity] = useState(singleSpot.city);
@@ -38,6 +41,10 @@ const UpdateCurrentSpot = ({ spots }) => {
         };
 
         await dispatch(updateSpotById(parseInt(spotId), updateSpot, previewImageUrl));
+
+        const newCurrentSpot = await dispatch(getSingleSpot(spotId));
+
+        setCurrentSpot(newCurrentSpot);
 
         return <Redirect to={`/spots/${spotId}`} />;
     };

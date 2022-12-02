@@ -9,6 +9,7 @@ const SpotReviewsById = (spot) => {
     const dispatch = useDispatch();
     const reviewsObject = useSelector(state => state.reviews);
     const sessionUser = useSelector(state => state.session.user);
+    
 
     const reviewsArray = objectToArray(reviewsObject.reviews);
 
