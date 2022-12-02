@@ -110,6 +110,7 @@ const spotsReducer = (state = initialState, action) => {
         case GET_SPOTS:
             newState = Object.assign({}, state);
             newState.spots = action.spots;
+            newState.currentSpot = null;
             return newState;
         case ADD_SPOT:
             newState = Object.assign({}, state);

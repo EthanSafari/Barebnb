@@ -7,6 +7,8 @@ import Navigation from "./components/Navigation";
 import SpotsList from "./components/AllSpots";
 import SingleSpot from "./components/SingleSpot";
 
+import BeachImage from "./image-folder/beach.jpg";
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -22,9 +24,13 @@ function App() {
         <Route exact path='/' component={SpotsList} />
         <Route path='/spots/:spotId' component={SingleSpot} />
         <Route>
-          <h1>Page Not Found</h1>
-          <p>Looks like you've stumbled upon a bare beach! Please press the home button to continue looking at barebnb's!</p>
-          </Route>
+          <div style={{
+            margin: '10rem',
+          }}>
+            <h1>Page Not Found</h1>
+            <p>Looks like you've stumbled upon a barebn-beach! Please press the home button to continue looking at barebnb's!</p>
+          </div>
+        </Route>
       </Switch>
     </>
   );
