@@ -2,17 +2,23 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory, useParams } from "react-router-dom";
 import { getAllSpots, getSingleSpot, updateSpotById } from "../../store/spots";
+import { Modal } from "../../context/Modal";
 
-const UpdateCurrentSpot = ({ spot }) => {
+const UpdateCurrentSpot = () => {
     const { spotId } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getSingleSpot(spotId));
+    }, [dispatch]);
 
     const sessionUser = useSelector((state) => state.session.user);
     const sessionSpots = useSelector((state) => state.spots.spots)
     const sessionCurrentSpot = useSelector((state) => state.spots.currentSpot);
 
-    const [currentSpot, setCurrentSpot] = useState(sessionCurrentSpot)
+    const [currentSpot, setCurrentSpot] = useState(sessionCurrentSpot);
+    const [showModal, setShowModal] = useState(true);
 
     const [address, setAddress] = useState(sessionCurrentSpot.address);
     const [city, setCity] = useState(sessionCurrentSpot.city);
@@ -21,10 +27,6 @@ const UpdateCurrentSpot = ({ spot }) => {
     const [name, setName] = useState(sessionCurrentSpot.name);
     const [description, setDescription] = useState(sessionCurrentSpot.description);
     const [price, setPrice] = useState(sessionCurrentSpot.price);
-
-    // TODO need to find out how to get the preview images without having to get the state
-    const singleSpot = sessionSpots.find(spot => spot.id === parseInt(spotId));
-    const previewImageUrl = singleSpot.preview;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -41,13 +43,13 @@ const UpdateCurrentSpot = ({ spot }) => {
             price,
         };
 
-        await dispatch(updateSpotById(parseInt(spotId), updateSpot, previewImageUrl));
+        await dispatch(updateSpotById(parseInt(spotId), updateSpot));
 
         const newCurrentSpot = await dispatch(getSingleSpot(spotId));
 
         setCurrentSpot(newCurrentSpot);
 
-        return <Redirect to={`/spots/${spotId}`} />;
+        setShowModal(false);
     };
 
     return (

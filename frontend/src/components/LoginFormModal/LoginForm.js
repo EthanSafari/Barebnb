@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { Modal } from '../../context/Modal';
 
 import './LoginForm.css';
 
@@ -9,6 +10,7 @@ function LoginForm() {
   const dispatch = useDispatch();
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
+  const [showModal, setShowModal] = useState(true);
   const [errors, setErrors] = useState([]);
 
   const history = useHistory();
@@ -16,7 +18,7 @@ function LoginForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
-    history.push('/');
+    setShowModal(false);
 
     return dispatch(sessionActions.login({ credential, password })).catch(
       async (res) => {

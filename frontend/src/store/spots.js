@@ -90,14 +90,13 @@ export const deleteSpotById = (spotId) => async dispatch => {
     };
 };
 
-export const updateSpotById = (spotId, updatedSpot, previewImageUrl) => async dispatch => {
+export const updateSpotById = (spotId, updatedSpot) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedSpot),
     });
     if (response.ok) {
-        response.preview = previewImageUrl;
         dispatch(updateSpot(spotId, updatedSpot));
         return response;
     };
