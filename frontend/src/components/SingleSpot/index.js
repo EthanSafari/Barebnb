@@ -38,14 +38,14 @@ const SingleSpot = () => {
             </div>
             <div className='info-under-spot-name'>
                 <div className='rating-info'>
-                {sessionCurrentSpot.avgStarRating === undefined || sessionCurrentSpot.avgStarRating === 0 ? (<h3>New Listing</h3>) : (
-                    <div className='average-rating'>
-                        <h3><i class="fa-solid fa-star"></i></h3>
-                        <h3>{sessionCurrentSpot.avgStarRating.toFixed(1)}</h3>
-                    </div>)}
-                {(sessionReviews && sessionCurrentSpot.numReviews > 1) ? (<h3>~ {sessionCurrentSpot.numReviews} reviews</h3>)
-                : (sessionReviews && sessionCurrentSpot.numReviews === 1) ? (<h3>~ {sessionCurrentSpot.numReviews} review</h3>)
-                : (<h3>~ this place has no reviews yet!</h3>)}
+                    {sessionCurrentSpot.avgStarRating === undefined || sessionCurrentSpot.avgStarRating === 0 ? (<h3>New Listing</h3>) : (
+                        <div className='average-rating'>
+                            <h3><i class="fa-solid fa-star"></i></h3>
+                            <h3>{sessionCurrentSpot.avgStarRating.toFixed(1)}</h3>
+                        </div>)}
+                    {(sessionReviews && sessionCurrentSpot.numReviews > 1) ? (<h3>~ {sessionCurrentSpot.numReviews} reviews</h3>)
+                        : (sessionReviews && sessionCurrentSpot.numReviews === 1) ? (<h3>~ {sessionCurrentSpot.numReviews} review</h3>)
+                            : (<h3>~ this place has no reviews yet!</h3>)}
                 </div>
             </div>
             <div className='single-spot-images-container'>
@@ -65,12 +65,12 @@ const SingleSpot = () => {
                 <h4>{sessionCurrentSpot.country}</h4>
             </div>
             <div className='price'>
-            <h5><strong>${sessionCurrentSpot.price}</strong> night</h5>
+                <h5><strong>${sessionCurrentSpot.price}</strong> night</h5>
             </div>
             <div>
                 <SpotReviewsById spot={sessionCurrentSpot} />
                 {sessionUser && sessionUser.id === sessionCurrentSpot.ownerId || !sessionUser ?
-                    null : <CreateReviewModal spotId={Number(spotId)} />
+                    null : <CreateReviewModal spotId={parseInt(spotId)} />
                 }
             </div>
             <div className='spot-owner-options'>

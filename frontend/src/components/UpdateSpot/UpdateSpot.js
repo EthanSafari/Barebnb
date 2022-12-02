@@ -3,33 +3,34 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory, useParams } from "react-router-dom";
 import { getAllSpots, getSingleSpot, updateSpotById } from "../../store/spots";
 
-const UpdateCurrentSpot = ({ spots }) => {
+const UpdateCurrentSpot = ({ spot }) => {
     const { spotId } = useParams();
     const history = useHistory();
-    const singleSpot = spots.find(spot => spot.id === Number(spotId));
+    const dispatch = useDispatch();
 
     const sessionUser = useSelector((state) => state.session.user);
+    const sessionSpots = useSelector((state) => state.spots.spots)
     const sessionCurrentSpot = useSelector((state) => state.spots.currentSpot);
 
     const [currentSpot, setCurrentSpot] = useState(sessionCurrentSpot)
 
-    const [address, setAddress] = useState(singleSpot.address);
-    const [city, setCity] = useState(singleSpot.city);
-    const [state, setSpotState] = useState(singleSpot.state);
-    const [country, setCountry] = useState(singleSpot.country);
-    const [name, setName] = useState(singleSpot.name);
-    const [description, setDescription] = useState(singleSpot.description);
-    const [price, setPrice] = useState(singleSpot.price);
+    const [address, setAddress] = useState(sessionCurrentSpot.address);
+    const [city, setCity] = useState(sessionCurrentSpot.city);
+    const [state, setSpotState] = useState(sessionCurrentSpot.state);
+    const [country, setCountry] = useState(sessionCurrentSpot.country);
+    const [name, setName] = useState(sessionCurrentSpot.name);
+    const [description, setDescription] = useState(sessionCurrentSpot.description);
+    const [price, setPrice] = useState(sessionCurrentSpot.price);
 
+    // TODO need to find out how to get the preview images without having to get the state
+    const singleSpot = sessionSpots.find(spot => spot.id === parseInt(spotId));
     const previewImageUrl = singleSpot.preview;
-
-    const dispatch = useDispatch();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const updateSpot = {
-            id: Number(spotId),
+            id: parseInt(spotId),
             ownerId: sessionUser.id,
             address,
             city,

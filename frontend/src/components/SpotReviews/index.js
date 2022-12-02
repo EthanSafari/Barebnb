@@ -1,20 +1,21 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { deleteReviewById, getSpotReviews } from "../../store/review";
 import { objectToArray } from "../AllSpots";
 
 import './SpotReview.css';
 
-const SpotReviewsById = (spot) => {
+const SpotReviewsById = () => {
+    const { spotId } = useParams();
     const dispatch = useDispatch();
     const reviewsObject = useSelector(state => state.reviews);
     const sessionUser = useSelector(state => state.session.user);
-    
 
     const reviewsArray = objectToArray(reviewsObject.reviews);
 
     useEffect(() => {
-        dispatch(getSpotReviews(spot.spot.id))
+        dispatch(getSpotReviews(spotId));
     }, [dispatch]);
 
     if (!reviewsArray.length) return (
