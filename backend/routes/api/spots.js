@@ -409,7 +409,6 @@ router.get('/:spotId', async (req, res, next) => {
         findSpotById.Owner = findOwner;
         findSpotById.numReviews = (ratingCount !== null)
             ? ratingCount : 0;
-            console.log(ratingTotal)
         findSpotById.avgStarRating = (ratingTotal !== null)
             ? (ratingTotal / ratingCount)
             : 0;

@@ -102,7 +102,7 @@ export const updateSpotById = (spotId, updatedSpot) => async dispatch => {
     };
 };
 
-const initialState = { spots: null };
+const initialState = { spots: null, currentSpot: null };
 
 const spotsReducer = (state = initialState, action) => {
     let newState;

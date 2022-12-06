@@ -11,7 +11,6 @@ const CreateReview = ({ spotId }) => {
     const history = useHistory();
 
     const sessionUser = useSelector((state) => state.session.user);
-    const sessionSpots = useSelector((state) => state.spots.spots);
 
     const [review, setReview] = useState('');
     const [stars, setStars] = useState(1);
@@ -26,7 +25,7 @@ const CreateReview = ({ spotId }) => {
             review,
         };
 
-        const reviewData = await dispatch(createReviewForSpot(spotId, newReview));
+        const reviewData = dispatch(createReviewForSpot(spotId, newReview));
         if (reviewData) reset();
 
         history.push(`/spots/${spotId}`);

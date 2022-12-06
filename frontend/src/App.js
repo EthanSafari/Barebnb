@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Link, Route, Switch } from "react-router-dom";
 import * as sessionActions from "./store/session";
 
 import Navigation from "./components/Navigation";
@@ -25,10 +25,23 @@ function App() {
         <Route path='/spots/:spotId' component={SingleSpot} />
         <Route>
           <div style={{
-            margin: '10rem',
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '80vw',
+            height: '100vh',
+            margin: '0 10%'
           }}>
-            <h1>Page Not Found</h1>
-            <p>Looks like you've stumbled upon a barebn-beach! Please press the home button to continue looking at barebnb's!</p>
+            <div style={{ margin: '1.5rem 0'}}>
+              <h1>Page Not Found</h1>
+              <p>Looks like you've stumbled upon a barebn-beach! Please press the home button or <strong><Link to='/'>here</Link></strong> to continue looking at barebnb's!</p>
+            </div>
+            <Link to='/'><img alt="test" style={{
+              width: '80vw',
+              borderRadius: '0 10px',
+              boxShadow: '0 2px 5px rgba(0, 0, 0, .7)',
+            }} src={BeachImage} /></Link>
           </div>
         </Route>
       </Switch>

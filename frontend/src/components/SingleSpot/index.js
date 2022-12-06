@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { deleteSpotById, getAllSpots, getSingleSpot } from '../../store/spots';
 import UpdateSpotModal from '../UpdateSpot';
 import SpotReviewsById from '../SpotReviews';
 import CreateReviewModal from '../CreateReview';
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import './SingleSpot.css';
 
@@ -22,7 +22,20 @@ const SingleSpot = () => {
     const sessionUser = useSelector(state => state.session.user);
     const sessionCurrentSpot = useSelector(state => state.spots.currentSpot);
     const sessionReviews = useSelector(state => state.reviews.reviews);
-    if (!sessionCurrentSpot) return null;
+    if (!sessionCurrentSpot) return (
+        <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100vw',
+            height: '100vh',
+        }}>
+            <h1>Constructing the barebnb...</h1>
+            <p style={{ maxWidth: '70vw' }}>If you aren't redirected in a few seconds, please click the home button or <strong><Link to='/'>here</Link></strong> to return to the <strong><Link to='/'>homepage.</Link></strong></p>
+        </div>
+    );
+    // if (!sessionCurrentSpot) return null;
 
     const deleteSpot = (e) => {
         e.preventDefault();
@@ -69,7 +82,7 @@ const SingleSpot = () => {
             </div>
             <div>
                 <SpotReviewsById spot={sessionCurrentSpot} />
-                {sessionUser && sessionUser.id === sessionCurrentSpot.ownerId || !sessionUser ?
+                {((sessionUser && sessionUser.id === sessionCurrentSpot.ownerId) || !sessionUser) ?
                     null : <CreateReviewModal spotId={parseInt(spotId)} />
                 }
             </div>

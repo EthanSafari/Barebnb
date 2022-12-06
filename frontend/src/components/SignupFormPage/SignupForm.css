@@ -2,7 +2,7 @@
     display: flex;
     flex-flow: column;
     justify-content: space-evenly;
-    margin: 5%
+    margin: 5%;
 }
 
 .signup-label {
