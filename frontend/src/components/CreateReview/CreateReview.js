@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { createReviewForSpot } from "../../store/review";
+import { getSingleSpot } from "../../store/spots";
 
 import './CreateReview.css';
 
@@ -30,6 +31,8 @@ const CreateReview = ({ spotId }) => {
         if (reviewData) reset();
 
         setShowModal(false)
+
+        dispatch(getSingleSpot(spotId))
 
         history.push(`/spots/${spotId}`);
     };

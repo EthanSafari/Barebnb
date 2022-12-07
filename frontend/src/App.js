@@ -38,7 +38,7 @@ function App() {
               <p>Looks like you've stumbled upon a barebn-beach! Please press the home button or <strong><Link to='/'>here</Link></strong> to continue looking at barebnb's!</p>
             </div>
             <Link to='/'><img alt="test" style={{
-              width: '80vw',
+              width: '50vw',
               borderRadius: '0 10px',
               boxShadow: '0 2px 5px rgba(0, 0, 0, .7)',
             }} src={BeachImage} /></Link>

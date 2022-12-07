@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { deleteReviewById, getSpotReviews } from "../../store/review";
+import { getSingleSpot } from "../../store/spots";
 import { objectToArray } from "../AllSpots";
 
 import './SpotReview.css';
@@ -49,6 +50,7 @@ const SpotReviewsById = () => {
                                 e.preventDefault();
                                 const singleReview = reviewsArray.find(thisReview => thisReview.id === review.id);
                                 dispatch(deleteReviewById(singleReview.id));
+                                dispatch(getSingleSpot(spotId))
                             }} style={{
                                 marginTop: '3%',
                                 border: '1px solid grey',
