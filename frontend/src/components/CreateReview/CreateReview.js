@@ -14,6 +14,7 @@ const CreateReview = ({ spotId }) => {
 
     const [review, setReview] = useState('');
     const [stars, setStars] = useState(1);
+    const [showModal, setShowModal] = useState(true);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -27,6 +28,8 @@ const CreateReview = ({ spotId }) => {
 
         const reviewData = dispatch(createReviewForSpot(spotId, newReview));
         if (reviewData) reset();
+
+        setShowModal(false)
 
         history.push(`/spots/${spotId}`);
     };
@@ -62,13 +65,18 @@ const CreateReview = ({ spotId }) => {
                     min={1}
                     max={5}
                     style={{
+                        marginLeft: 0,
                         marginBottom: '3%',
                         width: '20em',
                         borderRadius: '3px',
                     }}
                     required
                 />
-            <button type='submit'>Submit Review</button>
+            <button type='submit' style={{
+                border: '1px solid grey',
+                borderRadius: '3px',
+                padding: '0 3px'
+            }}>Submit Review</button>
             </form>
         </div>
     );

@@ -28,6 +28,10 @@ input {
     width: 15rem;
 }
 
+textarea {
+    resize: none;
+}
+
 body::-webkit-scrollbar {
     width: .8em;
 }
