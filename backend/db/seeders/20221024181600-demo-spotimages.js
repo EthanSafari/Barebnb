@@ -1,6 +1,12 @@
 'use strict';
 const { Op } = require('sequelize');
 
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+};
+options.tableName = 'SpotImages';
+
 module.exports = {
   async up (queryInterface, Sequelize) {
     /**
@@ -12,7 +18,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-   await queryInterface.bulkInsert('SpotImages', [
+   await queryInterface.bulkInsert(options, [
     {
       spotId: 1,
       url: 'https://vignette3.wikia.nocookie.net/kingofthehill/images/a/a4/HILL.png/revision/latest?cb=20170706011030',
@@ -43,6 +49,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('SpotImages', null, {});
+    await queryInterface.bulkDelete(options, null, {});
   }
 };

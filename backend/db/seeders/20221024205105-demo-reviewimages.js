@@ -1,6 +1,12 @@
 'use strict';
 const { Op } = require('sequelize');
 
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+};
+options.tableName = 'ReviewImages';
+
 module.exports = {
   async up (queryInterface, Sequelize) {
     /**
@@ -12,7 +18,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-   await queryInterface.bulkInsert('ReviewImages', [
+   await queryInterface.bulkInsert(options, [
     {
       reviewId: 1,
       url: 'https://gamefaqs.gamespot.com/a/screen/full/0/7/4/396074.jpg',
@@ -35,6 +41,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('ReviewImages', null, {});
+    await queryInterface.bulkDelete(options, null, {});
   }
 };
