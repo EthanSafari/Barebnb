@@ -11,7 +11,7 @@ React,
 Redux,
 
 # Feature Directions:
-Upon accessing the landing page link https://whatever-1-want.herokuapp.com/ , you will be greeted with several spots, an option to load in, and an option to sign up.
+Upon accessing the landing page link https://barebnb.onrender.com/ , you will be greeted with several spots, an option to load in, and an option to sign up.
 Don't fret though, there is no need to sign up. In the "Log In" button, there is an option to sign in as a Demo User. Pressing that button will load you in and you can start testing out the features of the website!
 
 # Available Features
