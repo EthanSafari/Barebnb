@@ -8,6 +8,7 @@
     margin: 0;
     padding: .5rem 3vw;
     top: 0;
+    background-color: white;
 }
 
 .brand-name {
@@ -61,12 +62,15 @@
     flex-direction: column;
     width: 20rem;
     border-radius: 1rem 0;
+    background-color: white;
+    box-shadow: 0 .05rem .2rem black;
 }
 
 .dropdown-menu {
     position: relative;
     float: left;
     margin-right: 7rem;
+    background-color: white;
 }
 
 .login-button {

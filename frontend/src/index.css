@@ -4,7 +4,6 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: white;
     font-family: 'Poppins', sans-serif;
     color: rgba(0, 0, 0, .8);
 }
@@ -21,6 +20,7 @@ a {
 
 button {
     cursor: pointer;
+    background-color: white;
 }
 
 input {
