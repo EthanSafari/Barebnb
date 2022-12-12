@@ -97,7 +97,8 @@ export const updateSpotById = (spotId, updatedSpot) => async dispatch => {
         body: JSON.stringify(updatedSpot),
     });
     if (response.ok) {
-        dispatch(updateSpot(spotId, updatedSpot));
+        const data = await response.json();
+        dispatch(updateSpot(spotId, data));
         return response;
     };
 };
@@ -109,24 +110,23 @@ const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_SPOTS:
             newState = Object.assign({}, state);
-            newState.spots = action.spots;
+            const allSpots = {};
+            action.spots.forEach(spot => {
+                allSpots[spot.id] = spot;
+            });
+            newState.spots = allSpots;
             newState.currentSpot = null;
             return newState;
         case ADD_SPOT:
             newState = Object.assign({}, state);
             return { ...newState, spots: { ...newState.spots, [action.spot['id']]: action.spot } };
         case DELETE_SPOT:
-            const copyState = { ...state };
             newState = { ...state };
-            newState.session = copyState.session;
-            const spots = Object.values(copyState.spots);
-            const spotsObject = normalizeArray(spots);
-            newState.spots = spotsObject;
             delete newState.spots[action.spotId];
             return newState;
         case UPDATE_SPOT:
             newState = Object.assign({}, state);
-            return { ...newState };
+            return newState;
         case GET_SINGLE_SPOT:
             newState = Object.assign({}, state);
             newState.currentSpot = action.spot;
