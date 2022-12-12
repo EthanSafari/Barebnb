@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { createReviewForSpot } from "../../store/review";
 import { getSingleSpot } from "../../store/spots";
 
 import './CreateReview.css';
 
 
-const CreateReview = ({ spotId }) => {
+const CreateReview = () => {
+    const { spotId } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
 
