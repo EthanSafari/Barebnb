@@ -29,7 +29,9 @@ const deleteReview = (reviewId) => {
 export const getSpotReviews = (spotId) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}/reviews`);
     const data = await response.json();
-    dispatch(getReviews(data.Reviews));
+    if (!data.message) {
+        dispatch(getReviews(data.Reviews));
+    } else dispatch(getReviews(data.message));
     return response;
 };
 
@@ -62,18 +64,21 @@ const reviewsReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_REVIEWS:
             newState = Object.assign({}, state);
-            newState.reviews = action.reviews;
+            if (action.reviews.includes("doesn't")) {
+                newState.reviews = [];
+            } else {
+                const allSpotReviews = {};
+                action.reviews.forEach(review => {
+                    allSpotReviews[review.id] = review;
+                });
+                newState.reviews = allSpotReviews;
+            };
             return newState;
         case CREATE_REVIEW:
             newState = Object.assign({}, state);
             return { ...newState, reviews: { ...newState.reviews, [action.review['id']]: action.review } };
         case DELETE_REVIEW:
-            const copyState = {...state};
-            newState = {...state};
-            newState.reviews = copyState.reviews;
-            const reviews = Object.values(copyState.reviews);
-            const reviewsObject = normalizeArray(reviews);
-            newState.reviews = reviewsObject;
+            newState = { ...state };
             delete newState.reviews[action.reviewId];
             return newState;
         default:

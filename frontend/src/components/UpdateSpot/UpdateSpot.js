@@ -6,7 +6,7 @@ import { Modal } from "../../context/Modal";
 
 const UpdateCurrentSpot = () => {
     const { spotId } = useParams();
-    const history = useHistory();
+    // const history = useHistory();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -14,7 +14,7 @@ const UpdateCurrentSpot = () => {
     }, [dispatch]);
 
     const sessionUser = useSelector((state) => state.session.user);
-    const sessionSpots = useSelector((state) => state.spots.spots)
+    // const sessionSpots = useSelector((state) => state.spots.spots)
     const sessionCurrentSpot = useSelector((state) => state.spots.currentSpot);
 
     const [currentSpot, setCurrentSpot] = useState(sessionCurrentSpot);
@@ -48,7 +48,6 @@ const UpdateCurrentSpot = () => {
         const newCurrentSpot = dispatch(getSingleSpot(spotId));
 
         setCurrentSpot(newCurrentSpot);
-        console.log(showModal)
         setShowModal(false);
     };
 
