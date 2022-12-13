@@ -4,7 +4,7 @@ import { deleteSpotById, getAllSpots, getSingleSpot } from '../../store/spots';
 import UpdateSpotModal from '../UpdateSpot';
 import SpotReviewsById from '../SpotReviews';
 import CreateReviewModal from '../CreateReview';
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import './SingleSpot.css';
 
@@ -12,6 +12,8 @@ const SingleSpot = () => {
     const { spotId } = useParams();
 
     const dispatch = useDispatch();
+
+    const [presentReview, setPresentReview] = useState(false);
 
     useEffect(() => {
         dispatch(getSingleSpot(spotId));
@@ -22,6 +24,16 @@ const SingleSpot = () => {
     const sessionUser = useSelector(state => state.session.user);
     const sessionCurrentSpot = useSelector(state => state.spots.currentSpot);
     const sessionReviews = useSelector(state => state.reviews.reviews);
+
+    let reviewsArray = [];
+    if (sessionReviews) reviewsArray = Object.values(sessionReviews);
+
+    useEffect(() => {
+        if (sessionReviews && sessionUser) {
+            if (reviewsArray.find(review => review.userId === sessionUser.id)) setPresentReview(true);
+            else setPresentReview(false);
+        };
+    }, [reviewsArray.length]);
 
     if (!sessionCurrentSpot) return (
         <div style={{
@@ -45,6 +57,7 @@ const SingleSpot = () => {
     };
 
     return (
+
         <div className='full-single-spot-page'>
             <div className='spot-name'>
                 <h1>{sessionCurrentSpot.name}</h1>
@@ -82,8 +95,8 @@ const SingleSpot = () => {
             </div>
             <div>
                 <SpotReviewsById spot={sessionCurrentSpot} />
-                {((sessionUser && sessionUser.id === sessionCurrentSpot.ownerId) || !sessionUser) ?
-                    null : <CreateReviewModal spotId={parseInt(spotId)} />
+                {((sessionUser && sessionUser.id === sessionCurrentSpot.ownerId) || !sessionUser || (presentReview === true)) ?
+                    null : <CreateReviewModal />
                 }
             </div>
             <div className='spot-owner-options'>

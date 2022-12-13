@@ -10,7 +10,7 @@ function UpdateSpotModal(spot) {
       <button onClick={() => setShowModal(true)}>Update Spot</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <UpdateCurrentSpot />
+          <UpdateCurrentSpot setShowModal={setShowModal}/>
         </Modal>
       )}
     </>

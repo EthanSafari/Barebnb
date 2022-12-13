@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory, useParams } from "react-router-dom";
-import { getAllSpots, getSingleSpot, updateSpotById } from "../../store/spots";
+import { useHistory, useParams } from "react-router-dom";
+import { getSingleSpot, updateSpotById } from "../../store/spots";
 import { Modal } from "../../context/Modal";
 
-const UpdateCurrentSpot = () => {
+const UpdateCurrentSpot = ({ setShowModal }) => {
     const { spotId } = useParams();
-    // const history = useHistory();
+    const history = useHistory();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -18,7 +18,6 @@ const UpdateCurrentSpot = () => {
     const sessionCurrentSpot = useSelector((state) => state.spots.currentSpot);
 
     const [currentSpot, setCurrentSpot] = useState(sessionCurrentSpot);
-    const [showModal, setShowModal] = useState(true);
 
     const [address, setAddress] = useState(sessionCurrentSpot.address);
     const [city, setCity] = useState(sessionCurrentSpot.city);
@@ -53,7 +52,7 @@ const UpdateCurrentSpot = () => {
 
     return (
         <div className="inputSpot">
-            <h1 style={{marginBottom: '5%'}}>Update Spot</h1>
+            <h1 style={{ marginBottom: '5%' }}>Update Spot</h1>
             <form onSubmit={handleSubmit}>
                 <input
                     type='text'
