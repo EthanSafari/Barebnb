@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 
 import './LoginForm.css';
 
-function LoginForm() {
+function LoginForm({ setShowModal }) {
   const dispatch = useDispatch();
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
@@ -16,6 +16,7 @@ function LoginForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
+    setShowModal(false);
 
     return dispatch(sessionActions.login({ credential, password })).catch(
       async (res) => {

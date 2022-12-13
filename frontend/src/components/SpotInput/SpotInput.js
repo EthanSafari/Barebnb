@@ -5,7 +5,7 @@ import { addNewSpot } from "../../store/spots";
 
 import './SpotInput.css';
 
-const SpotInput = () => {
+const SpotInput = ({ setShowModal }) => {
     const sessionUser = useSelector((state) => state.session.user);
 
     const [address, setAddress] = useState('');
@@ -38,7 +38,7 @@ const SpotInput = () => {
         const spot = await dispatch(addNewSpot(newSpot, previewImageUrl));
         if (spot) reset();
 
-        history.push('/');
+        setShowModal(false);
     };
 
     const reset = () => {

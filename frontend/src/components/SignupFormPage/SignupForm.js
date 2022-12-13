@@ -6,7 +6,7 @@ import { Modal } from '../../context/Modal';
 
 import './SignupForm.css';
 
-function SignupFormPage() {
+function SignupFormPage({ setShowModal }) {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
@@ -16,9 +16,6 @@ function SignupFormPage() {
   const [lastName, setLastName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
-  const [showModal, setShowModal] = useState(true);
-
-  const history = useHistory();
 
   if (sessionUser) return <Redirect to="/" />;
 

@@ -7,7 +7,7 @@ import { getSingleSpot } from "../../store/spots";
 import './CreateReview.css';
 
 
-const CreateReview = () => {
+const CreateReview = ({ setShowModal }) => {
     const { spotId } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
@@ -16,7 +16,6 @@ const CreateReview = () => {
 
     const [review, setReview] = useState('');
     const [stars, setStars] = useState(1);
-    const [showModal, setShowModal] = useState(true);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -28,12 +27,12 @@ const CreateReview = () => {
             review,
         };
 
-        const reviewData = dispatch(createReviewForSpot(spotId, newReview));
+        const reviewData = await dispatch(createReviewForSpot(spotId, newReview));
         if (reviewData) reset();
 
         setShowModal(false)
 
-        dispatch(getSingleSpot(spotId))
+        await dispatch(getSingleSpot(spotId))
 
         history.push(`/spots/${spotId}`);
     };

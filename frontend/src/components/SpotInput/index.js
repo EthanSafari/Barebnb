@@ -15,7 +15,7 @@ function SpotInputModal() {
       <div>
         {showModal && (
           <Modal onClose={() => setShowModal(false)}>
-            <SpotInput />
+            <SpotInput setShowModal={setShowModal}/>
           </Modal>
         )}
       </div>

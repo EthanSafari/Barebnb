@@ -42,7 +42,7 @@ const UpdateCurrentSpot = ({ setShowModal }) => {
             price,
         };
 
-        dispatch(updateSpotById(parseInt(spotId), updateSpot));
+        await dispatch(updateSpotById(parseInt(spotId), updateSpot));
 
         const newCurrentSpot = dispatch(getSingleSpot(spotId));
 

@@ -4,7 +4,7 @@ import CreateReview from './CreateReview';
 
 import './CreateReview.css';
 
-function CreateReviewModal({ spotId }) {
+function CreateReviewModal() {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -13,7 +13,7 @@ function CreateReviewModal({ spotId }) {
         <button onClick={() => setShowModal(true)} className='review-modal-button'>Create Review</button>
         {showModal && (
           <Modal onClose={() => setShowModal(false)}>
-            <CreateReview spotId={spotId} />
+            <CreateReview setShowModal={setShowModal} />
           </Modal>
         )}
       </div>
