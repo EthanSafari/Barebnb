@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory, useParams } from "react-router-dom";
-import { getAllSpots, getSingleSpot, updateSpotById } from "../../store/spots";
+import { useHistory, useParams } from "react-router-dom";
+import { getSingleSpot, updateSpotById } from "../../store/spots";
 import { Modal } from "../../context/Modal";
 
 const UpdateCurrentSpot = () => {
     const { spotId } = useParams();
-    // const history = useHistory();
+    const history = useHistory();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -49,6 +49,7 @@ const UpdateCurrentSpot = () => {
 
         setCurrentSpot(newCurrentSpot);
         setShowModal(false);
+        history.push(`/spots/${spotId}`);
     };
 
     return (
