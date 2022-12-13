@@ -54,7 +54,7 @@ const UpdateCurrentSpot = () => {
 
     return (
         <div className="inputSpot">
-            <h1 style={{marginBottom: '5%'}}>Update Spot</h1>
+            <h1 style={{ marginBottom: '5%' }}>Update Spot</h1>
             <form onSubmit={handleSubmit}>
                 <input
                     type='text'
