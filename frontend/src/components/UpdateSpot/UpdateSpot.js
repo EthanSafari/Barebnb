@@ -4,7 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { getSingleSpot, updateSpotById } from "../../store/spots";
 import { Modal } from "../../context/Modal";
 
-const UpdateCurrentSpot = () => {
+const UpdateCurrentSpot = ({ setShowModal }) => {
     const { spotId } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
@@ -18,7 +18,6 @@ const UpdateCurrentSpot = () => {
     const sessionCurrentSpot = useSelector((state) => state.spots.currentSpot);
 
     const [currentSpot, setCurrentSpot] = useState(sessionCurrentSpot);
-    const [showModal, setShowModal] = useState(true);
 
     const [address, setAddress] = useState(sessionCurrentSpot.address);
     const [city, setCity] = useState(sessionCurrentSpot.city);
@@ -49,7 +48,6 @@ const UpdateCurrentSpot = () => {
 
         setCurrentSpot(newCurrentSpot);
         setShowModal(false);
-        history.push(`/spots/${spotId}`);
     };
 
     return (
