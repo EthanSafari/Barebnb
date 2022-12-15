@@ -25,8 +25,11 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     url: {
-      type: DataTypes.STRING(600),
+      type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        len: [5, 600]
+      },
     },
     preview: {
       type: DataTypes.BOOLEAN,
