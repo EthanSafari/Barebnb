@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
 
     //makes sure everything is okay with the given info, and breaks it down to be used in the next functions
     toSafeObject() {
-      const { id, username, email } = this;
-      return { id, username, email };
+      const { id, username, email, firstName, lastName } = this;
+      return { id, username, email, firstName, lastName };
     };
 
     //evaluates true/false based on the password that is stored, and the one that's given

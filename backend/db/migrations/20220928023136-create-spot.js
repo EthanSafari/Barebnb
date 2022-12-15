@@ -23,16 +23,16 @@ module.exports = {
         onDelete: 'CASCADE',
       },
       address: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       city: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       state: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       country: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       lat: {
         type: Sequelize.DECIMAL,
@@ -41,10 +41,10 @@ module.exports = {
         type: Sequelize.DECIMAL,
       },
       name: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.TEXT,
       },
       description: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
       },
       price: {
         type: Sequelize.DECIMAL(10,2)
