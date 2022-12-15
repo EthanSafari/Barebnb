@@ -38,7 +38,7 @@ function SignupFormPage({ setShowModal }) {
       <h1 style={{ marginBottom: '5%' }}>Sign Up</h1>
       <form onSubmit={handleSubmit} className='signup-form'>
         <ul>
-          {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+          {errors.map((error, idx) => <li style={{ color: 'red' }} key={idx}>{error}</li>)}
         </ul>
         <label className='signup-label'>
           Email

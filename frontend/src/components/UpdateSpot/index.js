@@ -7,7 +7,7 @@ function UpdateSpotModal(spot) {
 
   return (
     <>
-      <button onClick={() => setShowModal(true)}>Update Spot</button>
+      <button onClick={() => setShowModal(true)}>Update Listing</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <UpdateCurrentSpot setShowModal={setShowModal}/>
