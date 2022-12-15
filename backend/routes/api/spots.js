@@ -354,7 +354,10 @@ router.get('/:spotId/reviews', async (req, res, next) => {
             where: {
                 spotId: Number(spotId),
             },
-            include: { model: ReviewImage, attributes: ['id', 'url'] },
+            include: [
+                { model: ReviewImage, attributes: ['id', 'url'] },
+                { model: User, attributes: ['firstName', 'lastName'] }
+            ],
         });
         if (getASpotReviews.length) {
             reviews.Reviews = getASpotReviews;

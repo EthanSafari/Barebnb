@@ -45,6 +45,9 @@ const SpotReviewsById = () => {
                                 ))}
                             </div>
                         ) : null} */}
+                        <div style={{ borderTop: '1px solid lightgrey', marginTop: '3px', paddingTop: '8px', fontSize: '12px'}}>
+                            Review left by {review.User.firstName} {review.User.lastName}
+                        </div>
                         {sessionUser && review.userId === sessionUser.id ? (
                             <button onClick={e => {
                                 e.preventDefault();
