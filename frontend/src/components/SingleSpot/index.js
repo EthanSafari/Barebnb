@@ -53,7 +53,6 @@ const SingleSpot = () => {
     const deleteSpot = (e) => {
         e.preventDefault();
         dispatch(deleteSpotById(sessionCurrentSpot.id));
-        // dispatch(getAllSpots());
         setTimeout(history.push('/'), 1250);
     };
 

@@ -17,7 +17,7 @@ const SpotReviewsById = () => {
 
     useEffect(() => {
         dispatch(getSpotReviews(spotId));
-    }, [dispatch]);
+    }, [dispatch, reviewsArray.length]);
 
     if (!reviewsArray.length) return (
         <div className="reviews">
