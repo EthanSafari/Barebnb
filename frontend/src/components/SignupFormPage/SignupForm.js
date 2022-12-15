@@ -85,7 +85,7 @@ function SignupFormPage({ setShowModal }) {
             required
           />
         </label>
-        <label>
+        <label className="signup-label">
           Confirm Password
           <input
             type="password"
