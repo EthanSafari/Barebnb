@@ -21,7 +21,7 @@ const SpotReviewsById = () => {
 
     if (!reviewsArray.length) return (
         <div className="reviews">
-            <h3 style={{marginTop: '5%'}}>Reviews:</h3>
+            <h3 style={{ marginTop: '5%' }}>Reviews:</h3>
             <h5 style={{
                 margin: '5% auto',
                 width: '50%',
@@ -32,7 +32,7 @@ const SpotReviewsById = () => {
     );
     else return (
         <div className="reviews">
-            <h3 style={{marginTop: '5%'}}>Reviews:</h3>
+            <h3 style={{ marginTop: '5%' }}>Reviews:</h3>
             <ul className="review-container">
                 {reviewsArray.map(review => (
                     <li key={review.id} className='review'>
@@ -45,15 +45,23 @@ const SpotReviewsById = () => {
                                 ))}
                             </div>
                         ) : null} */}
-                        <div style={{ borderTop: '1px solid lightgrey', marginTop: '3px', paddingTop: '8px', fontSize: '12px'}}>
-                            Review left by {review.User.firstName} {review.User.lastName}
-                        </div>
+
                         {sessionUser && review.userId === sessionUser.id ? (
-                            <button onClick={e => {
+                            <div style={{ borderTop: '1px solid lightgrey', marginTop: '3px', paddingTop: '8px', fontSize: '12px' }}>
+                                Review left by {sessionUser.firstName} {sessionUser.lastName}
+                            </div>
+                        ) : (
+                            <div style={{ borderTop: '1px solid lightgrey', marginTop: '3px', paddingTop: '8px', fontSize: '12px' }}>
+                                Review left by {review.User.firstName} {review.User.lastName}
+                            </div>
+                        )}
+
+                        {sessionUser && review.userId === sessionUser.id ? (
+                            <button onClick={async e => {
                                 e.preventDefault();
                                 const singleReview = reviewsArray.find(thisReview => thisReview.id === review.id);
-                                dispatch(deleteReviewById(singleReview.id));
-                                dispatch(getSingleSpot(spotId))
+                                await dispatch(deleteReviewById(singleReview.id));
+                                await dispatch(getSingleSpot(spotId));
                             }} style={{
                                 marginTop: '3%',
                                 border: '1px solid grey',

@@ -33,6 +33,7 @@ const SingleSpot = () => {
             if (reviewsArray.find(review => review.userId === sessionUser.id)) setPresentReview(true);
             else setPresentReview(false);
         };
+        dispatch(getSingleSpot(spotId));
     }, [reviewsArray.length]);
 
     if (!sessionCurrentSpot) return (

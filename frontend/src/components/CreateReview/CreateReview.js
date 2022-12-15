@@ -33,8 +33,6 @@ const CreateReview = ({ setShowModal }) => {
         setShowModal(false)
 
         await dispatch(getSingleSpot(spotId))
-
-        history.push(`/spots/${spotId}`);
     };
 
     const reset = () => {

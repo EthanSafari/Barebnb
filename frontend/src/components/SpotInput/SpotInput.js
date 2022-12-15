@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -18,8 +19,22 @@ const SpotInput = ({ setShowModal }) => {
 
     const [previewImageUrl, setPreviewImageUrl] = useState('');
 
+    const [errors, setErrors] = useState([]);
+
+    useEffect(() => {
+        const errorArray = [];
+        if (address.length === 0) errorArray.push('Please enter a valid Address');
+        if (city.length === 0) errorArray.push('Please enter a valid City');
+        if (state.length === 0) errorArray.push('Please enter a valid State');
+        if (country.length === 0) errorArray.push('Please enter a valid Country');
+        if (name.length === 0) errorArray.push('Please enter a valid name');
+        if (description.length === 0) errorArray.push('Please enter a valid description');
+        if (price < 15) errorArray.push('Please enter a price above $15.00');
+        if (previewImageUrl.length === 0) errorArray.push('Please enter a Preview Image of the Listing');
+        setErrors(errorArray);
+    }, [address, city, state, country, name, description, price, previewImageUrl]);
+
     const dispatch = useDispatch();
-    const history = useHistory();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -54,7 +69,10 @@ const SpotInput = ({ setShowModal }) => {
 
     return (
         <div className="inputSpot">
-            <h1 style={{marginBottom: '5%'}}>Create a Listing</h1>
+            <h1 style={{ margin: '5%' }}>Create a Listing</h1>
+            {errors.length > 0 && <ul style={{margin: '10px 0'}}>
+                {errors.map((error, idx) => <li key={idx} style={{color: 'red', fontSize: '13px'}}>{error}</li>)}
+            </ul>}
             <form onSubmit={handleSubmit}>
                 <input
                     type='text'
@@ -121,7 +139,7 @@ const SpotInput = ({ setShowModal }) => {
                     name="previewImage"
                     required
                 />
-                <button type='submit' className="spot-input-submit-button">Submit</button>
+                <button type='submit' className="spot-input-submit-button" disabled={errors.length > 0}>Submit</button>
             </form>
         </div>
     );
