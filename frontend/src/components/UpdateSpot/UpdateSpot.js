@@ -75,6 +75,7 @@ const UpdateCurrentSpot = ({ setShowModal }) => {
                     value={name}
                     placeholder='name'
                     name='name'
+                    required
                 />
                 <input
                     type='text'
@@ -82,6 +83,7 @@ const UpdateCurrentSpot = ({ setShowModal }) => {
                     value={address}
                     placeholder='address'
                     name='address'
+                    required
                 />
                 <input
                     type='text'
@@ -89,6 +91,7 @@ const UpdateCurrentSpot = ({ setShowModal }) => {
                     value={city}
                     placeholder='city'
                     name='city'
+                    required
                 />
                 <input
                     type='text'
@@ -96,6 +99,7 @@ const UpdateCurrentSpot = ({ setShowModal }) => {
                     value={state}
                     placeholder='state'
                     name='state'
+                    required
                 />
                 <input
                     type='text'
@@ -103,6 +107,7 @@ const UpdateCurrentSpot = ({ setShowModal }) => {
                     value={country}
                     placeholder='country'
                     name='country'
+                    required
                 />
                 <textarea
                     type='text'
@@ -110,6 +115,7 @@ const UpdateCurrentSpot = ({ setShowModal }) => {
                     value={description}
                     placeholder='description'
                     name='description'
+                    required
                 />
                 <input
                     type='number'
@@ -117,6 +123,8 @@ const UpdateCurrentSpot = ({ setShowModal }) => {
                     value={price}
                     placeholder='price'
                     name='price'
+                    min={15}
+                    required
                 />
                 <button type='submit' style={{
                     marginTop: '3%',
