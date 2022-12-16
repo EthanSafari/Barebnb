@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { createReviewForSpot } from "../../store/review";
@@ -16,6 +16,15 @@ const CreateReview = ({ setShowModal }) => {
 
     const [review, setReview] = useState('');
     const [stars, setStars] = useState(1);
+
+    const [errors, setErrors] = useState([]);
+
+    useEffect(() => {
+        const errorArray = [];
+        if (review.length === 0) errorArray.push('Please enter a review of the Listing');
+        if (stars > 5 || stars < 1) errorArray.push('Please enter a Star Rating between 1 and 5');
+        setErrors(errorArray);
+    }, [review, stars]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -43,6 +52,9 @@ const CreateReview = ({ setShowModal }) => {
     return (
         <div className="review-modal">
             <h1>Leave a Review</h1>
+            {errors.length > 0 && <ul style={{margin: '10px 0'}}>
+                {errors.map((error, idx) => <li key={idx} style={{color: 'red', fontSize: '13px'}}>{error}</li>)}
+            </ul>}
             <form onSubmit={handleSubmit} className='review-form'>
                 <textarea
                     type='text'
@@ -77,7 +89,7 @@ const CreateReview = ({ setShowModal }) => {
                 border: '1px solid grey',
                 borderRadius: '3px',
                 padding: '0 3px'
-            }}>Submit Review</button>
+            }} disabled={errors.length > 0}>Submit Review</button>
             </form>
         </div>
     );
