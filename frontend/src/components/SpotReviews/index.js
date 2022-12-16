@@ -7,7 +7,7 @@ import { objectToArray } from "../AllSpots";
 
 import './SpotReview.css';
 
-const SpotReviewsById = () => {
+const SpotReviewsById = ({ spot }) => {
     const { spotId } = useParams();
     const dispatch = useDispatch();
     const reviewsObject = useSelector(state => state.reviews);
@@ -32,10 +32,33 @@ const SpotReviewsById = () => {
     );
     else return (
         <div className="reviews">
-            <h3 style={{ marginTop: '5%' }}>Reviews:</h3>
+            {console.log(spot)}
+            <h3 style={{ marginTop: '5%' }}><i class="fa-solid fa-star"></i> {spot.avgStarRating.toFixed(1)} ~ {spot.numReviews} {spot.numReviews > 1 ? (<>Reviews</>) : (<>Review</>)}:</h3>
             <ul className="review-container">
                 {reviewsArray.map(review => (
                     <li key={review.id} className='review'>
+                        <div className="user-info-review">
+                            <i class="fa-solid fa-circle-user" style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                fontSize: '30px',
+                                marginRight: '10px'
+                            }}></i>
+                            {/* {console.log(new Date(review.createdAt).toDateString())} */}
+                            <div>
+                                {sessionUser && review.userId === sessionUser.id ? (
+                                    <div style={{ marginTop: '3px', paddingTop: '8px', fontWeight: 'bolder' }}>
+                                        {sessionUser.firstName} {sessionUser.lastName}
+                                    </div>
+                                ) : (
+                                    <div style={{ marginTop: '3px', paddingTop: '8px', fontWeight: 'bolder' }}>
+                                        {review.User.firstName} {review.User.lastName}
+                                    </div>
+                                )}
+                                <div style={{ color: 'lightgrey', margin: '3px 0' }}>December 2022</div>
+                            </div>
+                        </div>
                         <div>{review.review}</div>
                         <div className="review-stars">{(review.stars > 1) ? `${review.stars} stars` : `${review.stars} star`}</div>
                         {/* {review.ReviewImages !== undefined ? (
@@ -46,17 +69,10 @@ const SpotReviewsById = () => {
                             </div>
                         ) : null} */}
 
-                        {sessionUser && review.userId === sessionUser.id ? (
-                            <div style={{ borderTop: '1px solid lightgrey', marginTop: '3px', paddingTop: '8px', fontSize: '12px' }}>
-                                Review left by {sessionUser.firstName} {sessionUser.lastName}
-                            </div>
-                        ) : (
-                            <div style={{ borderTop: '1px solid lightgrey', marginTop: '3px', paddingTop: '8px', fontSize: '12px' }}>
-                                Review left by {review.User.firstName} {review.User.lastName}
-                            </div>
-                        )}
+
 
                         {sessionUser && review.userId === sessionUser.id ? (
+                            <div style={{ display: 'flex', justifyContent: 'center'}}>
                             <button onClick={async e => {
                                 e.preventDefault();
                                 const singleReview = reviewsArray.find(thisReview => thisReview.id === review.id);
@@ -66,9 +82,11 @@ const SpotReviewsById = () => {
                                 marginTop: '3%',
                                 border: '1px solid grey',
                                 borderRadius: '3px',
+                                width: '10rem'
                             }}>
                                 Delete Review
                             </button>
+                            </div>
                         ) : null}
                     </li>
                 ))}

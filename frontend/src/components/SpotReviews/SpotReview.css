@@ -3,16 +3,21 @@
     flex-flow: row wrap;
     justify-content: flex-start;
     padding: 2% 5%;
+    gap: 1%;
 }
 
 .review {
-    width: 50%;
-    border: 1px solid lightgrey;
+    width: 49%;
+    border: 1px solid white;
     padding: 1em;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-width: 300px;
+}
+
+.review:hover {
+    border: 1px solid lightgrey;
+    /* box-shadow: 0 1px 2px black; */
 }
 
 ul li {
@@ -20,11 +25,16 @@ ul li {
 }
 
 .review-stars {
-    margin: 3%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
+    color: lightgrey;
+    margin: 2px;
 }
 
 .reviews {
     width: 75vw;
+}
+
+.user-info-review {
+    display: flex;
 }

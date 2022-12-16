@@ -23,6 +23,10 @@ button {
     background-color: white;
 }
 
+button:hover {
+    background-color: whitesmoke;
+}
+
 input {
     border: 1px solid grey;
     width: 15rem;
