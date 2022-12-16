@@ -5,26 +5,26 @@ import { useHistory } from "react-router-dom";
 
 import './LoginForm.css';
 
-function LoginForm({ setShowModal }) {
+function LoginForm() {
   const dispatch = useDispatch();
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  const history = useHistory();
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
-    setShowModal(false);
+    // setShowModal(false);
 
     return dispatch(sessionActions.login({ credential, password })).catch(
       async (res) => {
         const data = await res.json();
+        console.log(data)
         if (data && data.errors) setErrors(data.errors);
       }
     );
   };
+
 
   return (
     <div className="login-modal-form">
@@ -32,7 +32,7 @@ function LoginForm({ setShowModal }) {
     <form onSubmit={handleSubmit}>
       <ul>
         {errors.map((error, idx) => (
-          <li key={idx}>{error}</li>
+          <li style={{ color: 'red' }} key={idx}>{error}</li>
         ))}
       </ul>
       <div>
@@ -69,7 +69,6 @@ function LoginForm({ setShowModal }) {
         Demo User
       </button>
       <button type="submit" className="login-button-on-modal">Log In</button>
-
     </form>
     </div>
   );

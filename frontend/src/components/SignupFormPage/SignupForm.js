@@ -6,7 +6,7 @@ import { Modal } from '../../context/Modal';
 
 import './SignupForm.css';
 
-function SignupFormPage({ setShowModal }) {
+function SignupFormPage() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
@@ -23,7 +23,6 @@ function SignupFormPage({ setShowModal }) {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors([]);
-      setShowModal(false);
       return dispatch(sessionActions.signup({ email, username, password, firstName, lastName }))
         .catch(async (res) => {
           const data = await res.json();
