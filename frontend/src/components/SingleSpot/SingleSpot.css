@@ -75,6 +75,7 @@
     width: 90%;
     justify-content: flex-start;
     padding: 2% 1%;
+    font-size: 15px;
 }
 
 .spot-owner-options {
@@ -119,4 +120,20 @@
 
 .self-checkin {
     display: flex;
+    margin: 10px 0;
+}
+
+.barecover {
+    display: flex;
+    flex-direction: column;
+}
+
+.barecover-logo {
+    font-size: 30px;
+    font-weight: bolder;
+    color: grey;
+}
+
+.barecover-info {
+    font-size: 14px;
 }

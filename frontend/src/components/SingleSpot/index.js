@@ -97,26 +97,55 @@ const SingleSpot = () => {
                     </div>
                     <div className='basic-place-information'>
                         <div className='self-checkin'>
-                        <div>
-                            <i class="fa-solid fa-unlock-keyhole" style={{margin: '10px 10px 0 0', fontSize: '20px'}}></i>
-                        </div>
-                        <div>
-                            <div style={{fontWeight: 'bold'}}>
-                            Self check-in
+                            <div style={{ display: 'flex', alignItems: 'center'}}>
+                                <i class="fa-solid fa-unlock-keyhole" style={{ margin: '0 10px 0 0', fontSize: '20px' }}></i>
                             </div>
-                            <div style={{ fontSize: '14px', color: 'grey'}}>
-                            Pretty self explainatory. You sit there and try the number lock as many times as you need to until you get the code.
+                            <div>
+                                <div style={{ fontWeight: 'bold' }}>
+                                    Self check-in
+                                </div>
+                                <div style={{ fontSize: '14px', color: 'grey' }}>
+                                    Pretty self explainatory. You sit there and try the number lock as many times as you need to until you get the code.
+                                </div>
                             </div>
                         </div>
+                        <div className='self-checkin' >
+                            <div style={{ display: 'flex', alignItems: 'center'}}>
+                            <i class="fa-solid fa-location-dot" style={{ margin: '0 10px 0 0', fontSize: '20px' }}></i>
+                            </div>
+                            <div>
+                                <div style={{ fontWeight: 'bold' }}>
+                                    Great location
+                                </div>
+                                <div style={{ fontSize: '14px', color: 'grey' }}>
+                                    Not actually sure if this is a great location or not. Half the places on this site are underwater, so make sure you bring a diving suit!
+                                </div>
+                            </div>
                         </div>
-                        <h4>{sessionCurrentSpot.city}, {sessionCurrentSpot.state}</h4>
-                        <h4>{sessionCurrentSpot.country}</h4>
+                        <div className='self-checkin' >
+                            <div style={{ display: 'flex', alignItems: 'center'}}>
+                            <i class="fa-solid fa-person-rays" style={{ margin: '0 10px 0 0', fontSize: '20px' }}></i>
+                            </div>
+                            <div>
+                                <div style={{ fontWeight: 'bold' }}>
+                                {sessionCurrentSpot.Owner.firstName} is a Superhost
+                                </div>
+                                <div style={{ fontSize: '14px', color: 'grey' }}>
+                                    Not sure what that means, but it seems that Superhosts' provide excellent experiences for their guests? Whatever. Good luck, and bring protection.
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div className='description'>
-                        <p>{sessionCurrentSpot.description}</p>
+                        <div className='barecover'>
+                            <div className='barecover-logo'><strong>bare</strong>cover</div>
+                        <div className='barecover-info'>
+                            For some reason this has the largest font on the whole single spot page for airbnb. Basically your purchase is covered for a certain amount of time (48 minutes after booking). If your purchase is to pass this time, it is no longer protected and we keep all your money.
+                        </div>
+                        </div>
                     </div>
                     <div className='price'>
-                        <h5><strong>${sessionCurrentSpot.price}</strong> night</h5>
+                    <p>{sessionCurrentSpot.description}</p>
                     </div>
                 </div>
                 {/* put booking comp here  */}
