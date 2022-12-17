@@ -4,6 +4,10 @@ import './BookingCard.css';
 const BookingCard = ({ spot }) => {
 
     const [submitPushed, setSubmitPushed] = useState(false);
+
+    const nonRefundablePrice = () => (spot.price * 5).toFixed();
+    const refundablePrice = () => ((spot.price * 5) + (spot.price + (spot.price * .75))).toFixed();
+
     return (
         <form className="booking-card">
             <div className="price-and-rating">
@@ -40,7 +44,7 @@ const BookingCard = ({ spot }) => {
             <div className='policies'>
                 <div className='non-refundable'>
                     <div className='non-refundable-price'>
-                        Non-refundable ~ ${(spot.price * 5).toFixed()} total
+                        Non-refundable ~ ${nonRefundablePrice()} total
                     </div>
                     <div className='non-refundable-input'>
                         <input type={'radio'} name='policy' />
@@ -48,7 +52,7 @@ const BookingCard = ({ spot }) => {
                 </div>
                 <div className='refundable'>
                     <div className='refundable-price'>
-                        Refundable ~ ${((spot.price * 5) + (spot.price + (spot.price * .75))).toFixed()} total
+                        Refundable ~ ${refundablePrice()} total
                     </div>
                     <div className='refundable-input'>
                         <input type={'radio'} name='policy' checked={true}/>
