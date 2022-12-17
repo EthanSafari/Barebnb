@@ -22,7 +22,7 @@ const SpotsList = () => {
 
     const monthArray = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'];
     const findDates = () => {
-        const days = [(Math.ceil(Math.random() * 31)), (Math.ceil(Math.random() * 31))].sort();
+        const days = [(Math.ceil(Math.random() * 31)), (Math.ceil(Math.random() * 31))].sort((a, b) => a - b);
         return `${days[0]} - ${days[1]}`;
     };
 
@@ -40,6 +40,8 @@ const SpotsList = () => {
                             {!spot.preview ? null
                                 : spot.preview.includes("doesn't have") ? null
                                     : <img className='all-spots-preview-image' src={spot.preview} alt={spot.name}></img>}
+                                    <div style={{padding: '1px'}}>
+
                             <div className="top-part-info">
                                 <div style={{
                                     display: 'flex',
@@ -57,6 +59,7 @@ const SpotsList = () => {
                             <p className="miles-and-dates">{(Math.random() * 1000).toFixed()} miles away</p>
                             <p className="miles-and-dates">{monthArray[(Math.floor(Math.random() * monthArray.length))]} {findDates()}</p>
                             <p style={{ fontSize: '15px'}}><strong>${spot.price}</strong> night</p>
+                                    </div>
                         </NavLink>
                     </div>
                 ))}

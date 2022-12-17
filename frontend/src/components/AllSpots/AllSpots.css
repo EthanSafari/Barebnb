@@ -15,9 +15,9 @@
     display: block;
     width: 300px;
     height: 300px;
-    border-radius: .5em 0;
+    border-radius: 5px;
     object-fit: cover;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .7);
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, .7); */
     margin-bottom: 2%;
 }
 
@@ -45,6 +45,11 @@
 
 .all-spots-card > p {
     font-size: .2rem;
+}
+
+.all-spots-preview-image:hover {
+    box-shadow: 0 2px 1rem rgba(0, 0, 0, .2);
+    border-radius: 5px;
 }
 
 .top-part-info {
