@@ -44,7 +44,6 @@ const SpotReviewsById = ({ spot }) => {
                                 fontSize: '30px',
                                 marginRight: '10px'
                             }}></i>
-                            {/* {console.log(new Date(review.createdAt).toDateString())} */}
                             <div>
                                 {sessionUser && review.userId === sessionUser.id ? (
                                     <div style={{ marginTop: '3px', paddingTop: '8px', fontWeight: 'bolder' }}>
@@ -55,7 +54,7 @@ const SpotReviewsById = ({ spot }) => {
                                         {review.User.firstName} {review.User.lastName}
                                     </div>
                                 )}
-                                <div style={{ color: 'lightgrey', margin: '3px 0' }}>December 2022</div>
+                                <div style={{ color: 'grey', margin: '3px 0', fontSize: '14px'}}>{new Date(review.createdAt).toDateString()}</div>
                             </div>
                         </div>
                         <div>{review.review}</div>

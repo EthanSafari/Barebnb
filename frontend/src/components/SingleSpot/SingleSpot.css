@@ -26,20 +26,23 @@
     display: flex;
     justify-content: flex-start;
     width: 80%;
-    margin: 0 0 1% 0;
+    margin: 0 0 3px 0;
 }
 
 .info-under-spot-name {
     display: flex;
     justify-content: flex-start;
     width: 80%;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .hosted-by {
     display: flex;
-    width: 90%;
+    width: 70%;
     padding: 2% 1%;
     border-bottom: 1px solid lightgrey;
+    flex-direction: column;
 }
 
 .description {
@@ -49,7 +52,7 @@
     border-bottom: 1px solid lightgrey;
 }
 
-.full-address {
+.basic-place-information {
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
@@ -99,4 +102,21 @@
 .review-section {
     width: 80%;
     border-top: 1px solid lightgray;
+}
+
+.top-part-of-information {
+    display: flex;
+}
+
+.host-image {
+    width: 20%;
+    border-bottom: 1px solid lightgrey;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1rem;
+}
+
+.self-checkin {
+    display: flex;
 }

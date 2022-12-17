@@ -61,18 +61,20 @@ const SingleSpot = () => {
 
         <div className='full-single-spot-page'>
             <div className='spot-name'>
-                <h1>{sessionCurrentSpot.name}</h1>
+                <h2>{sessionCurrentSpot.name}</h2>
             </div>
             <div className='info-under-spot-name'>
                 <div className='rating-info'>
                     {sessionCurrentSpot.avgStarRating === undefined || sessionCurrentSpot.avgStarRating === 0 ? (<h3>New Listing</h3>) : (
                         <div className='average-rating'>
-                            <h3><i class="fa-solid fa-star"></i></h3>
-                            <h3>{sessionCurrentSpot.avgStarRating.toFixed(1)}</h3>
+                            <p><i class="fa-solid fa-star"></i> {sessionCurrentSpot.avgStarRating.toFixed(1)}</p>
                         </div>)}
-                    {(sessionReviews && sessionCurrentSpot.numReviews > 1) ? (<h3>~ {sessionCurrentSpot.numReviews} reviews</h3>)
-                        : (sessionReviews && sessionCurrentSpot.numReviews === 1) ? (<h3>~ {sessionCurrentSpot.numReviews} review</h3>)
-                            : (<h3>~ this place has no reviews yet!</h3>)}
+                    {(sessionReviews && sessionCurrentSpot.numReviews > 1) ? (<p>~ {sessionCurrentSpot.numReviews} reviews</p>)
+                        : (sessionReviews && sessionCurrentSpot.numReviews === 1) ? (<p>~ {sessionCurrentSpot.numReviews} review</p>)
+                            : (<p>~ this place has no reviews yet!</p>)}
+                </div>
+                <div style={{ marginLeft: '3px' }}>
+                    ~ {sessionCurrentSpot.city}, {sessionCurrentSpot.state}, {sessionCurrentSpot.country}
                 </div>
             </div>
             <div className='single-spot-images-container'>
@@ -81,24 +83,44 @@ const SingleSpot = () => {
                 ))}
             </div>
             <div className='info-and-bookings'>
-            <div className='information'>
-            <div className='hosted-by'>
-                <h3>Hosted by {sessionCurrentSpot.Owner.firstName} {sessionCurrentSpot.Owner.lastName}</h3>
-            </div>
-            <div className='description'>
-                <h4>{sessionCurrentSpot.description}</h4>
-            </div>
-            <div className='full-address'>
-                <h3>{sessionCurrentSpot.address}</h3>
-                <h4>{sessionCurrentSpot.city}, {sessionCurrentSpot.state}</h4>
-                <h4>{sessionCurrentSpot.country}</h4>
-            </div>
-            <div className='price'>
-                <h5><strong>${sessionCurrentSpot.price}</strong> night</h5>
-            </div>
-            </div>
-            {/* put booking comp here  */}
-            <BookingCard spot={sessionCurrentSpot} />
+                <div className='information'>
+                    <div className='top-part-of-information'>
+                        <div className='hosted-by'>
+                            <h4>Entire home hosted by {sessionCurrentSpot.Owner.firstName} {sessionCurrentSpot.Owner.lastName}</h4>
+                            <p style={{ fontSize: '14px' }}>{(Math.random() * 10).toFixed()} guests ~ {(Math.random() * 10).toFixed()} bedrooms ~ {(Math.random() * 10).toFixed()} beds ~ {(Math.random() * 10).toFixed()} baths</p>
+                        </div>
+                        <div className='host-image'>
+                            <i class="fa-solid fa-circle-user" style={{
+                                fontSize: '50px'
+                            }}></i>
+                        </div>
+                    </div>
+                    <div className='basic-place-information'>
+                        <div className='self-checkin'>
+                        <div>
+                            <i class="fa-solid fa-unlock-keyhole" style={{margin: '10px 10px 0 0', fontSize: '20px'}}></i>
+                        </div>
+                        <div>
+                            <div style={{fontWeight: 'bold'}}>
+                            Self check-in
+                            </div>
+                            <div style={{ fontSize: '14px', color: 'grey'}}>
+                            Pretty self explainatory. You sit there and try the number lock as many times as you need to until you get the code.
+                            </div>
+                        </div>
+                        </div>
+                        <h4>{sessionCurrentSpot.city}, {sessionCurrentSpot.state}</h4>
+                        <h4>{sessionCurrentSpot.country}</h4>
+                    </div>
+                    <div className='description'>
+                        <p>{sessionCurrentSpot.description}</p>
+                    </div>
+                    <div className='price'>
+                        <h5><strong>${sessionCurrentSpot.price}</strong> night</h5>
+                    </div>
+                </div>
+                {/* put booking comp here  */}
+                <BookingCard spot={sessionCurrentSpot} />
             </div>
             <div className='review-section'>
                 <SpotReviewsById spot={sessionCurrentSpot} />
