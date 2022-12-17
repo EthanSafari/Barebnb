@@ -4,6 +4,7 @@
     justify-content: flex-start;
     padding: 2% 5%;
     gap: 1%;
+    width: 80vw;
 }
 
 .review {
@@ -32,9 +33,20 @@ ul li {
 }
 
 .reviews {
-    width: 75vw;
+    width: 80%;
 }
 
 .user-info-review {
     display: flex;
+}
+
+.no-reviews {
+    display: flex;
+    flex-direction: column;
+}
+
+.no-reviews > h3 {
+    width: 80vw;
+    display: flex;
+    padding: 5px;
 }

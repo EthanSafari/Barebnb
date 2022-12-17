@@ -1,0 +1,132 @@
+.booking-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid lightgray;
+    width: 30%;
+    margin: 1rem;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: .7rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .3);
+}
+
+.price-and-rating {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    margin: 10px;
+}
+
+.check-dates {
+    border: 1px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+}
+
+.check-in-checkout {
+    display: flex;
+    flex-wrap: nowrap;
+    border-bottom: 1px solid lightgray;
+    width: 100%;
+}
+
+.check-in {
+    width: 50%;
+    border-right: 1px solid lightgray;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.checkout {
+    width: 50%;
+    padding: 5px;
+    font-size: 10px;
+    font-weight: bold;
+
+}
+
+.guests {
+    padding: 5px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.guests-number {
+    font-weight: 400;
+    font-size: 14px;
+    margin: 0 5px;
+}
+
+.check-in-out-date {
+    width: 95%;
+    margin: 3px;
+    border: none;
+}
+
+.cancellation {
+    margin: 5px 3px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.policies {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.non-refundable {
+    border-bottom: 1px solid lightgray;
+    padding: 5px;
+    display: flex;
+    width: 100%;
+}
+
+.non-refundable-price {
+    width: 75%;
+    padding: 5px;
+}
+
+.non-refundable-input {
+    width: 25%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.non-refundable-input > input {
+    width: 20px;
+}
+
+.refundable {
+    padding: 5px;
+    display: flex;
+    width: 100%;
+}
+
+.refundable-price {
+    width: 75%;
+    padding: 5px;
+}
+
+.refundable-input {
+    width: 25%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.refundable-input > input {
+    width: 20px;
+}
+
+.refundable-info {
+    display: flex;
+    width: 90%;
+    margin: 0 10px 10px 10px;
+    font-size: 10px;
+    color: grey;
+}

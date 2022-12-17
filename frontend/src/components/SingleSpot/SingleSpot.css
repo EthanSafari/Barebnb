@@ -9,7 +9,6 @@
     display: flex;
     width: 80%;
     justify-content: center;
-    border-bottom: 1px solid lightgrey;
     padding: 1em;
 }
 
@@ -38,14 +37,14 @@
 
 .hosted-by {
     display: flex;
-    width: 80%;
+    width: 90%;
     padding: 2% 1%;
     border-bottom: 1px solid lightgrey;
 }
 
 .description {
     display: flex;
-    width: 80%;
+    width: 90%;
     padding: 2% 1%;
     border-bottom: 1px solid lightgrey;
 }
@@ -54,7 +53,7 @@
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
-    width: 80%;
+    width: 90%;
     padding: 2% 1%;
     border-bottom: 1px solid lightgrey;
 }
@@ -70,10 +69,9 @@
 
 .price {
     display: flex;
-    width: 80%;
+    width: 90%;
     justify-content: flex-start;
     padding: 2% 1%;
-    border-bottom: 1px solid lightgrey;
 }
 
 .spot-owner-options {
@@ -85,4 +83,20 @@
     margin: 5%;
     border: 1px solid grey;
     border-radius: 3px;
+}
+
+.information {
+    width: 70%;
+}
+
+.info-and-bookings {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    margin: 3rem 0;
+}
+
+.review-section {
+    width: 80%;
+    border-top: 1px solid lightgray;
 }

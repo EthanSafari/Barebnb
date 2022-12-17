@@ -4,6 +4,7 @@ import { deleteSpotById, getAllSpots, getSingleSpot } from '../../store/spots';
 import UpdateSpotModal from '../UpdateSpot';
 import SpotReviewsById from '../SpotReviews';
 import CreateReviewModal from '../CreateReview';
+import BookingCard from '../BookingCard';
 import { useEffect, useState } from 'react'
 
 import './SingleSpot.css';
@@ -79,6 +80,8 @@ const SingleSpot = () => {
                     <img src={image.url} alt={sessionCurrentSpot.name} className='single-spot-image' />
                 ))}
             </div>
+            <div className='info-and-bookings'>
+            <div className='information'>
             <div className='hosted-by'>
                 <h3>Hosted by {sessionCurrentSpot.Owner.firstName} {sessionCurrentSpot.Owner.lastName}</h3>
             </div>
@@ -93,7 +96,11 @@ const SingleSpot = () => {
             <div className='price'>
                 <h5><strong>${sessionCurrentSpot.price}</strong> night</h5>
             </div>
-            <div>
+            </div>
+            {/* put booking comp here  */}
+            <BookingCard spot={sessionCurrentSpot} />
+            </div>
+            <div className='review-section'>
                 <SpotReviewsById spot={sessionCurrentSpot} />
                 {((sessionUser && sessionUser.id === sessionCurrentSpot.ownerId) || !sessionUser || (presentReview === true)) ?
                     null : <CreateReviewModal />

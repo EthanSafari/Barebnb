@@ -20,7 +20,7 @@ const SpotReviewsById = ({ spot }) => {
     }, [dispatch, reviewsArray.length]);
 
     if (!reviewsArray.length) return (
-        <div className="reviews">
+        <div className="no-reviews">
             <h3 style={{ marginTop: '5%' }}>Reviews:</h3>
             <h5 style={{
                 margin: '5% auto',
@@ -32,7 +32,6 @@ const SpotReviewsById = ({ spot }) => {
     );
     else return (
         <div className="reviews">
-            {console.log(spot)}
             <h3 style={{ marginTop: '5%' }}><i class="fa-solid fa-star"></i> {spot.avgStarRating.toFixed(1)} ~ {spot.numReviews} {spot.numReviews > 1 ? (<>Reviews</>) : (<>Review</>)}:</h3>
             <ul className="review-container">
                 {reviewsArray.map(review => (
@@ -68,9 +67,6 @@ const SpotReviewsById = ({ spot }) => {
                                 ))}
                             </div>
                         ) : null} */}
-
-
-
                         {sessionUser && review.userId === sessionUser.id ? (
                             <div style={{ display: 'flex', justifyContent: 'center'}}>
                             <button onClick={async e => {
