@@ -20,6 +20,12 @@ const SpotsList = () => {
 
     const spotsArray = objectToArray(spotsObject);
 
+    const monthArray = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'];
+    const findDates = () => {
+        const days = [(Math.ceil(Math.random() * 31)), (Math.ceil(Math.random() * 31))].sort();
+        return `${days[0]} - ${days[1]}`;
+    };
+
     useEffect(() => {
         dispatch(getAllSpots());
     }, [dispatch]);
@@ -40,15 +46,17 @@ const SpotsList = () => {
                                     flexFlow: 'row wrap',
                                     justifyContent: 'space-between'
                                 }}>
-                                    <h3>{spot.city},</h3>
-                                    <h3 style={{ paddingLeft: '5px'}}>{spot.state}</h3>
+                                    <div>{spot.city},</div>
+                                    <div style={{ paddingLeft: '5px'}}>{spot.state}</div>
                                 </div>
                                 <div className="rating">
-                                    <h4><i class="fa-solid fa-star"></i></h4>
-                                    {(spot.avgRating && spot.avgRating.toString().includes("doesn't")) || spot.avgRating === undefined ? (<h3>New</h3>) : (<h3>{spot.avgRating.toFixed(1)}</h3>)}
+                                    <div><i class="fa-solid fa-star"></i></div>
+                                    {(spot.avgRating && spot.avgRating.toString().includes("doesn't")) || spot.avgRating === undefined ? (<div className="rating-number">New</div>) : (<div className="rating-number">{spot.avgRating.toFixed(1)}</div>)}
                                 </div>
                             </div>
-                            <p><strong>${spot.price}</strong> night</p>
+                            <p className="miles-and-dates">{(Math.random() * 1000).toFixed()} miles away</p>
+                            <p className="miles-and-dates">{monthArray[(Math.floor(Math.random() * monthArray.length))]} {findDates()}</p>
+                            <p style={{ fontSize: '15px'}}><strong>${spot.price}</strong> night</p>
                         </NavLink>
                     </div>
                 ))}

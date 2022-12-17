@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 5rem;
+    margin-top: 10rem;
     align-items: center;
     margin-left: auto;
     margin-right: auto;
@@ -40,8 +40,6 @@
     padding: 2%;
     flex-shrink: 0;
     padding: 0;
-    border-bottom: 1px solid lightgrey;
-    padding-bottom: 1%;
     max-width: 300px;
 }
 
@@ -52,8 +50,22 @@
 .top-part-info {
     display: flex;
     justify-content: space-between;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 .rating{
     display: flex;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.miles-and-dates {
+    font-size: 14px;
+    color: grey;
+}
+
+.rating-number {
+    font-weight: 400;
+    padding-left: 2px;
 }
