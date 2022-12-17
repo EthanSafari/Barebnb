@@ -51,9 +51,10 @@ const SingleSpot = () => {
         </div>
     );
 
-    const deleteSpot = (e) => {
+    const deleteSpot = async (e) => {
         e.preventDefault();
-        dispatch(deleteSpotById(sessionCurrentSpot.id));
+        await dispatch(deleteSpotById(sessionCurrentSpot.id));
+        await dispatch(getAllSpots());
         setTimeout(history.push('/'), 1250);
     };
 
@@ -65,7 +66,7 @@ const SingleSpot = () => {
             </div>
             <div className='info-under-spot-name'>
                 <div className='rating-info'>
-                    {sessionCurrentSpot.avgStarRating === undefined || sessionCurrentSpot.avgStarRating === 0 ? (<h3>New Listing</h3>) : (
+                    {sessionCurrentSpot.avgStarRating === undefined || sessionCurrentSpot.avgStarRating === 0 ? (<p>New Listing</p>) : (
                         <div className='average-rating'>
                             <p><i class="fa-solid fa-star"></i> {sessionCurrentSpot.avgStarRating.toFixed(1)}</p>
                         </div>)}
@@ -97,7 +98,7 @@ const SingleSpot = () => {
                     </div>
                     <div className='basic-place-information'>
                         <div className='self-checkin'>
-                            <div style={{ display: 'flex', alignItems: 'center'}}>
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <i class="fa-solid fa-unlock-keyhole" style={{ margin: '0 10px 0 0', fontSize: '20px' }}></i>
                             </div>
                             <div>
@@ -110,8 +111,8 @@ const SingleSpot = () => {
                             </div>
                         </div>
                         <div className='self-checkin' >
-                            <div style={{ display: 'flex', alignItems: 'center'}}>
-                            <i class="fa-solid fa-location-dot" style={{ margin: '0 10px 0 0', fontSize: '20px' }}></i>
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <i class="fa-solid fa-location-dot" style={{ margin: '0 10px 0 0', fontSize: '20px' }}></i>
                             </div>
                             <div>
                                 <div style={{ fontWeight: 'bold' }}>
@@ -123,12 +124,12 @@ const SingleSpot = () => {
                             </div>
                         </div>
                         <div className='self-checkin' >
-                            <div style={{ display: 'flex', alignItems: 'center'}}>
-                            <i class="fa-solid fa-person-rays" style={{ margin: '0 10px 0 0', fontSize: '20px' }}></i>
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <i class="fa-solid fa-person-rays" style={{ margin: '0 10px 0 0', fontSize: '20px' }}></i>
                             </div>
                             <div>
                                 <div style={{ fontWeight: 'bold' }}>
-                                {sessionCurrentSpot.Owner.firstName} is a Superhost
+                                    {sessionCurrentSpot.Owner.firstName} is a Superhost
                                 </div>
                                 <div style={{ fontSize: '14px', color: 'grey' }}>
                                     Not sure what that means, but it seems that Superhosts' provide excellent experiences for their guests? Whatever. Good luck, and bring protection.
@@ -139,13 +140,44 @@ const SingleSpot = () => {
                     <div className='description'>
                         <div className='barecover'>
                             <div className='barecover-logo'><strong>bare</strong>cover</div>
-                        <div className='barecover-info'>
-                            For some reason this has the largest font on the whole single spot page for airbnb. Basically your purchase is covered for a certain amount of time (48 minutes after booking). If your purchase is to pass this time, it is no longer protected and we keep all your money.
-                        </div>
+                            <div className='barecover-info'>
+                                For some reason this has the largest font on the whole single spot page & I think the whole site of airbnb. Basically your purchase is covered for a certain amount of time (48 minutes after booking). If your purchase is to pass this time, it is no longer protected and we keep all your money. In other words, your stay is barely covered by us. Have fun!
+                            </div>
                         </div>
                     </div>
                     <div className='price'>
-                    <p>{sessionCurrentSpot.description}</p>
+                        <p>{sessionCurrentSpot.description}</p>
+                    </div>
+                    <div className='description'>
+                        <div className='bed-container'>
+                            <div style={{ fontSize: '20px', fontWeight: 'bold', margin: '0 0 5% 0' }}>
+                                Where you'll sleep
+                            </div>
+                            <div className='all-beds'>
+                                <div className='beds'>
+                                    <div>
+                                        <i class="fa-solid fa-bed icon-size"></i>
+                                    </div>
+                                    <div className='bold'>
+                                        Bedroom
+                                    </div>
+                                    <div className='basic-text'>
+                                        {(Math.random() * 10).toFixed()} beds
+                                    </div>
+                                </div>
+                                <div className='beds'>
+                                    <div>
+                                    <i class="fa-solid fa-mattress-pillow icon-size"></i>
+                                    </div>
+                                    <div className='bold'>
+                                        Common space
+                                    </div>
+                                    <div className='basic-text'>
+                                    {(Math.random() * 10).toFixed()} inflatable matresses
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 {/* put booking comp here  */}

@@ -48,7 +48,7 @@
 .description {
     display: flex;
     width: 90%;
-    padding: 2% 1%;
+    padding: 4% 0;
     border-bottom: 1px solid lightgrey;
 }
 
@@ -57,7 +57,7 @@
     justify-content: flex-start;
     flex-direction: column;
     width: 90%;
-    padding: 2% 1%;
+    padding: 4% 0;
     border-bottom: 1px solid lightgrey;
 }
 
@@ -74,8 +74,9 @@
     display: flex;
     width: 90%;
     justify-content: flex-start;
-    padding: 2% 1%;
+    padding: 4% 0;
     font-size: 15px;
+    border-bottom: 1px solid lightgrey;
 }
 
 .spot-owner-options {
@@ -136,4 +137,44 @@
 
 .barecover-info {
     font-size: 14px;
+}
+
+.all-beds {
+    display: flex;
+    width: 80%;
+    gap: 5%;
+}
+
+.beds{
+    border: 1px solid lightgrey;
+    width: 50%;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 5%;
+    height: 200px;
+    max-width: 250px;
+}
+
+.bed-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.bold {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.basic-text {
+    font-size: 16px;
+}
+
+.beds > div {
+    margin: 2% 0;
+}
+
+.icon-size {
+    font-size: 20px;
 }
