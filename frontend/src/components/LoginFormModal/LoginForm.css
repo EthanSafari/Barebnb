@@ -10,6 +10,11 @@ form {
    cursor: pointer;
 }
 
+.login-button:hover {
+    background-color: white;
+    text-shadow: 0 1px 2px lightgrey;
+}
+
 .login-modal-form {
     display: flex;
     flex-direction: column;
