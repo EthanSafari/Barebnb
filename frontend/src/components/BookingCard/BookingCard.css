@@ -8,7 +8,7 @@
     font-size: 14px;
     padding: .7rem;
     box-shadow: 0 2px 10px rgba(0, 0, 0, .3);
-    max-height: 38rem;
+    height: fit-content;
 }
 
 .price-and-rating {
@@ -136,6 +136,9 @@
     text-align: center;
 }
 
-.submit-pushed {
+.submit-pushed > div {
     text-align: center;
+    color: red;
+    display: flex;
+    flex-direction: column;
 }

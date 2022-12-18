@@ -60,13 +60,13 @@ const FilterOptions = () => {
         <div className="filter-options-bar">
             {iconArray.map(icon => (
                 <div className='icon-card' onClick={() => setUnderConstruction(true)}>
-                    <i class={`${icon.icon} icon-image`}>
+                    <i class={`${icon.icon} icon-image ${underConstruction ? 'not-allowed' : ''}`}>
                         <div className='icon-tag'>{icon.tag}</div>
                     </i>
                 </div>
             ))}
             {underConstruction && (
-                <div className='icon-card' style={{ cursor: 'not-allowed' }}>
+                <div className='icon-card not-allowed'>
                 <i class={`fa-solid fa-person-digging icon-image`} style={{ color: 'red' }}>
                     <div className='icon-tag' style={{ color: 'red', textAlign: 'center'}}>Filter feature coming soon</div>
                 </i>

@@ -4,6 +4,7 @@ import './BookingCard.css';
 const BookingCard = ({ spot }) => {
 
     const [submitPushed, setSubmitPushed] = useState(false);
+    const [underConstruction, setUnderConstruction] = useState(false);
 
     const nonRefundablePrice = (num) => {
         return parseInt(num * 5).toFixed();
@@ -66,9 +67,10 @@ const BookingCard = ({ spot }) => {
                     Despite this option saying that this is the refundable price to pay, if you forget to cancel within 48min of initially creating your booking, you will get nothing back and we keep all your money. Cancel by {new Date().toDateString()} to get a full refund.
                 </div>
             </div>
-        <button className='reserve-button' type='button' onClick={e => {
+        <button className={`reserve-button ${underConstruction ? 'not-allowed' : ''}`} type='button' onClick={e => {
             e.preventDefault();
             setSubmitPushed(true);
+            setUnderConstruction(true);
         }}>
             Reserve
         </button>
@@ -77,7 +79,9 @@ const BookingCard = ({ spot }) => {
         </div>
         {submitPushed && (
             <div className='submit-pushed'>
-                **Feature under construction, will be available soon**
+                <div>
+                **Feature under construction, will be available soon** <i  style={{ color: 'red', margin: '10px', fontSize: '20px'}} class="fa-solid fa-person-digging"></i>
+                </div>
             </div>
         )}
         </form>
