@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Route, Switch } from "react-router-dom";
 import { getAllSpots } from "../../store/spots";
+import FilterOptions from "../FilterOptions";
 import SingleSpot from "../SingleSpot";
 
 import './AllSpots.css';
@@ -33,6 +34,7 @@ const SpotsList = () => {
     if (!spotsArray) return null;
     else return (
         <div className="all-spots-container">
+            <FilterOptions />
             <ul className="all-spots-ul">
                 {spotsArray.map(spot => (
                     <div key={spot.id} className="all-spots-card">

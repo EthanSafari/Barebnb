@@ -1,0 +1,48 @@
+.filter-options-bar {
+    width: 100vw;
+    top: 40;
+    background-color: white;
+    height: 90px;
+    position: fixed;
+    top: 66px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+    border-top: 1px solid lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-card {
+    width: 7%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.icon-tag {
+    font-size: 12px;
+    color: gray;
+    display: flex;
+    flex-direction: column;
+    font-weight: 400;
+    text-align: center;
+}
+
+
+.icon-image {
+    color: gray;
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+}
+
+.icon-image:hover,
+.icon-tag:hover {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .3);
+    /* color: black; */
+}
