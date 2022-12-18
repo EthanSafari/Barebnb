@@ -17,6 +17,7 @@
     padding: 5%;
     max-width: 25em;
     max-height: 30em;
+    border-radius: 10px;
 }
 
 .review-modal-button-container {

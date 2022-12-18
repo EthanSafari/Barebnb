@@ -39,7 +39,7 @@ const FilterOptions = () => {
             tag: 'Murder'
         },
         {
-            icon: "fa-brands fa-galactic-republic",
+            icon: "fa-brands fa-empire" ,
             tag: 'The better side'
         },
         {

@@ -20,6 +20,7 @@
   padding: 5%;
   justify-content: space-between;
   height: 30em auto;
+  border-radius: 10px;
 }
 
 .inputSpot>form>input {

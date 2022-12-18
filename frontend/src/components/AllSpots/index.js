@@ -30,7 +30,7 @@ const SpotsList = () => {
 
     useEffect(() => {
         dispatch(getAllSpots());
-    }, [dispatch]);
+    }, [dispatch, spotsArray.length]);
 
     if (!spotsArray) return null;
     else return (

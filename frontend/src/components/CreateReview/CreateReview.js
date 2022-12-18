@@ -41,7 +41,7 @@ const CreateReview = ({ setShowModal }) => {
 
         setShowModal(false)
 
-        await dispatch(getSingleSpot(spotId))
+        // await dispatch(getSingleSpot(spotId))
     };
 
     const reset = () => {
@@ -88,7 +88,8 @@ const CreateReview = ({ setShowModal }) => {
             <button type='submit' style={{
                 border: '1px solid grey',
                 borderRadius: '3px',
-                padding: '0 3px'
+                padding: '0 3px',
+                width: '20em'
             }} disabled={errors.length > 0}>Submit Review</button>
             </form>
         </div>

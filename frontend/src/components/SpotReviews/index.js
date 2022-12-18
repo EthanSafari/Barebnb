@@ -72,7 +72,7 @@ const SpotReviewsById = ({ spot }) => {
                                 e.preventDefault();
                                 const singleReview = reviewsArray.find(thisReview => thisReview.id === review.id);
                                 await dispatch(deleteReviewById(singleReview.id));
-                                await dispatch(getSingleSpot(spotId));
+                                // await dispatch(getSingleSpot(spotId));
                             }} style={{
                                 marginTop: '3%',
                                 border: '1px solid grey',

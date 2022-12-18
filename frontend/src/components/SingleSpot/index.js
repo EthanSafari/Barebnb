@@ -54,7 +54,7 @@ const SingleSpot = () => {
     const deleteSpot = async (e) => {
         e.preventDefault();
         await dispatch(deleteSpotById(sessionCurrentSpot.id));
-        await dispatch(getAllSpots());
+        // await dispatch(getAllSpots());
         setTimeout(history.push('/'), 1250);
     };
 
@@ -204,4 +204,3 @@ const SingleSpot = () => {
 };
 
 export default SingleSpot;
-

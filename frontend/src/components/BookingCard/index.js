@@ -60,7 +60,7 @@ const BookingCard = ({ spot }) => {
                         Refundable ~ ${refundablePrice(spot.price)} total
                     </div>
                     <div className='refundable-input'>
-                        <input type={'radio'} name='policy' checked={true}/>
+                        <input type={'radio'} name='policy' defaultChecked={true}/>
                     </div>
                 </div>
                 <div className='refundable-info'>
