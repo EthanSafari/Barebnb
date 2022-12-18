@@ -4,12 +4,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 .05rem .2rem black;
+    /* box-shadow: 0 .05rem .2rem black; */
+    border-bottom: 1px solid lightgray;
     margin: 0;
     padding: .5rem 3vw;
     top: 0;
     background-color: white;
     height: 69px;
+    z-index: 1;
 }
 
 .brand-name {
@@ -35,8 +37,8 @@
     flex-direction: row;
     flex-flow: row nowrap;
     margin: 5px;
-
 }
+
 .navbar-links {
     display: flex;
     flex-flow: row nowrap;
@@ -58,13 +60,15 @@
     float: left;
     border: 1px solid grey;
     padding: 1rem;
-    right: 5%;
+    right: 3vw;
+    top: 50px;
     display: flex;
     flex-direction: column;
     width: 20rem;
-    border-radius: 1rem 0;
+    border-radius: 5px;
     background-color: white;
-    box-shadow: 0 .05rem .2rem black;
+    box-shadow: 0 .05rem .2rem rgba(0, 0, 0, .5);
+
 }
 
 .dropdown-menu {

@@ -1,0 +1,27 @@
+.footer-bar {
+    width: 100vw;
+    bottom: 0;
+    position: fixed;
+    background-color: white;
+    height: 50px;
+    border-top: 1px solid lightgray;
+    display: flex;
+    justify-content: space-between;
+    padding: 1em 4em;
+    align-items: center;
+    font-size: 14px;
+}
+
+.left-side {
+    display: flex;
+    justify-content: space-between;
+    width: 340px;
+}
+
+.huh {
+    color: white;
+}
+
+.huh:hover {
+    text-shadow: 1px 1px 4px black;
+}
