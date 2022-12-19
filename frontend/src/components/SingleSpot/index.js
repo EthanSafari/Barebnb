@@ -148,7 +148,7 @@ const SingleSpot = () => {
                     <div className='price'>
                         <p>{sessionCurrentSpot.description}</p>
                     </div>
-                    <div className='description'>
+                    <div className='description' style={{ borderBottom: 'none' }}>
                         <div className='bed-container'>
                             <div style={{ fontSize: '20px', fontWeight: 'bold', margin: '0 0 5% 0' }}>
                                 Where you'll sleep
