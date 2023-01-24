@@ -29,4 +29,4 @@ The link below provides information about the API that the frontend is using. Fe
 If you approve of what is to be seen, feel free to contact me at:
 > Linkedin: https://www.linkedin.com/in/ethan-sauri-57a9b9240/
 
-> Email: ethan.sauri@outlook.com
+> Email: ethansauri@outlook.com
