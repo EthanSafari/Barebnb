@@ -5,7 +5,7 @@ const ADD_SPOT = 'spots/addSpot';
 const DELETE_SPOT = 'spots/deleteSpot';
 const UPDATE_SPOT = 'spots/updateSpot';
 
-const GET_SINGLE_SPOT = 'spots/getSingleSpot'
+const GET_SINGLE_SPOT = 'spots/getSingleSpot';
 
 const getSpots = (spots) => {
     return {
