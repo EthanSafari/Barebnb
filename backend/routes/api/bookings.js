@@ -71,19 +71,18 @@ router.put('/:bookingId', requireAuth, handleValidationErrors, async (req, res, 
         res.status(err.status).json({ errorCode: err.status, message: err.message, errors: err.errors });
         throw err;
     };
-    if (new Date(findBooking.dataValues.startDate) >= new Date(startDate) && new Date(findBooking.dataValues.endDate) >= new Date(endDate)) {
-        findBooking.update({
-            startDate,
-            endDate,
-        });
-        return res.status(200).json(findBooking);
-    } else {
-    const err = new Error;
-    err.message = "Past bookings can't be modified";
-    err.status = 403;
-    res.status(err.status).json({ errorCode: err.status, message: err.message });
-    throw err;
+    if (new Date(startDate) < new Date() || new Date(endDate) < new Date()) {
+        const err = new Error;
+        err.message = "Past bookings can't be modified";
+        err.status = 403;
+        res.status(err.status).json({ errorCode: err.status, message: err.message });
+        throw err;
     };
+    findBooking.update({
+        startDate,
+        endDate,
+    });
+    return res.status(200).json(findBooking);
 });
 
 // allows a current user to view all the existing bookings

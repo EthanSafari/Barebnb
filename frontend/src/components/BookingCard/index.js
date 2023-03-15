@@ -34,8 +34,8 @@ const BookingCard = ({ spot }) => {
         const newBooking = {
             spotId: spot.id,
             userId: sessionUser.id,
-            startDate: new Date(newStartDate),
-            endDate: new Date(newEndDate)
+            startDate: newStartDate,
+            endDate: newEndDate
         };
         await dispatch(createNewBooking(newBooking));
     };
@@ -46,8 +46,8 @@ const BookingCard = ({ spot }) => {
             id: bookingsArray.find(booking => booking.userId === sessionUser.id).id,
             spotId: spot.id,
             userId: sessionUser.id,
-            startDate: new Date(newStartDate),
-            endDate: new Date(newEndDate)
+            startDate: newStartDate,
+            endDate: newEndDate
         };
         await dispatch(updateExistingBooking(updateBooking));
         setEditBooking(false);
@@ -151,8 +151,16 @@ const BookingCard = ({ spot }) => {
                     Despite this option saying that this is the refundable price to pay, if you forget to cancel within 48min of initially creating your booking, you will get nothing back and we keep all your money. Cancel by {new Date().toDateString()} to get a full refund.
                 </div>
             </div>
-            <button className={`reserve-button`} type='submit' disabled={sessionUser === null }>
-                Reserve
+            <button className={`reserve-button`} type='submit' disabled={sessionUser === null || (bookingsArray.find(booking => booking.userId === sessionUser?.id) && editBooking === false)}>
+                {editBooking === false ? (
+                    <div>
+                        Reserve
+                    </div>
+                ) : (
+                    <div>
+                        Update
+                    </div>
+                )}
             </button>
             <div className='charged'>
                 You will be charged once you press the button
@@ -168,7 +176,7 @@ const BookingCard = ({ spot }) => {
             {!sessionUser && (
                 <div className='submit-pushed'>
                     <div>
-                    Please Log In to Schedule a Booking
+                    ** Please Log In to Schedule a Booking **
                     </div>
                 </div>
             )}

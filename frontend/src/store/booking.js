@@ -52,7 +52,6 @@ export const createNewBooking = (booking) => async dispatch => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(booking),
     });
-    // console.log(await res.json())
     if (res.ok) {
         const data = await res.json();
         dispatch(addBooking(data));

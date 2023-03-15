@@ -51,3 +51,7 @@ body::-webkit-scrollbar-thumb {
     border-radius: 4em;
     box-shadow: 0 5px 5px rgba(0, 0, 0, .3);
 }
+
+*:disabled {
+    cursor: not-allowed;
+}
