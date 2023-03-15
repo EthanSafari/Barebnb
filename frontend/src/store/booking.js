@@ -61,7 +61,7 @@ export const createNewBooking = (booking) => async dispatch => {
 };
 
 export const updateExistingBooking = (booking) => async dispatch => {
-    const res = await csrfFetch(`/bookings/${booking.id}`, {
+    const res = await csrfFetch(`/api/bookings/${booking.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(booking),
@@ -74,7 +74,7 @@ export const updateExistingBooking = (booking) => async dispatch => {
 };
 
 export const deleteExistingBooking = (bookingId) => async dispatch => {
-    const res = await csrfFetch(`/bookings/${bookingId}`, {
+    const res = await csrfFetch(`/api/bookings/${bookingId}`, {
         method: 'DELETE',
     });
     if (res.ok) {

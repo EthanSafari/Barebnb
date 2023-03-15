@@ -15,16 +15,16 @@ const SingleSpot = () => {
 
     const dispatch = useDispatch();
 
+    const sessionUser = useSelector(state => state.session.user);
     const [presentReview, setPresentReview] = useState(false);
 
     useEffect(() => {
         dispatch(getSingleSpot(spotId));
         dispatch(getAllBookings(spotId));
-    }, [dispatch]);
+    }, [dispatch, sessionUser]);
 
     const history = useHistory();
 
-    const sessionUser = useSelector(state => state.session.user);
     const sessionCurrentSpot = useSelector(state => state.spots.currentSpot);
     const sessionReviews = useSelector(state => state.reviews.reviews);
 
@@ -61,7 +61,6 @@ const SingleSpot = () => {
     };
 
     return (
-
         <div className='full-single-spot-page'>
             <div className='spot-name'>
                 <h2>{sessionCurrentSpot.name}</h2>

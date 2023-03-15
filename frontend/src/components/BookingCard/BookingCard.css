@@ -152,10 +152,19 @@
 
 .unavailable-dates {
     padding: 0 8px;
-    width: 50%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .xmark-calendar {
     margin-right: 8px;
     font-weight: 100;
+}
+
+.user-booking {
+    color: black;
+}
+
+.nonuser-booking {
+    color: grey;
 }
