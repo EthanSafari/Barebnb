@@ -52,6 +52,7 @@ export const createNewBooking = (booking) => async dispatch => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(booking),
     });
+    // console.log(await res.json())
     if (res.ok) {
         const data = await res.json();
         dispatch(addBooking(data));
@@ -92,7 +93,7 @@ const bookingsReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_BOOKINGS:
             newState = { bookings: {} };
-            action.bookings.forEach(booking => {
+            action.bookings.Bookings.forEach(booking => {
                 newState.bookings[booking.id] = booking;
             });
             return newState;
@@ -111,7 +112,7 @@ const bookingsReducer = (state = initialState, action) => {
             newState = { bookings: {...state.bookings} };
             delete newState.bookings[action.bookingId];
             return newState;
-            
+
         default:
             return state;
     };

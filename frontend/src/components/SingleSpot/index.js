@@ -6,6 +6,7 @@ import SpotReviewsById from '../SpotReviews';
 import CreateReviewModal from '../CreateReview';
 import BookingCard from '../BookingCard';
 import { useEffect, useState } from 'react'
+import { getAllBookings } from '../../store/booking';
 
 import './SingleSpot.css';
 
@@ -18,6 +19,7 @@ const SingleSpot = () => {
 
     useEffect(() => {
         dispatch(getSingleSpot(spotId));
+        dispatch(getAllBookings(spotId));
     }, [dispatch]);
 
     const history = useHistory();
