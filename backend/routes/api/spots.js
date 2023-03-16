@@ -328,6 +328,11 @@ router.get('/:spotIdForBooking/bookings', requireAuth, async (req, res, next) =>
                 },
             },
         });
+        ownerResponse.forEach(async booking => {
+            if (new Date() > new Date(booking.dataValues.endDate)) {
+                await booking.destroy();
+            };
+        });
         bookings.Bookings = ownerResponse;
         return res.status(200).json(bookings);
     } else {
@@ -339,6 +344,11 @@ router.get('/:spotIdForBooking/bookings', requireAuth, async (req, res, next) =>
                 //add userId to exclude userId
                 exclude: ['createdAt', 'updatedAt'],
             },
+        });
+        clientResponse.forEach(async booking => {
+            if (new Date() > new Date(booking.dataValues.endDate)) {
+                await booking.destroy();
+            };
         });
         bookings.Bookings = clientResponse;
         return res.status(200).json(bookings);
