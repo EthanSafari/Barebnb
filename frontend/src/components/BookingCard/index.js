@@ -59,6 +59,11 @@ const BookingCard = ({ spot }) => {
 
     return (
         <form className="booking-card" onSubmit={editBooking === false ? handleAddSubmit : handleUpdateSubmit}>
+            {editBooking && (
+                <div className='update-title'>
+                    ** UPDATING YOUR BOOKING **
+                </div>
+            )}
             <div className="price-and-rating">
                 <div>
                     <p><strong>${spot.price}</strong> night</p>
@@ -76,12 +81,21 @@ const BookingCard = ({ spot }) => {
                         {bookingsArray.map(booking => (
                             <div className={`unavailable-dates`}>
                                 <div className={`${sessionUser && booking.userId === sessionUser.id ? 'user-booking' : 'nonuser-booking'}`}>
-                                    <i class="fa-regular fa-calendar-xmark xmark-calendar"></i>
+                                    {booking.userId === sessionUser?.id ? (
+                                        <i class="fa-regular fa-calendar-check xmark-calendar"></i>
+                                        ) : (
+                                        <i class="fa-regular fa-calendar-xmark xmark-calendar"></i>
+                                    )}
                                     {`${makeDate(booking.startDate).getMonth() + 1}/${makeDate(booking.startDate).getDate() + 1}`} - {`${makeDate(booking.endDate).getMonth() + 1}/${makeDate(booking.endDate).getDate() + 1}`}
                                 </div>
                                 {sessionUser && booking.userId === sessionUser.id && (
                                     <div>
-                                        <i class="fa-solid fa-ellipsis" style={{marginRight: '5px'}} onClick={() => setEditBooking(true)}></i>
+                                        {/* the function below allows for booking update function */}
+                                        {/* {editBooking === false ? (
+                                            <i class="fa-solid fa-gear" style={{ marginRight: '5px' }} onClick={() => setEditBooking(true)}></i>
+                                        ) : (
+                                            <i class="fa-solid fa-gears" style={{ marginRight: '5px' }} onClick={() => setEditBooking(false)}></i>
+                                        )} */}
                                         <i class="fa-solid fa-xmark" onClick={() => deleteBooking(booking.id)}></i>
                                     </div>
                                 )}
@@ -176,7 +190,7 @@ const BookingCard = ({ spot }) => {
             {!sessionUser && (
                 <div className='submit-pushed'>
                     <div>
-                    ** Please Log In to Schedule a Booking **
+                        ** Please Log In to Schedule a Booking **
                     </div>
                 </div>
             )}

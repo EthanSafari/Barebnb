@@ -168,3 +168,14 @@
 .nonuser-booking {
     color: grey;
 }
+
+.switchEdit {
+    background-color: lightgray;
+}
+
+.update-title {
+    display: flex;
+    justify-content: center;
+    margin: .5rem 0;
+    color: red;
+}
