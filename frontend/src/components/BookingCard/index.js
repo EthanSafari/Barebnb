@@ -91,11 +91,11 @@ const BookingCard = ({ spot }) => {
                                 {sessionUser && booking.userId === sessionUser.id && (
                                     <div>
                                         {/* the function below allows for booking update function */}
-                                        {/* {editBooking === false ? (
+                                        {editBooking === false ? (
                                             <i class="fa-solid fa-gear" style={{ marginRight: '5px' }} onClick={() => setEditBooking(true)}></i>
                                         ) : (
                                             <i class="fa-solid fa-gears" style={{ marginRight: '5px' }} onClick={() => setEditBooking(false)}></i>
-                                        )} */}
+                                        )}
                                         <i class="fa-solid fa-xmark" onClick={() => deleteBooking(booking.id)}></i>
                                     </div>
                                 )}

@@ -48,7 +48,7 @@ router.put('/:bookingId', requireAuth, handleValidationErrors, async (req, res, 
     };
     if (findBookings.length) {
         findBookings.forEach(booking => {
-            if (booking.dataValues.startDate <= startDate && booking.dataValues.endDate >= endDate) {
+            if (booking.id !== parseInt(bookingId) && (booking.dataValues.startDate <= startDate && booking.dataValues.endDate >= endDate)) {
                 const err = new Error;
                 err.message = "Sorry, this spot is already booked for the specified dates";
                 err.status = 403;
