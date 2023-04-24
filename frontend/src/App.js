@@ -8,6 +8,7 @@ import SpotsList from "./components/AllSpots";
 import SingleSpot from "./components/SingleSpot";
 
 import BeachImage from "./image-folder/beach.jpg";
+import UserBooking from "./components/UserBooking";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ function App() {
       <Switch>
         <Route exact path={['/','/spots']} component={SpotsList} />
         <Route path='/spots/:spotId' component={SingleSpot} />
+        <Route path='/user/bookings' component={UserBooking} />
         <Route>
           <div style={{
             display: "flex",

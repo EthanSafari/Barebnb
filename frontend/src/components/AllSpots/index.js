@@ -44,7 +44,6 @@ const SpotsList = () => {
                                 : spot.preview.includes("doesn't have") ? null
                                     : <img className='all-spots-preview-image' src={spot.preview} alt={spot.name}></img>}
                             <div style={{ padding: '1px' }}>
-
                                 <div className="top-part-info">
                                     <div style={{
                                         display: 'flex',
